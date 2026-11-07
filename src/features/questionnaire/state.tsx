@@ -13,32 +13,29 @@ import {
   type Answers,
 } from "./schemas";
 const storageKey = "aria-demo-preferences";
-type State = { answers: Answers; step: number; complete: boolean };
+type State = { answers: Answers; complete: boolean };
 type Action =
   | { type: "update"; patch: Partial<Answers> }
-  | { type: "step"; step: number }
   | { type: "complete" }
   | { type: "reset" };
 export function reducer(state: State, action: Action): State {
   switch (action.type) {
     case "update":
       return { ...state, answers: { ...state.answers, ...action.patch } };
-    case "step":
-      return { ...state, step: action.step };
     case "complete":
-      return { answers: { ...initialAnswers }, step: 0, complete: true };
+      return { answers: { ...initialAnswers }, complete: true };
     case "reset":
-      return { answers: { ...initialAnswers }, step: 0, complete: false };
+      return { answers: { ...initialAnswers }, complete: false };
   }
 }
 const QuestionnaireContext = createContext<{
   state: State;
+  ready: boolean;
   dispatch: React.Dispatch<Action>;
 } | null>(null);
 export function QuestionnaireProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, {
     answers: { ...initialAnswers },
-    step: 0,
     complete: false,
   });
   const [ready, setReady] = useState(false);
@@ -69,7 +66,7 @@ export function QuestionnaireProvider({ children }: { children: ReactNode }) {
     }
   }, [state.answers, state.complete, ready]);
   return (
-    <QuestionnaireContext.Provider value={{ state, dispatch }}>
+    <QuestionnaireContext.Provider value={{ state, dispatch, ready }}>
       {children}
     </QuestionnaireContext.Provider>
   );

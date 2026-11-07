@@ -62,7 +62,6 @@ test("completion clears answers and reset begins a clean brief", async () => {
   const { reducer } = await import("./state");
   const state = {
     answers: { ...initialAnswers, name: "Demo", location: "An area" },
-    step: 5,
     complete: false,
   };
   const completed = reducer(state, { type: "complete" });
@@ -70,7 +69,6 @@ test("completion clears answers and reset begins a clean brief", async () => {
   assert.equal(completed.complete, true);
   assert.deepEqual(reducer(completed, { type: "reset" }), {
     answers: initialAnswers,
-    step: 0,
     complete: false,
   });
 });

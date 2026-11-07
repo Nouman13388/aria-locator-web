@@ -1,3 +1,5 @@
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { getFirstInvalidStep } from "./stepGuard";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button, ButtonLink } from "../../components/ui/Button";
 import { Input, Textarea } from "../../components/ui/Input";
@@ -16,9 +18,23 @@ export function Questionnaire() {
 }
 function QuestionnaireForm() {
   const {
-    state: { answers: a, step, complete },
+    state: { answers: a, complete },
+    ready,
     dispatch,
   } = useQuestionnaire();
+  const { step: urlStep } = useSearch({ from: "/get-started" });
+  const step = urlStep - 1;
+  const navigate = useNavigate();
+  const invalidStep = ready ? getFirstInvalidStep(a, urlStep) : null;
+  useEffect(() => {
+    if (ready && !complete && invalidStep !== null) {
+      void navigate({
+        to: "/get-started",
+        search: { step: invalidStep },
+        replace: true,
+      });
+    }
+  }, [ready, complete, invalidStep, navigate]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const title = useRef<HTMLHeadingElement>(null);
@@ -38,7 +54,11 @@ function QuestionnaireForm() {
   }
   function go(next: number) {
     setErrors({});
-    dispatch({ type: "step", step: next });
+    void navigate({
+      to: "/get-started",
+      search: { step: next + 1 },
+      replace: false,
+    });
   }
   const field = (
     key: keyof Answers,
@@ -128,6 +148,7 @@ function QuestionnaireForm() {
       setBusy(false);
     }
   }
+  if (!ready || (!complete && invalidStep !== null)) return null;
   if (complete)
     return (
       <div className="wrap questionnaire-shell">
@@ -146,7 +167,12 @@ function QuestionnaireForm() {
             preview of the Aria experience.
           </p>
           <div className="actions" style={{ justifyContent: "center" }}>
-            <Button onClick={() => dispatch({ type: "reset" })}>
+            <Button
+              onClick={() => {
+                dispatch({ type: "reset" });
+                go(0);
+              }}
+            >
               Try Again
             </Button>
             <ButtonLink to="/" variant="secondary">
