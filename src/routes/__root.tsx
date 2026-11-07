@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { Header, Footer } from "../components/layout/Layout";
-import { ButtonLink } from "../components/ui/Button";
+import { NotFound } from "../components/layout/NotFound";
 import { ThemeSelector, themeScript } from "../features/theme/ThemeSelector";
 import stylesheet from "../styles/app.css?url";
 export const Route = createRootRoute({
@@ -40,14 +40,7 @@ export const Route = createRootRoute({
       <ThemeSelector />
     </>
   ),
-  notFoundComponent: () => (
-    <div className="wrap section center">
-      <span className="eyebrow accent">404 · A little off the beaten path</span>
-      <h1>Let’s find your way home.</h1>
-      <p>This page isn’t here. Your next chapter can still start below.</p>
-      <ButtonLink to="/">Back to Home</ButtonLink>
-    </div>
-  ),
+  notFoundComponent: NotFound,
 });
 function Document({ children }: { children: ReactNode }) {
   return (
