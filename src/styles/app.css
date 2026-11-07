@@ -1090,3 +1090,11 @@ html[data-themes="all"] .theme-option {
 [data-theme="indigo"] .field textarea[aria-invalid="true"] {
   border-color: var(--err);
 }
+
+/* Preserve the core palette while giving accent text enough contrast on sand. */
+[data-theme="recommended"] .band .accent {
+  color: color-mix(in srgb, var(--accent) 60%, var(--ink));
+}
+[data-theme="recommended"] .band .step-number {
+  color: color-mix(in srgb, var(--accent) 90%, var(--ink));
+}
