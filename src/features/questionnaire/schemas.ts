@@ -120,20 +120,21 @@ export function restorePreferences(value: unknown): Partial<Answers> {
   const parsed = z
     .object({
       location: z.string().max(250),
-      surroundings: z.array(z.string()).max(4),
+      surroundings: z.array(z.enum(locationChips)).max(4),
       moveDate: z.string().max(10),
       flexibility: z.string().max(30),
       bedrooms: z.string().max(20),
       bathrooms: z.string().max(20),
-      mustHaves: z.array(z.string()).max(4),
+      mustHaves: z.array(z.enum(mustHaveOptions)).max(4),
       notes: z.string().max(500),
       budgetMin: z.string().max(20),
       budgetMax: z.string().max(20),
       pets: z.string().max(40),
       parking: z.string().max(40),
-      amenities: z.array(z.string()).max(6),
+      amenities: z.array(z.enum(amenityOptions)).max(6),
     })
     .partial()
+    .strict()
     .safeParse(value);
   return parsed.success ? parsed.data : {};
 }
