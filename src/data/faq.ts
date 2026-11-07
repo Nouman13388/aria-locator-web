@@ -1,3 +1,4 @@
+import { siteName } from "../data/site";
 export const faqGroups = [
   {
     id: "the-service",
@@ -9,7 +10,7 @@ export const faqGroups = [
       ],
       [
         "Is this a live apartment-locating service?",
-        "No. Aria is a demonstration website. It does not search live listings, send inquiries, make bookings, or connect you with a real locator.",
+        `No. ${siteName} is a demonstration website. It does not search live listings, send inquiries, make bookings, or connect you with a real locator.`,
       ],
       [
         "Can I browse available apartments here?",

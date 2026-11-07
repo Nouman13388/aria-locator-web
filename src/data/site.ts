@@ -1,3 +1,9 @@
+export const siteName = "Aria";
+export const wordmarkParts = {
+  name: siteName.toUpperCase(),
+  descriptor: "◆ Apartment locating",
+};
+
 export const navigation = [
   { to: "/how-it-works", label: "How It Works" },
   { to: "/about", label: "About" },

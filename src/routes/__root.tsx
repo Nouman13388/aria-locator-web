@@ -1,3 +1,4 @@
+import { siteName } from "../data/site";
 import {
   createRootRoute,
   HeadContent,
@@ -8,12 +9,13 @@ import type { ReactNode } from "react";
 import { Header, Footer } from "../components/layout/Layout";
 import { NotFound } from "../components/layout/NotFound";
 import { ThemeSelector, themeScript } from "../features/theme/ThemeSelector";
+import { faviconHref } from "../lib/head";
 import stylesheet from "../styles/app.css?url";
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { title: "Aria | Apartment locating demo" },
+      { title: `${siteName} | Apartment locating demo` },
       {
         name: "description",
         content:
@@ -23,7 +25,7 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "stylesheet", href: stylesheet },
-      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "icon", type: "image/svg+xml", href: faviconHref },
     ],
   }),
   shellComponent: Document,

@@ -1,12 +1,13 @@
+import { siteName, wordmarkParts } from "../../data/site";
 import { actions, ctaCopy } from "../../data/actions";
 import { Link } from "@tanstack/react-router";
 import { navigation } from "../../data/site";
 import { ButtonLink } from "../ui/Button";
 export function Wordmark() {
   return (
-    <Link to="/" className="brand" aria-label="Aria home">
-      <span className="wordmark">ARIA</span>
-      <span className="brand-tag">◆ Apartment locating</span>
+    <Link to="/" className="brand" aria-label={`${siteName} home`}>
+      <span className="wordmark">{wordmarkParts.name}</span>
+      <span className="brand-tag">{wordmarkParts.descriptor}</span>
     </Link>
   );
 }
@@ -79,7 +80,9 @@ export function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Aria</span>
+          <span>
+            © {new Date().getFullYear()} {siteName}
+          </span>
           <span>Demo website · No real inquiries or bookings</span>
         </div>
       </div>

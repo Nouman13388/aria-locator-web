@@ -1,3 +1,4 @@
+import { siteName } from "../../data/site";
 import { actions } from "../../data/actions";
 import type { Ref } from "react";
 import { Button, ButtonLink } from "../../components/ui/Button";
@@ -22,7 +23,7 @@ export function Success({
         </p>
         <p>
           Your answers and contact details have been cleared. This was a preview
-          of the Aria experience.
+          of the {siteName} experience.
         </p>
         <div className="actions actions-center">
           <Button onClick={reset}>{actions.tryAgain}</Button>

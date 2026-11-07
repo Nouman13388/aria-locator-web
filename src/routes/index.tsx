@@ -1,3 +1,4 @@
+import { siteName } from "../data/site";
 import { actions } from "../data/actions";
 import { homeCopy, inspiration } from "../data/pages";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/")({
   head: () =>
     pageHead(
       "Find your next home",
-      "A thoughtful apartment search starts with you. Explore the Aria apartment-locating demo.",
+      `A thoughtful apartment search starts with you. Explore the ${siteName} apartment-locating demo.`,
     ),
   component: Home,
 });
@@ -66,8 +67,8 @@ function Home() {
               ◆
             </div>
             <p>
-              Aria brings those details together in a clear, personal brief. A
-              calmer starting point for the place you’ll call home.
+              {siteName} brings those details together in a clear, personal
+              brief. A calmer starting point for the place you’ll call home.
             </p>
           </div>
         </div>

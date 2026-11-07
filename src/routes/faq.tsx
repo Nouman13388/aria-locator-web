@@ -1,3 +1,4 @@
+import { siteName } from "../data/site";
 import { actions, faqActionCopy } from "../data/actions";
 import { pageIntros } from "../data/pages";
 import { createFileRoute } from "@tanstack/react-router";
@@ -10,7 +11,7 @@ export const Route = createFileRoute("/faq")({
   head: () =>
     pageHead(
       "Frequently asked questions",
-      "Answers about the Aria demo, apartment search preferences, and the questionnaire.",
+      `Answers about the ${siteName} demo, apartment search preferences, and the questionnaire.`,
     ),
   component: FAQ,
 });

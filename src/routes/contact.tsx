@@ -1,3 +1,4 @@
+import { siteName } from "../data/site";
 import { actions, contactActionCopy } from "../data/actions";
 import { ContactForm } from "../features/contact/ContactForm";
 import { ContactAside } from "../features/contact/ContactAside";
@@ -10,7 +11,7 @@ export const Route = createFileRoute("/contact")({
   head: () =>
     pageHead(
       "Contact",
-      "Try the Aria demo contact form. Nothing is sent or stored.",
+      `Try the ${siteName} demo contact form. Nothing is sent or stored.`,
     ),
   component: Contact,
 });

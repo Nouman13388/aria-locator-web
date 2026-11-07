@@ -1,9 +1,9 @@
+import { siteName } from "../data/site";
 export const pageIntros = {
   about: {
-    eyebrow: "The Aria perspective",
+    eyebrow: `The ${siteName} perspective`,
     title: "Quiet dedication to finding space that resonates.",
-    description:
-      "A home should fit the way you live. Aria explores a more thoughtful approach to apartment locating, with your preferences at the center.",
+    description: `A home should fit the way you live. ${siteName} explores a more thoughtful approach to apartment locating, with your preferences at the center.`,
   },
   process: {
     eyebrow: "A thoughtful process",

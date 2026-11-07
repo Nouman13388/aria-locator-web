@@ -1,3 +1,4 @@
+import { siteName } from "../data/site";
 import { actions } from "../data/actions";
 import { pageIntros } from "../data/pages";
 import { createFileRoute } from "@tanstack/react-router";
@@ -10,7 +11,7 @@ export const Route = createFileRoute("/how-it-works")({
   head: () =>
     pageHead(
       "How it works",
-      "From your first preferences to a clearer apartment search. Explore how the Aria demo works.",
+      `From your first preferences to a clearer apartment search. Explore how the ${siteName} demo works.`,
     ),
   component: HowItWorks,
 });
@@ -32,7 +33,7 @@ function HowItWorks() {
           height="580"
         />
         <div>
-          <span className="eyebrow accent">The Aria approach</span>
+          <span className="eyebrow accent">The {siteName} approach</span>
           <h2>
             Less noise.
             <br />
