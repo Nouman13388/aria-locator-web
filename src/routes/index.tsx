@@ -1,3 +1,4 @@
+import { actions } from "../data/actions";
 import { homeCopy, inspiration } from "../data/pages";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Section } from "../components/ui/Section";
@@ -26,12 +27,12 @@ function Home() {
           <em>{homeCopy.titleEmphasis}</em>
         </h1>
         <p>{homeCopy.description}</p>
-        <div className="actions" style={{ justifyContent: "center" }}>
+        <div className="actions actions-center">
           <ButtonLink variant="light">
-            Find Your Space <span aria-hidden="true">↗</span>
+            {actions.findSpace} <span aria-hidden="true">↗</span>
           </ButtonLink>
           <ButtonLink to="/how-it-works" variant="secondary">
-            How It Works
+            {actions.howItWorks}
           </ButtonLink>
         </div>
       </section>
@@ -94,7 +95,7 @@ function Home() {
           ))}
         </div>
         <Link to="/how-it-works" className="button secondary">
-          Explore the process <span aria-hidden="true">→</span>
+          {actions.exploreProcess} <span aria-hidden="true">→</span>
         </Link>
       </Section>
       <Section>
@@ -129,7 +130,7 @@ function Home() {
         </p>
       </Section>
       <Section band>
-        <div className="grid-2" style={{ alignItems: "start" }}>
+        <div className="grid-2 items-start">
           <div>
             <span className="eyebrow accent">A little clarity</span>
             <h2>
@@ -138,7 +139,7 @@ function Home() {
               <em>Thoughtful answers.</em>
             </h2>
             <ButtonLink to="/faq" variant="secondary">
-              Visit the FAQ <span aria-hidden="true">→</span>
+              {actions.visitFAQ} <span aria-hidden="true">→</span>
             </ButtonLink>
           </div>
           <div>

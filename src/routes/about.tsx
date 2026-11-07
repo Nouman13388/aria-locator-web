@@ -46,7 +46,7 @@ function About() {
               yours.
             </p>
           </div>
-          <figure style={{ margin: 0 }}>
+          <figure className="figure-reset">
             <img
               className="round-image"
               src="/images/about-0.jpg"
@@ -54,7 +54,7 @@ function About() {
               width="600"
               height="650"
             />
-            <figcaption className="form-note" style={{ marginTop: 12 }}>
+            <figcaption className="form-note figure-caption">
               A study in natural light, texture, and everyday calm. Interior
               inspiration.
             </figcaption>
@@ -71,7 +71,7 @@ function About() {
             Simple ideas that shape a clearer, more personal apartment search.
           </p>
         </div>
-        <div className="grid-2" style={{ alignItems: "stretch", gap: 24 }}>
+        <div className="grid-2 principles-grid">
           {principles.map((p, i) => (
             <article key={p.title} className="card">
               <span className="eyebrow accent">Principle 0{i + 1}</span>

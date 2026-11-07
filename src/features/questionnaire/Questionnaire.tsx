@@ -1,3 +1,4 @@
+import { actions } from "../../data/actions";
 import { Button } from "../../components/ui/Button";
 import { QuestionnaireProvider } from "./state";
 import { useStepFlow } from "./useStepFlow";
@@ -37,7 +38,7 @@ function QuestionnaireForm() {
   };
   return (
     <div className="wrap questionnaire-shell">
-      <div className="center" style={{ marginBottom: 28 }}>
+      <div className="center questionnaire-heading">
         <span className="eyebrow accent">
           Your preferences ◆ Your next chapter
         </span>
@@ -74,18 +75,18 @@ function QuestionnaireForm() {
               disabled={flow.step === 0 || flow.busy}
               onClick={flow.back}
             >
-              ← Back
+              {actions.back}
             </Button>
             <Button type="submit" disabled={flow.busy}>
               {flow.busy
-                ? "Finishing…"
+                ? actions.finishing
                 : flow.step === 5
-                  ? "Complete Demo"
-                  : "Continue"}{" "}
+                  ? actions.completeDemo
+                  : actions.continue}{" "}
               <span aria-hidden="true">→</span>
             </Button>
           </div>
-          <p className="form-note center" style={{ margin: "20px 0 0" }}>
+          <p className="form-note center questionnaire-note">
             Demo only · No inquiry is sent
           </p>
         </form>

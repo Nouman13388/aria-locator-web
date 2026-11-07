@@ -1,3 +1,4 @@
+import { actions, faqActionCopy } from "../data/actions";
 import { pageIntros } from "../data/pages";
 import { createFileRoute } from "@tanstack/react-router";
 import { Intro, Section } from "../components/ui/Section";
@@ -48,15 +49,12 @@ function FAQ() {
           </div>
         </div>
         <div className="card center">
-          <span className="eyebrow accent">A little more guidance</span>
-          <h2>Still have a question?</h2>
-          <p>
-            Explore the demo contact form, or start shaping your apartment
-            search brief.
-          </p>
-          <div className="actions" style={{ justifyContent: "center" }}>
-            <ButtonLink to="/contact">Contact ↗</ButtonLink>
-            <ButtonLink variant="secondary">Get Started</ButtonLink>
+          <span className="eyebrow accent">{faqActionCopy.eyebrow}</span>
+          <h2>{faqActionCopy.title}</h2>
+          <p>{faqActionCopy.description}</p>
+          <div className="actions actions-center">
+            <ButtonLink to="/contact">{actions.contactArrow}</ButtonLink>
+            <ButtonLink variant="secondary">{actions.getStarted}</ButtonLink>
           </div>
         </div>
       </Section>

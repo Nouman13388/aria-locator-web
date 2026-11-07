@@ -1,3 +1,4 @@
+import { actions } from "../../data/actions";
 import { useRef, useState, type FormEvent } from "react";
 import { Input, Textarea } from "../../components/ui/Input";
 import { Button } from "../../components/ui/Button";
@@ -52,7 +53,7 @@ export function ContactForm() {
             Nothing was sent. Your message and contact details have been
             cleared.
           </p>
-          <Button onClick={() => setSuccess(false)}>Try Again</Button>
+          <Button onClick={() => setSuccess(false)}>{actions.tryAgain}</Button>
         </div>
       ) : (
         <form ref={form} onSubmit={submit} noValidate>
@@ -101,7 +102,7 @@ export function ContactForm() {
             )}
           </div>
           <Button type="submit">
-            Try Demo Form <span aria-hidden="true">↗</span>
+            {actions.tryContactForm} <span aria-hidden="true">↗</span>
           </Button>
           <p className="form-note">
             No network calls. No contact details are stored.

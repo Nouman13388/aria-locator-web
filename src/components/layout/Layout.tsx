@@ -1,3 +1,4 @@
+import { actions, ctaCopy } from "../../data/actions";
 import { Link } from "@tanstack/react-router";
 import { navigation } from "../../data/site";
 import { ButtonLink } from "../ui/Button";
@@ -22,7 +23,7 @@ export function Header() {
           ))}
         </nav>
         <ButtonLink>
-          Get Started <span aria-hidden="true">↗</span>
+          {actions.getStarted} <span aria-hidden="true">↗</span>
         </ButtonLink>
         <details className="mobile-menu">
           <summary aria-label="Navigation menu">☰</summary>
@@ -67,8 +68,8 @@ export function Footer() {
             </div>
             <div>
               <span className="eyebrow muted">Let’s begin</span>
-              <Link to="/get-started">Find your space</Link>
-              <Link to="/contact">Contact</Link>
+              <Link to="/get-started">{actions.findSpaceFooter}</Link>
+              <Link to="/contact">{actions.contact}</Link>
               <span className="form-note">
                 hello@example.com
                 <br />
@@ -88,24 +89,19 @@ export function Footer() {
 export function CTA() {
   return (
     <div className="cta">
-      <span className="eyebrow">Your next chapter</span>
+      <span className="eyebrow">{ctaCopy.eyebrow}</span>
       <h2>
-        A home that feels like you.
+        {ctaCopy.title}
         <br />
-        <em>A search that starts with you.</em>
+        <em>{ctaCopy.emphasis}</em>
       </h2>
-      <p>
-        Tell us what matters. Explore a more considered way to begin your
-        apartment search.
-      </p>
-      <div className="actions" style={{ justifyContent: "center" }}>
+      <p>{ctaCopy.description}</p>
+      <div className="actions actions-center">
         <ButtonLink variant="light">
-          Find Your Space <span aria-hidden="true">↗</span>
+          {actions.findSpace} <span aria-hidden="true">↗</span>
         </ButtonLink>
       </div>
-      <p className="form-note" style={{ marginTop: 20 }}>
-        An interactive demo. Nothing is sent.
-      </p>
+      <p className="form-note cta-note">{ctaCopy.note}</p>
     </div>
   );
 }

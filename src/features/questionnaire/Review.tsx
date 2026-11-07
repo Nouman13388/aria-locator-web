@@ -1,3 +1,4 @@
+import { actions } from "../../data/actions";
 import type { Answers } from "./schemas";
 export function Review({
   answers: a,
@@ -24,7 +25,7 @@ export function Review({
     ["Lifestyle", [a.pets, a.parking, ...a.amenities].join(" · ")],
   ];
   return (
-    <div style={{ marginBottom: 28 }}>
+    <div className="review-summary">
       {sections.map(([title, value], i) => (
         <div className="review-row" key={title}>
           <div>
@@ -37,7 +38,7 @@ export function Review({
             onClick={() => onEdit(i)}
             aria-label={`Edit ${title.toLowerCase()}`}
           >
-            Edit
+            {actions.edit}
           </button>
         </div>
       ))}

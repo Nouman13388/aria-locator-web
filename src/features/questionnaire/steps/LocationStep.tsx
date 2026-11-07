@@ -21,7 +21,7 @@ export function LocationStep(props: StepProps) {
       <img
         src="/images/get-started-questionnaire-0.jpg"
         alt="Sunlit limestone architecture and a peaceful tree-lined street"
-        style={{ height: 150, borderRadius: 8 }}
+        className="location-image"
       />
     </>
   );

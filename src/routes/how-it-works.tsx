@@ -1,3 +1,4 @@
+import { actions } from "../data/actions";
 import { pageIntros } from "../data/pages";
 import { createFileRoute } from "@tanstack/react-router";
 import { Intro, Section } from "../components/ui/Section";
@@ -98,7 +99,7 @@ function HowItWorks() {
                   ][i]
                 }
               </p>
-              {i === 0 && <ButtonLink>Try the Questionnaire ↗</ButtonLink>}
+              {i === 0 && <ButtonLink>{actions.tryQuestionnaire}</ButtonLink>}
             </div>
           </article>
         ))}

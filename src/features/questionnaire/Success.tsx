@@ -1,3 +1,4 @@
+import { actions } from "../../data/actions";
 import type { Ref } from "react";
 import { Button, ButtonLink } from "../../components/ui/Button";
 export function Success({
@@ -23,10 +24,10 @@ export function Success({
           Your answers and contact details have been cleared. This was a preview
           of the Aria experience.
         </p>
-        <div className="actions" style={{ justifyContent: "center" }}>
-          <Button onClick={reset}>Try Again</Button>
+        <div className="actions actions-center">
+          <Button onClick={reset}>{actions.tryAgain}</Button>
           <ButtonLink to="/" variant="secondary">
-            Back to Home
+            {actions.backHome}
           </ButtonLink>
         </div>
       </div>

@@ -933,3 +933,34 @@ progress::-moz-progress-bar {
     font-size: 16px;
   }
 }
+
+.actions-center {
+  justify-content: center;
+}
+.items-start {
+  align-items: start;
+}
+.principles-grid {
+  align-items: stretch;
+  gap: 24px;
+}
+.figure-reset {
+  margin: 0;
+}
+.figure-caption {
+  margin-top: 12px;
+}
+.cta .cta-note {
+  margin-top: 20px;
+}
+.questionnaire-heading,
+.review-summary {
+  margin-bottom: 28px;
+}
+.location-image {
+  height: 150px;
+  border-radius: 8px;
+}
+.questionnaire-note {
+  margin: 20px 0 0;
+}

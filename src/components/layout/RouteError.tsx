@@ -1,3 +1,4 @@
+import { actions } from "../../data/actions";
 import type { ErrorComponentProps } from "@tanstack/react-router";
 import { Button, ButtonLink } from "../ui/Button";
 export function RouteError({ reset }: ErrorComponentProps) {
@@ -7,9 +8,9 @@ export function RouteError({ reset }: ErrorComponentProps) {
       <h1>Something didn’t go as planned.</h1>
       <p>Please try again, or head home to continue exploring.</p>
       <div className="actions">
-        <Button onClick={reset}>Try Again</Button>
+        <Button onClick={reset}>{actions.tryAgain}</Button>
         <ButtonLink to="/" variant="secondary">
-          Back to Home
+          {actions.backHome}
         </ButtonLink>
       </div>
     </div>
