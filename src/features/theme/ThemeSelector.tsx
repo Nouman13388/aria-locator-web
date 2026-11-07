@@ -1,18 +1,26 @@
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 export const themeScript = `(function(){try{var t=localStorage.getItem('aria-theme');document.documentElement.dataset.theme=t==='recommended'?'recommended':'client'}catch(e){document.documentElement.dataset.theme='client'}})()`;
 const themes = [
   { id: "client", label: "Client Preference" },
   { id: "recommended", label: "Recommended Design" },
 ] as const;
+const themeEvent = "aria-theme-change";
+function subscribe(listener: () => void) {
+  window.addEventListener(themeEvent, listener);
+  return () => window.removeEventListener(themeEvent, listener);
+}
+function getSnapshot() {
+  return document.documentElement.dataset.theme === "recommended"
+    ? "recommended"
+    : "client";
+}
+const getServerSnapshot = () => "client";
 export function ThemeSelector() {
-  const [theme, setTheme] = useState("client");
+  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [collapsed, setCollapsed] = useState(true);
-  useEffect(() => {
-    setTheme(document.documentElement.dataset.theme || "client");
-  }, []);
   function choose(value: string) {
-    setTheme(value);
     document.documentElement.dataset.theme = value;
+    window.dispatchEvent(new Event(themeEvent));
     try {
       localStorage.setItem("aria-theme", value);
     } catch {
@@ -38,6 +46,7 @@ export function ThemeSelector() {
           <button
             key={t.id}
             role="radio"
+            data-theme-choice={t.id}
             aria-checked={theme === t.id}
             tabIndex={theme === t.id ? 0 : -1}
             className="theme-option"

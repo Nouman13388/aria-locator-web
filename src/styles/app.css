@@ -475,7 +475,9 @@ img {
   align-items: center;
   gap: 8px;
 }
-.theme-option[aria-checked="true"] {
+/* The head script selects the paint before React hydrates the radios. */
+[data-theme="client"] .theme-option[data-theme-choice="client"],
+[data-theme="recommended"] .theme-option[data-theme-choice="recommended"] {
   background: var(--primary);
   color: var(--on-primary);
 }
