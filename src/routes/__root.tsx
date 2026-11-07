@@ -10,6 +10,7 @@ import { Header, Footer } from "../components/layout/Layout";
 import { NotFound } from "../components/layout/NotFound";
 import { ThemeSelector, themeScript } from "../features/theme/ThemeSelector";
 import { faviconHref } from "../lib/head";
+import { defaultTheme } from "../features/theme/themes";
 import stylesheet from "../styles/app.css?url";
 export const Route = createRootRoute({
   head: () => ({
@@ -46,7 +47,7 @@ export const Route = createRootRoute({
 });
 function Document({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" data-theme="client" suppressHydrationWarning>
+    <html lang="en" data-theme={defaultTheme} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <HeadContent />

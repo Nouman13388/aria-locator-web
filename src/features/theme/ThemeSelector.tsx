@@ -1,28 +1,39 @@
 import { useState, useSyncExternalStore } from "react";
-export const themeScript = `(function(){try{var t=localStorage.getItem('aria-theme');document.documentElement.dataset.theme=t==='recommended'?'recommended':'client'}catch(e){document.documentElement.dataset.theme='client'}})()`;
-const themes = [
-  { id: "client", label: "Client Preference" },
-  { id: "recommended", label: "Recommended Design" },
-] as const;
+import {
+  defaultTheme,
+  resolveTheme,
+  themes,
+  themeSelectionCSS,
+} from "./themes";
+export { themeScript } from "./headScript";
 const themeEvent = "aria-theme-change";
 function subscribe(listener: () => void) {
   window.addEventListener(themeEvent, listener);
   return () => window.removeEventListener(themeEvent, listener);
 }
 function getSnapshot() {
-  return document.documentElement.dataset.theme === "recommended"
-    ? "recommended"
-    : "client";
+  const extras = document.documentElement.dataset.themes === "all";
+  return `${resolveTheme(document.documentElement.dataset.theme, extras)}|${extras}`;
 }
-const getServerSnapshot = () => "client";
+const getServerSnapshot = () => `${defaultTheme}|false`;
 export function ThemeSelector() {
-  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const snapshot = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot,
+  );
+  const [theme, flag] = snapshot.split("|");
+  const extras = flag === "true";
+  const visible = themes.filter((item) => extras || !item.extra);
   const [collapsed, setCollapsed] = useState(true);
   function choose(value: string) {
-    document.documentElement.dataset.theme = value;
+    document.documentElement.dataset.theme = resolveTheme(value, extras);
     window.dispatchEvent(new Event(themeEvent));
     try {
-      localStorage.setItem("aria-theme", value);
+      localStorage.setItem(
+        "aria-theme",
+        document.documentElement.dataset.theme,
+      );
     } catch {
       /* Storage may be disabled. */
     }
@@ -32,6 +43,7 @@ export function ThemeSelector() {
       className={`theme-dock ${collapsed ? "collapsed" : ""}`}
       aria-label="Website appearance"
     >
+      <style>{themeSelectionCSS}</style>
       <button
         className="theme-toggle"
         onClick={() => setCollapsed(!collapsed)}
@@ -42,37 +54,58 @@ export function ThemeSelector() {
       </button>
       <span className="dock-label">THEME</span>
       <div className="theme-options" role="radiogroup" aria-label="Color theme">
-        {themes.map((t, i) => (
+        {themes.map((item) => (
           <button
-            key={t.id}
+            key={item.id}
             role="radio"
-            data-theme-choice={t.id}
-            aria-checked={theme === t.id}
-            tabIndex={theme === t.id ? 0 : -1}
+            data-extra-theme={item.extra || undefined}
+            data-theme-choice={item.id}
+            aria-checked={theme === item.id}
+            tabIndex={theme === item.id ? 0 : -1}
             className="theme-option"
-            onClick={() => choose(t.id)}
-            onKeyDown={(e) => {
+            onClick={() => choose(item.id)}
+            onKeyDown={(event) => {
               if (
-                [
+                ![
                   "ArrowLeft",
                   "ArrowRight",
                   "ArrowUp",
                   "ArrowDown",
                   "Home",
                   "End",
-                ].includes(e.key)
-              ) {
-                e.preventDefault();
-                const n = e.key === "Home" ? 0 : e.key === "End" ? 1 : 1 - i;
-                choose(themes[n].id);
-                (
-                  e.currentTarget.parentElement?.children[n] as HTMLElement
-                ).focus();
-              }
+                ].includes(event.key)
+              )
+                return;
+              event.preventDefault();
+              const index = visible.findIndex(
+                (option) => option.id === item.id,
+              );
+              const direction =
+                event.key === "ArrowLeft" || event.key === "ArrowUp" ? -1 : 1;
+              const next =
+                event.key === "Home"
+                  ? 0
+                  : event.key === "End"
+                    ? visible.length - 1
+                    : (index + direction + visible.length) % visible.length;
+              choose(visible[next].id);
+              event.currentTarget.parentElement
+                ?.querySelector<HTMLElement>(
+                  `[data-theme-choice="${visible[next].id}"]`,
+                )
+                ?.focus();
             }}
           >
             <span className="theme-dot" aria-hidden="true" />
-            {t.label}
+            <svg
+              className="theme-swatches"
+              viewBox="0 0 26 16"
+              aria-hidden="true"
+            >
+              <circle cx="8" cy="8" r="6" fill={item.swatch[0]} />
+              <circle cx="18" cy="8" r="6" fill={item.swatch[1]} />
+            </svg>
+            {item.label}
           </button>
         ))}
       </div>

@@ -32,6 +32,67 @@
   --err: #b42318;
   --ok: #28633a;
 }
+[data-theme="sage"] {
+  --bg: #f6f7f2;
+  --surface: #ffffff;
+  --band: #e8ece1;
+  --line: #d9dfcf;
+  --ink: #1f2a24;
+  --ink-2: #4b5a50;
+  --primary: #3f5b4a;
+  --on-primary: #f6f7f2;
+  --hero: #3f5b4a;
+  --accent: #958052;
+  --focus: #3f5b4a;
+  --err: #b42318;
+  --ok: #28633a;
+}
+[data-theme="indigo"] {
+  color-scheme: dark;
+  --bg: #0f1424;
+  --surface: #171d33;
+  --band: #1d2440;
+  --line: #2a3358;
+  --ink: #eef0f8;
+  --ink-2: #a9b0cc;
+  --primary: #c9b27c;
+  --on-primary: #0f1424;
+  --hero: #151b33;
+  --accent: #c9b27c;
+  --focus: #c9b27c;
+  --err: #ffb4ab;
+  --ok: #93d9a6;
+}
+[data-theme="clay"] {
+  --bg: #fbf6f1;
+  --surface: #ffffff;
+  --band: #f3e6da;
+  --line: #e6d3c2;
+  --ink: #2b1d18;
+  --ink-2: #5b463d;
+  --primary: #8a3b24;
+  --on-primary: #fbf6f1;
+  --hero: #8a3b24;
+  --accent: #c2703d;
+  --focus: #8a3b24;
+  --err: #b42318;
+  --ok: #28633a;
+}
+[data-theme="blue"] {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --band: #eef3f9;
+  --line: #d8e2ee;
+  --ink: #0f1e33;
+  --ink-2: #44566e;
+  --primary: #1b4b8f;
+  --on-primary: #ffffff;
+  --hero: #1b4b8f;
+  --accent: #3c78c8;
+  --focus: #1b4b8f;
+  --err: #b42318;
+  --ok: #28633a;
+}
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -475,12 +536,7 @@ img {
   align-items: center;
   gap: 8px;
 }
-/* The head script selects the paint before React hydrates the radios. */
-[data-theme="client"] .theme-option[data-theme-choice="client"],
-[data-theme="recommended"] .theme-option[data-theme-choice="recommended"] {
-  background: var(--primary);
-  color: var(--on-primary);
-}
+
 .theme-options {
   display: flex;
 }
@@ -963,4 +1019,74 @@ progress::-moz-progress-bar {
 }
 .questionnaire-note {
   margin: 20px 0 0;
+}
+
+/* Extras stay out of the two-option pill, including before hydration. */
+html:not([data-themes="all"]) .theme-option[data-extra-theme] {
+  display: none;
+}
+.theme-swatches {
+  display: none;
+  width: 26px;
+  height: 16px;
+  flex: none;
+}
+.theme-swatches circle {
+  stroke: currentColor;
+  stroke-width: 0.5;
+}
+html[data-themes="all"] .theme-swatches {
+  display: block;
+}
+html[data-themes="all"] .theme-dot {
+  display: none;
+}
+html[data-themes="all"] .theme-dock {
+  max-width: calc(100% - 24px);
+  border-radius: 28px;
+}
+html[data-themes="all"] .theme-options {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+html[data-themes="all"] .theme-option {
+  flex-shrink: 0;
+}
+[data-theme="indigo"] .hero-top {
+  color: var(--ink);
+}
+[data-theme="indigo"] .hero-top p {
+  color: var(--ink);
+}
+[data-theme="indigo"] .hero-top .secondary {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+[data-theme="indigo"] .hero-top .button.light {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+}
+.hero-top :focus-visible {
+  outline-color: var(--on-primary);
+}
+[data-theme="indigo"] .hero-top :focus-visible {
+  outline-color: var(--ink);
+}
+.cta :focus-visible {
+  outline-color: var(--on-primary);
+}
+[data-theme="indigo"] .field input,
+[data-theme="indigo"] .field textarea,
+[data-theme="indigo"] .field select {
+  border-color: var(--ink-2);
+}
+[data-theme="indigo"] .field input::placeholder,
+[data-theme="indigo"] .field textarea::placeholder {
+  color: var(--ink-2);
+  opacity: 1;
+}
+[data-theme="indigo"] .field input[aria-invalid="true"],
+[data-theme="indigo"] .field textarea[aria-invalid="true"] {
+  border-color: var(--err);
 }
