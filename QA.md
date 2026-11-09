@@ -17,7 +17,7 @@ Verified locally on 2026-11-09 against `npm run build && npm run preview` using 
 
 - `siteName = "Kee Nest"` drives metadata, copy, page-title suffixes, accessible brand labels, and footer text. Header/footer use a thin, wide-tracked, currentColor `KEE ◆ NEST` wordmark, with no raster header logo.
 - `scripts/make-favicons.mjs` uses the supplied `logo.jpeg` and existing Python/Pillow installation. Verified ICO sizes: **16/32/48**. PNG sizes: **32/180/192/512**. Verified OG JPEG: **1200×630**, logo centered on the requested grey background. All assets returned HTTP 200, and root favicon/Open Graph links were present.
-- The source JPG wordmark is small, so the **16px favicon is soft**. A vector or transparent client logo would improve small-size clarity.
+- Browser-tab icons use an enlarged, slightly strengthened K extracted from the supplied logo so it remains visible at 16px. Larger icons keep the full wordmark. Favicon links include a version query to refresh cached tab icons. A vector or transparent client logo would still improve source quality.
 - The exact broad substring grep also matches existing `variant` identifiers and font package/family names. A word-boundary brand audit found no former brand name in source, public assets, README, QA, package metadata, or Worker configuration. Accessibility attributes remain intact.
 - Package and Worker name are `kee-nest-web`. The Worker name is the **only Wrangler configuration change**. Deploying it creates a new `*.workers.dev` URL.
 
