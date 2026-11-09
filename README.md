@@ -27,9 +27,9 @@ Worker name: `kee-nest-web`. No deployment has been run.
 - `src/features/questionnaire/`: steps, schemas, pure validation, reducer/context, review, and submission adapter.
 - `src/features/questionnaire/submitLead.ts`: the one function to replace for future API integration. It currently resolves locally without network calls.
 - `public/images/`: locally saved Stitch interior images. These are inspiration, not available listings.
-- `design/`: original HTML recovered from the connected Kee Nest Stitch project. Reference copy is not used as live service claims.
+- `design/`: original HTML recovered from the connected Stitch project. Reference copy is not used as live service claims.
 
-The root `logo.jpeg` supplied during setup says KEE·NEST. It is preserved unchanged. The website uses an KEE NEST wordmark and matching KEE NEST favicon to honor the requested demo brand.
+The root `logo.jpeg` supplies the favicon and Open Graph assets. Header and footer render a thin, currentColor Kee Nest wordmark. Run `node scripts/make-favicons.mjs` to regenerate icons with Python/Pillow.
 
 ## Demo data boundaries
 
@@ -40,3 +40,5 @@ There are no live listings, matching, messaging, analytics, bookings, or backend
 ## Assets
 
 Images were exported from the user's connected Stitch project `14975129665267422418`, with the corresponding HTML references in `design/`. Fonts are bundled locally from Fontsource (Manrope and EB Garamond, SIL Open Font License), avoiding external font requests.
+
+All six themes are always selectable. On phones, the theme button opens a compact 2×3 popover that closes on selection, Escape, or an outside click. The display name and wordmark parts are configured in `src/data/site.ts`.
