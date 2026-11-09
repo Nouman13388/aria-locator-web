@@ -1021,37 +1021,6 @@ progress::-moz-progress-bar {
   margin: 20px 0 0;
 }
 
-/* Extras stay out of the two-option pill, including before hydration. */
-html:not([data-themes="all"]) .theme-option[data-extra-theme] {
-  display: none;
-}
-.theme-swatches {
-  display: none;
-  width: 26px;
-  height: 16px;
-  flex: none;
-}
-.theme-swatches circle {
-  stroke: currentColor;
-  stroke-width: 0.5;
-}
-html[data-themes="all"] .theme-swatches {
-  display: block;
-}
-html[data-themes="all"] .theme-dot {
-  display: none;
-}
-html[data-themes="all"] .theme-dock {
-  max-width: calc(100% - 24px);
-  border-radius: 28px;
-}
-html[data-themes="all"] .theme-options {
-  flex-wrap: wrap;
-  justify-content: center;
-}
-html[data-themes="all"] .theme-option {
-  flex-shrink: 0;
-}
 [data-theme="indigo"] .hero-top {
   color: var(--ink);
 }
@@ -1118,5 +1087,86 @@ html[data-themes="all"] .theme-option {
   }
   .header-inner > .button [aria-hidden] {
     display: none;
+  }
+}
+
+.theme-dock {
+  width: max-content;
+  max-width: calc(100% - 24px);
+  border-radius: 28px;
+}
+.theme-options {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.theme-option {
+  flex-shrink: 0;
+}
+.theme-swatches {
+  display: block;
+  width: 26px;
+  height: 16px;
+  flex: none;
+}
+.theme-swatches circle {
+  stroke: currentColor;
+  stroke-width: 0.5;
+}
+@media (min-width: 641px) {
+  .theme-toggle {
+    display: none;
+  }
+  .theme-dock.collapsed .theme-options {
+    display: flex;
+  }
+  .theme-dock .dock-label {
+    display: inline;
+  }
+}
+@media (max-width: 640px) {
+  html {
+    scroll-padding-bottom: 80px;
+  }
+  .theme-dock {
+    bottom: max(12px, env(safe-area-inset-bottom));
+    padding: 4px;
+    border-radius: 50%;
+  }
+  .theme-dock .dock-label {
+    display: none;
+  }
+  .theme-toggle {
+    display: block;
+  }
+  .theme-dock.collapsed .theme-options {
+    display: none;
+  }
+  .theme-dock.expanded .theme-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(350px, calc(100vw - 24px));
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+    box-shadow: 0 8px 32px color-mix(in srgb, var(--ink) 14%, transparent);
+  }
+  .theme-option {
+    padding: 10px 8px;
+    gap: 6px;
+    min-width: 0;
+    font-size: 10px;
+  }
+  .theme-options:focus-within {
+    outline: none;
+  }
+  .actions,
+  .form-actions {
+    scroll-margin-bottom: 270px;
   }
 }

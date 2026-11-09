@@ -3,21 +3,12 @@ function initializeThemes(
   registry: readonly ThemeDefinition[],
   resolve: typeof resolveTheme,
 ) {
-  const flag = new URLSearchParams(location.search).get("themes");
-  let extras = flag === "all";
   let stored = null;
   try {
-    if (flag === "all") localStorage.setItem("keenest-themes-all", "1");
-    else if (flag === "off") localStorage.removeItem("keenest-themes-all");
-    extras =
-      flag === "all" ||
-      (flag !== "off" && localStorage.getItem("keenest-themes-all") === "1");
     stored = localStorage.getItem("keenest-theme");
   } catch {
-    /* The query flag also works when storage is unavailable. */
+    /* The default theme also works without browser storage. */
   }
-  document.documentElement.dataset.theme = resolve(stored, extras, registry);
-  if (extras) document.documentElement.dataset.themes = "all";
-  else delete document.documentElement.dataset.themes;
+  document.documentElement.dataset.theme = resolve(stored, registry);
 }
 export const themeScript = `(${initializeThemes.toString()})(${JSON.stringify(themes)},${resolveTheme.toString()});`;

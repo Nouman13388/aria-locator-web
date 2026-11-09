@@ -1,4 +1,4 @@
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import {
   defaultTheme,
   resolveTheme,
@@ -11,23 +11,34 @@ function subscribe(listener: () => void) {
   window.addEventListener(themeEvent, listener);
   return () => window.removeEventListener(themeEvent, listener);
 }
-function getSnapshot() {
-  const extras = document.documentElement.dataset.themes === "all";
-  return `${resolveTheme(document.documentElement.dataset.theme, extras)}|${extras}`;
-}
-const getServerSnapshot = () => `${defaultTheme}|false`;
+const getSnapshot = () => resolveTheme(document.documentElement.dataset.theme);
+const getServerSnapshot = () => defaultTheme;
 export function ThemeSelector() {
-  const snapshot = useSyncExternalStore(
-    subscribe,
-    getSnapshot,
-    getServerSnapshot,
-  );
-  const [theme, flag] = snapshot.split("|");
-  const extras = flag === "true";
-  const visible = themes.filter((item) => extras || !item.extra);
-  const [collapsed, setCollapsed] = useState(true);
+  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const [open, setOpen] = useState(false);
+  const dock = useRef<HTMLElement>(null);
+  const toggle = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    function outside(event: PointerEvent) {
+      if (event.target instanceof Node && !dock.current?.contains(event.target))
+        setOpen(false);
+    }
+    function escape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false);
+        toggle.current?.focus();
+      }
+    }
+    document.addEventListener("pointerdown", outside);
+    document.addEventListener("keydown", escape);
+    return () => {
+      document.removeEventListener("pointerdown", outside);
+      document.removeEventListener("keydown", escape);
+    };
+  }, [open]);
   function choose(value: string) {
-    document.documentElement.dataset.theme = resolveTheme(value, extras);
+    document.documentElement.dataset.theme = resolveTheme(value);
     window.dispatchEvent(new Event(themeEvent));
     try {
       localStorage.setItem(
@@ -38,32 +49,45 @@ export function ThemeSelector() {
       /* Storage may be disabled. */
     }
   }
+  function select(value: string) {
+    choose(value);
+    setOpen(false);
+    if (window.matchMedia("(max-width: 640px)").matches)
+      toggle.current?.focus();
+  }
   return (
     <aside
-      className={`theme-dock ${collapsed ? "collapsed" : ""}`}
+      ref={dock}
+      className={`theme-dock ${open ? "expanded" : "collapsed"}`}
       aria-label="Website appearance"
     >
       <style>{themeSelectionCSS}</style>
       <button
+        ref={toggle}
         className="theme-toggle"
-        onClick={() => setCollapsed(!collapsed)}
-        aria-expanded={!collapsed}
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-controls="theme-options"
         aria-label="Choose website theme"
       >
         ◐
       </button>
       <span className="dock-label">THEME</span>
-      <div className="theme-options" role="radiogroup" aria-label="Color theme">
-        {themes.map((item) => (
+      <div
+        id="theme-options"
+        className="theme-options"
+        role="radiogroup"
+        aria-label="Color theme"
+      >
+        {themes.map((item, index) => (
           <button
             key={item.id}
             role="radio"
-            data-extra-theme={item.extra || undefined}
             data-theme-choice={item.id}
             aria-checked={theme === item.id}
             tabIndex={theme === item.id ? 0 : -1}
             className="theme-option"
-            onClick={() => choose(item.id)}
+            onClick={() => select(item.id)}
             onKeyDown={(event) => {
               if (
                 ![
@@ -77,26 +101,22 @@ export function ThemeSelector() {
               )
                 return;
               event.preventDefault();
-              const index = visible.findIndex(
-                (option) => option.id === item.id,
-              );
               const direction =
                 event.key === "ArrowLeft" || event.key === "ArrowUp" ? -1 : 1;
               const next =
                 event.key === "Home"
                   ? 0
                   : event.key === "End"
-                    ? visible.length - 1
-                    : (index + direction + visible.length) % visible.length;
-              choose(visible[next].id);
+                    ? themes.length - 1
+                    : (index + direction + themes.length) % themes.length;
+              choose(themes[next].id);
               event.currentTarget.parentElement
                 ?.querySelector<HTMLElement>(
-                  `[data-theme-choice="${visible[next].id}"]`,
+                  `[data-theme-choice="${themes[next].id}"]`,
                 )
                 ?.focus();
             }}
           >
-            <span className="theme-dot" aria-hidden="true" />
             <svg
               className="theme-swatches"
               viewBox="0 0 26 16"
