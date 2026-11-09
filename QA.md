@@ -21,7 +21,7 @@ Verified locally on 2026-11-08. No deployment was run.
 
 This is a local demonstration, not a production service. There are no live listings, real matching, emails, inquiries, or backend data storage. Mobile checks used Chrome emulation, not physical devices. Browser checks were interactive and console-assisted, not a committed end-to-end automation suite.
 
-The supplied `logo.jpeg` says KEE·NEST. The source image is preserved unchanged; the site uses the requested ARIA wordmark and ARIA favicon.
+The supplied `logo.jpeg` says KEE·NEST. The source image is preserved unchanged; the site uses the requested KEE NEST wordmark and KEE NEST favicon.
 
 ## Refactor verification
 
@@ -58,3 +58,5 @@ WCAG contrast calculations use sRGB relative luminance. Small text meets 4.5:1; 
 - Indigo retains its requested palette and adds semantic error **`#FFB4AB`** and success **`#93D9A6`**, measuring **9.82:1** and **10.09:1** against cards. Hero copy uses ink **`#EEF0F8`**, giving **14.93:1** on the hero. Primary button text is **8.85:1**. Focus uses the primary gold, at least **7.36:1** against ordinary surfaces; CTA/hero focus rings adapt to their backgrounds using existing tokens.
 - Clay and Blue requested shades were retained. Their button/hero text measures **7.16:1** and **8.57:1** respectively; their worst mixed eyebrow contrast is **4.80:1** and **6.13:1**.
 - **Bug found/fixed in a separate commit:** existing Recommended accent labels and large step numbers on sand bands were below AA (**4.10:1** and **2.73:1**). The token palette is unchanged. Only those band text roles mix more ink into the existing accent: 60% accent for labels and 90% for large numbers. Chromium measurements now give **4.56:1** and **3.09:1**. This is the only verification code fix.
+
+The supplied JPG has a small wordmark, so the 16px favicon is soft. A vector or transparent client logo would improve small-size clarity.

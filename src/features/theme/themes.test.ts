@@ -52,10 +52,10 @@ function bootstrap(
 }
 test("blocking script enables, persists, and disables extras before paint", () => {
   const extra = themes.find((theme) => theme.extra)!;
-  const enabled = bootstrap("?themes=all", { "aria-theme": extra.id });
+  const enabled = bootstrap("?themes=all", { "keenest-theme": extra.id });
   assert.equal(enabled.dataset.theme, extra.id);
   assert.equal(enabled.dataset.themes, "all");
-  assert.equal(enabled.storage.get("aria-themes-all"), "1");
+  assert.equal(enabled.storage.get("keenest-themes-all"), "1");
   assert.equal(
     bootstrap("", Object.fromEntries(enabled.storage)).dataset.theme,
     extra.id,
@@ -66,16 +66,16 @@ test("blocking script enables, persists, and disables extras before paint", () =
   );
   assert.equal(disabled.dataset.theme, defaultTheme);
   assert.equal(disabled.dataset.themes, undefined);
-  assert.equal(disabled.storage.has("aria-themes-all"), false);
+  assert.equal(disabled.storage.has("keenest-themes-all"), false);
 });
 test("blocking script handles unknown ids, disabled extras, and unavailable storage", () => {
   for (const theme of themes.filter((theme) => theme.extra))
     assert.equal(
-      bootstrap("", { "aria-theme": theme.id }).dataset.theme,
+      bootstrap("", { "keenest-theme": theme.id }).dataset.theme,
       defaultTheme,
     );
   assert.equal(
-    bootstrap("?themes=all", { "aria-theme": "unknown" }).dataset.theme,
+    bootstrap("?themes=all", { "keenest-theme": "unknown" }).dataset.theme,
     defaultTheme,
   );
   assert.equal(bootstrap("?themes=all", {}, true).dataset.themes, "all");

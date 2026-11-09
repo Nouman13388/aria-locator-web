@@ -1,7 +1,8 @@
-export const siteName = "Aria";
+export const siteName = "Kee Nest";
 export const wordmarkParts = {
   name: siteName.toUpperCase(),
-  descriptor: "◆ Apartment locating",
+  parts: siteName.toUpperCase().split(" "),
+  descriptor: "Apartment locating",
 };
 
 export const navigation = [

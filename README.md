@@ -1,4 +1,4 @@
-# Aria apartment-locating demo
+# Kee Nest apartment-locating demo
 
 TanStack Start, React, TypeScript, Tailwind v4, and the Cloudflare Vite plugin.
 
@@ -17,7 +17,7 @@ To deploy when ready:
 npm run deploy
 ```
 
-Worker name: `aria-locator-web`. No deployment has been run.
+Worker name: `kee-nest-web`. No deployment has been run.
 
 ## Editing the demo
 
@@ -27,9 +27,9 @@ Worker name: `aria-locator-web`. No deployment has been run.
 - `src/features/questionnaire/`: steps, schemas, pure validation, reducer/context, review, and submission adapter.
 - `src/features/questionnaire/submitLead.ts`: the one function to replace for future API integration. It currently resolves locally without network calls.
 - `public/images/`: locally saved Stitch interior images. These are inspiration, not available listings.
-- `design/`: original HTML recovered from the connected Aria Stitch project. Reference copy is not used as live service claims.
+- `design/`: original HTML recovered from the connected Kee Nest Stitch project. Reference copy is not used as live service claims.
 
-The root `logo.jpeg` supplied during setup says KEE·NEST. It is preserved unchanged. The website uses an ARIA wordmark and matching ARIA favicon to honor the requested demo brand.
+The root `logo.jpeg` supplied during setup says KEE·NEST. It is preserved unchanged. The website uses an KEE NEST wordmark and matching KEE NEST favicon to honor the requested demo brand.
 
 ## Demo data boundaries
 

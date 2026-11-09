@@ -1,16 +1,9 @@
-import { siteName, wordmarkParts } from "../../data/site";
+import { Wordmark } from "./Wordmark";
+import { siteName } from "../../data/site";
 import { actions, ctaCopy } from "../../data/actions";
 import { Link } from "@tanstack/react-router";
 import { navigation } from "../../data/site";
 import { ButtonLink } from "../ui/Button";
-export function Wordmark() {
-  return (
-    <Link to="/" className="brand" aria-label={`${siteName} home`}>
-      <span className="wordmark">{wordmarkParts.name}</span>
-      <span className="brand-tag">{wordmarkParts.descriptor}</span>
-    </Link>
-  );
-}
 export function Header() {
   return (
     <header className="site-header">

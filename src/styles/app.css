@@ -1098,3 +1098,25 @@ html[data-themes="all"] .theme-option {
 [data-theme="recommended"] .band .step-number {
   color: color-mix(in srgb, var(--accent) 90%, var(--ink));
 }
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.18em;
+  font-weight: 250;
+  letter-spacing: 0.34em;
+}
+.wordmark-diamond {
+  font-size: 0.2em;
+  letter-spacing: 0;
+  margin-inline: 0.1em 0.5em;
+}
+@media (max-width: 760px) {
+  .wordmark {
+    font-size: 20px;
+    letter-spacing: 0.3em;
+  }
+  .header-inner > .button [aria-hidden] {
+    display: none;
+  }
+}

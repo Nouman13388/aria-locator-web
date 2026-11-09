@@ -7,12 +7,12 @@ function initializeThemes(
   let extras = flag === "all";
   let stored = null;
   try {
-    if (flag === "all") localStorage.setItem("aria-themes-all", "1");
-    else if (flag === "off") localStorage.removeItem("aria-themes-all");
+    if (flag === "all") localStorage.setItem("keenest-themes-all", "1");
+    else if (flag === "off") localStorage.removeItem("keenest-themes-all");
     extras =
       flag === "all" ||
-      (flag !== "off" && localStorage.getItem("aria-themes-all") === "1");
-    stored = localStorage.getItem("aria-theme");
+      (flag !== "off" && localStorage.getItem("keenest-themes-all") === "1");
+    stored = localStorage.getItem("keenest-theme");
   } catch {
     /* The query flag also works when storage is unavailable. */
   }
