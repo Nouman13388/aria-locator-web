@@ -1,3 +1,4 @@
+import { MotionProvider } from "../features/motion/MotionProvider";
 import { siteName } from "../data/site";
 import {
   createRootRoute,
@@ -66,7 +67,7 @@ export const Route = createRootRoute({
   }),
   shellComponent: Document,
   component: () => (
-    <>
+    <MotionProvider>
       <a className="skip" href="#main">
         Skip to content
       </a>
@@ -76,7 +77,7 @@ export const Route = createRootRoute({
       </main>
       <Footer />
       <ThemeSelector />
-    </>
+    </MotionProvider>
   ),
   notFoundComponent: NotFound,
 });

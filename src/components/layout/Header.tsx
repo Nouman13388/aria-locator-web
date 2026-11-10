@@ -1,3 +1,6 @@
+import { MobileMenu } from "./MobileMenu";
+import * as m from "motion/react-m";
+import { useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Wordmark } from "./Wordmark";
@@ -5,12 +8,11 @@ import { ButtonLink } from "../ui/Button";
 import { navigation } from "../../data/site";
 
 export function Header() {
+  const reduced = useReducedMotion();
   const [notice, setNotice] = useState(true);
   const [more, setMore] = useState(false);
   const menu = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
-  const mobile = useRef<HTMLDetailsElement>(null);
-  const mobileTrigger = useRef<HTMLElement>(null);
   useEffect(() => {
     function close(event: PointerEvent) {
       if (event.target instanceof Node && !menu.current?.contains(event.target))
@@ -92,51 +94,25 @@ export function Header() {
                 More <span aria-hidden="true">⌄</span>
               </button>
               {more && (
-                <div id="more-navigation" className="nav-dropdown">
+                <m.div
+                  id="more-navigation"
+                  className="nav-dropdown"
+                  initial={reduced ? false : { opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
                   {navigation.slice(2).map((n) => (
                     <Link key={n.to} to={n.to} onClick={() => setMore(false)}>
                       {n.label}
                     </Link>
                   ))}
-                </div>
+                </m.div>
               )}
             </div>
           </nav>
           <ButtonLink>
             Get Started <span aria-hidden="true">↗</span>
           </ButtonLink>
-          <details
-            className="mobile-menu"
-            ref={mobile}
-            onKeyDown={(e) => {
-              if (e.key === "Escape") {
-                mobile.current?.removeAttribute("open");
-                mobileTrigger.current?.focus();
-              }
-            }}
-          >
-            <summary ref={mobileTrigger} aria-label="Navigation menu">
-              ☰
-            </summary>
-            <nav aria-label="Mobile navigation">
-              {navigation.map((n) => (
-                <Link
-                  key={n.to}
-                  to={n.to}
-                  onClick={() => mobile.current?.removeAttribute("open")}
-                >
-                  {n.label}
-                </Link>
-              ))}
-              <Link
-                to="/listings"
-                search={{ setting: "green" }}
-                onClick={() => mobile.current?.removeAttribute("open")}
-              >
-                Neighborhoods
-              </Link>
-            </nav>
-          </details>
+          <MobileMenu />
         </div>
       </header>
     </>

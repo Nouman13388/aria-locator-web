@@ -5,6 +5,7 @@ import { listings } from "../data/listings";
 import { Section } from "../components/ui/Section";
 import { ButtonLink } from "../components/ui/Button";
 import { ListingCard } from "../features/listings/ListingCard";
+import { ProcessIcon } from "../components/ui/ProcessIcon";
 import { HeroVideo } from "../components/ui/HeroVideo";
 import { pageHead } from "../lib/head";
 export const Route = createFileRoute("/")({
@@ -50,7 +51,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <Section>
+      <Section animate>
         <div className="section-heading centered-heading">
           <span className="eyebrow accent">Your move, in focus</span>
           <h2>How your search takes shape.</h2>
@@ -62,7 +63,7 @@ function Home() {
               <div className="step-card-top">
                 <span className="step-number">0{i + 1}</span>
                 <span className="process-icon" aria-hidden="true">
-                  {["✎", "☷", "↗"][i]}
+                  <ProcessIcon step={i} />
                 </span>
               </div>
               <h3>{item.title}</h3>
@@ -74,7 +75,7 @@ function Home() {
           ))}
         </div>
       </Section>
-      <Section band>
+      <Section band animate>
         <div className="section-heading">
           <div>
             <span className="sample-label">Sample data</span>
@@ -96,7 +97,7 @@ function Home() {
           </ButtonLink>
         </div>
       </Section>
-      <Section>
+      <Section animate>
         <div className="principles-band">
           <div className="principles-heading">
             <span className="eyebrow accent">Our approach</span>

@@ -1,17 +1,29 @@
+import * as m from "motion/react-m";
+import { useReducedMotion } from "motion/react";
+import { reveal, revealViewport } from "../../features/motion/reveal";
 import type { ReactNode } from "react";
 export function Section({
   children,
   band = false,
   id,
+  animate = false,
 }: {
   children: ReactNode;
   band?: boolean;
   id?: string;
+  animate?: boolean;
 }) {
+  const reduced = useReducedMotion();
   return (
-    <section id={id} className={`section ${band ? "band" : ""}`}>
+    <m.section
+      id={id}
+      className={`section ${band ? "band" : ""}`}
+      initial={false}
+      whileInView={animate && !reduced ? reveal : undefined}
+      viewport={revealViewport}
+    >
       <div className="wrap">{children}</div>
-    </section>
+    </m.section>
   );
 }
 export function Intro({

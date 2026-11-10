@@ -1,19 +1,11 @@
+import * as m from "motion/react-m";
+import { useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import {
-  defaultTheme,
-  resolveTheme,
-  themes,
-  themeSelectionCSS,
-} from "./themes";
+import { themes, themeSelectionCSS } from "./themes";
+import { subscribe, getSnapshot, getServerSnapshot, choose } from "./store";
 export { themeScript } from "./headScript";
-const themeEvent = "aria-theme-change";
-function subscribe(listener: () => void) {
-  window.addEventListener(themeEvent, listener);
-  return () => window.removeEventListener(themeEvent, listener);
-}
-const getSnapshot = () => resolveTheme(document.documentElement.dataset.theme);
-const getServerSnapshot = () => defaultTheme;
 export function ThemeSelector() {
+  const reduced = useReducedMotion();
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [open, setOpen] = useState(false);
   const dock = useRef<HTMLElement>(null);
@@ -37,18 +29,6 @@ export function ThemeSelector() {
       document.removeEventListener("keydown", escape);
     };
   }, [open]);
-  function choose(value: string) {
-    document.documentElement.dataset.theme = resolveTheme(value);
-    window.dispatchEvent(new Event(themeEvent));
-    try {
-      localStorage.setItem(
-        "aria-theme",
-        document.documentElement.dataset.theme,
-      );
-    } catch {
-      /* Storage may be disabled. */
-    }
-  }
   function select(value: string) {
     choose(value);
     setOpen(false);
@@ -73,7 +53,13 @@ export function ThemeSelector() {
         ◐
       </button>
       <span className="dock-label">THEME</span>
-      <div
+      <m.div
+        initial={false}
+        animate={
+          open && !reduced
+            ? { opacity: [0, 1], y: [8, 0] }
+            : { opacity: 1, y: 0 }
+        }
         id="theme-options"
         className="theme-options"
         role="radiogroup"
@@ -128,7 +114,7 @@ export function ThemeSelector() {
             {item.label}
           </button>
         ))}
-      </div>
+      </m.div>
     </aside>
   );
 }

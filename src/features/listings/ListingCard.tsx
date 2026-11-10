@@ -1,25 +1,42 @@
+import * as m from "motion/react-m";
+import { useReducedMotion } from "motion/react";
+import { reveal, revealViewport } from "../motion/reveal";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { listingImages, type SampleListing } from "../../data/listings";
 export function ListingCard({ listing }: { listing: SampleListing }) {
   const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const reduced = useReducedMotion();
   const image = listing.images[index];
   const meta = listingImages[image];
   function move(direction: number) {
+    setDirection(direction);
     setIndex(
       (current) =>
         (current + direction + listing.images.length) % listing.images.length,
     );
   }
   return (
-    <article className="listing-card">
+    <m.article
+      className="listing-card"
+      initial={false}
+      whileInView={reduced ? undefined : reveal}
+      viewport={revealViewport}
+    >
       <div
         className="listing-photo"
         role="region"
         aria-roledescription="carousel"
         aria-label={`${listing.title} sample images`}
       >
-        <img
+        <m.img
+          key={image}
+          initial={
+            direction && !reduced ? { opacity: 0, x: direction * 12 } : false
+          }
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: reduced ? 0 : 0.18 }}
           src={`/images/${image}.webp`}
           alt={meta.alt}
           width={meta.width}
@@ -71,6 +88,6 @@ export function ListingCard({ listing }: { listing: SampleListing }) {
           Build your wish list <span aria-hidden="true">↗</span>
         </Link>
       </div>
-    </article>
+    </m.article>
   );
 }

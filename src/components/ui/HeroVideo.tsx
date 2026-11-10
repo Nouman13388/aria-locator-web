@@ -25,9 +25,14 @@ function subscribe(listener: () => void) {
 export function HeroVideo() {
   const load = useSyncExternalStore(subscribe, eligible, () => false);
   const video = useRef<HTMLVideoElement>(null);
+  const failedSources = useRef(new Set<string>());
   const [failed, setFailed] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [ready, setReady] = useState(false);
+  function sourceError(format: string) {
+    failedSources.current.add(format);
+    if (failedSources.current.size === 2) setFailed(true);
+  }
   async function toggle() {
     const element = video.current;
     if (!element) return;
@@ -75,8 +80,16 @@ export function HeroVideo() {
             setReady(false);
           }}
         >
-          <source src="/videos/hero.webm" type="video/webm" />
-          <source src="/videos/hero.mp4" type="video/mp4" />
+          <source
+            src="/videos/hero.webm"
+            type="video/webm"
+            onError={() => sourceError("webm")}
+          />
+          <source
+            src="/videos/hero.mp4"
+            type="video/mp4"
+            onError={() => sourceError("mp4")}
+          />
         </video>
       )}
       <div className="hero-wash" />
