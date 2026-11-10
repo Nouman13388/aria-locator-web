@@ -31,7 +31,7 @@ async function render(shell: boolean) {
   const root = createRootRoute({
     component: () => {
       const detail = createElement(ListingDetail, { listing, cityName: city.name, heading: shell ? "h1" : "h2", headingId: "ld-title" });
-      return shell ? createElement(PageShell, { city: city.slug, cityName: city.name }, detail) : detail;
+      return shell ? createElement(PageShell, { city: city.slug, cityName: city.name, children: detail }) : detail;
     },
   });
   const router = createRouter({ routeTree: root, history: createMemoryHistory({ initialEntries: ["/"] }) });
