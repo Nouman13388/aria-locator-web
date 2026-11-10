@@ -1,122 +1,66 @@
-import { swipeDirection } from "./swipe";
-import { ResponsiveImage } from "../../components/ui/ResponsiveImage";
-import * as m from "motion/react-m";
-import { useReducedMotion } from "motion/react";
-import { reveal, revealViewport } from "../motion/reveal";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import {
-  listingImages,
-  listingCopy,
-  type SampleListing,
-} from "../../data/listings";
-export function ListingCard({ listing }: { listing: SampleListing }) {
-  const pointer = useRef<{ x: number; y: number } | null>(null);
+import { ResponsiveImage } from "../../components/ui/ResponsiveImage";
+import { listingImages, listingCopy, type Listing } from "../../data/listings";
+import { listingHref } from "../../data/cityLinks";
+export function ListingCard({ listing }: { listing: Listing }) {
   const [index, setIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const reduced = useReducedMotion();
+  const count = listing.images.length;
+  const move = (step: number) => setIndex((index + step + count) % count);
   const image = listing.images[index];
   const meta = listingImages[image];
-  function move(direction: number) {
-    setDirection(direction);
-    setIndex(
-      (current) =>
-        (current + direction + listing.images.length) % listing.images.length,
-    );
-  }
   return (
-    <m.article
-      className="listing-card"
-      initial={false}
-      whileInView={reduced ? undefined : reveal}
-      viewport={revealViewport}
-      whileHover={reduced ? undefined : { y: -2 }}
-    >
+    <article className="city-card">
       <div
-        className="listing-photo"
-        onPointerDown={(event) => {
-          if ((event.target as Element).closest("button")) return;
-          pointer.current = { x: event.clientX, y: event.clientY };
-        }}
-        onPointerCancel={() => {
-          pointer.current = null;
-        }}
-        onPointerUp={(event) => {
-          if (pointer.current) {
-            const direction = swipeDirection(pointer.current, {
-              x: event.clientX,
-              y: event.clientY,
-            });
-            if (direction) move(direction);
-          }
-          pointer.current = null;
-        }}
+        className="city-card-photo"
+        role="group"
+        aria-roledescription="carousel"
+        aria-label={listingCopy.imageLabel(listing.title)}
+        tabIndex={0}
         onKeyDown={(event) => {
           if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
             event.preventDefault();
             move(event.key === "ArrowRight" ? 1 : -1);
           }
         }}
-        role="region"
-        aria-roledescription="carousel"
-        aria-label={listingCopy.imageLabel(listing.title)}
       >
-        <m.div
-          className="listing-slide"
+        <ResponsiveImage
           key={image}
-          initial={
-            direction && !reduced ? { opacity: 0, x: direction * 12 } : false
-          }
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: reduced ? 0 : 0.18 }}
-        >
-          <ResponsiveImage
-            name={image}
-            alt={meta.alt}
-            width={meta.width}
-            height={meta.height}
-          />
-        </m.div>
+          name={image}
+          alt={meta.alt}
+          width={meta.width}
+          height={meta.height}
+          sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1023px) 50vw, 380px"
+        />
         <span className="sample-badge">{listingCopy.badge}</span>
-        <p className="listing-price">
-          {listing.price}
-          <span>{listingCopy.priceSuffix}</span>
-        </p>
-        <div className="carousel-controls">
-          <button
-            aria-label={listingCopy.previous(listing.title)}
-            onClick={() => move(-1)}
-          >
-            ←
-          </button>
-          <span
-            className="carousel-count"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            {index + 1} / {listing.images.length}
-          </span>
-          <button
-            aria-label={listingCopy.next(listing.title)}
-            onClick={() => move(1)}
-          >
-            →
-          </button>
-        </div>
-      </div>
-      <div className="listing-body">
-        <span className="listing-setting">{listing.neighborhood}</span>
-        <h3>{listing.title}</h3>
-        <p className="listing-specs">{listingCopy.summary(listing)}</p>
-        <div className="listing-tags">
-          {listing.features.map((feature) => (
-            <span key={feature}>{feature}</span>
+        {listing.featured && <span className="sample-badge featured-badge">Featured</span>}
+        <button type="button" className="city-card-arrow prev" aria-label={listingCopy.previous(listing.title)} onClick={() => move(-1)}>
+          <span aria-hidden="true">←</span>
+        </button>
+        <button type="button" className="city-card-arrow next" aria-label={listingCopy.next(listing.title)} onClick={() => move(1)}>
+          <span aria-hidden="true">→</span>
+        </button>
+        <div className="city-card-dots" aria-live="polite">
+          {listing.images.map((name, i) => (
+            <button key={name + i} type="button" aria-label={`Show image ${i + 1} of ${count}`} aria-current={i === index} onClick={() => setIndex(i)} />
           ))}
         </div>
-        <Link className="listing-link" to="/get-started" search={{ step: 1 }}>
-          {listingCopy.wishList} <span aria-hidden="true">↗</span>
-        </Link>
       </div>
-    </m.article>
+      <div className="city-card-body">
+        <Link
+          to="/{$city}-apartments/listings"
+          params={{ city: listing.city }}
+          search={{ neighborhood: listing.neighborhood }}
+          className="city-card-area"
+        >
+          {listing.neighborhoodName}
+        </Link>
+        <h3>
+          <Link to={listingHref(listing.city, listing.id)}>{listing.title}</Link>
+        </h3>
+        <p>{listingCopy.specs(listing)}</p>
+        <span className="city-card-note">{listingCopy.label}</span>
+      </div>
+    </article>
   );
 }
