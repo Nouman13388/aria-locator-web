@@ -25,6 +25,27 @@ See `design/media/INVENTORY.md` for source-to-slot mapping and unused media. Hom
 
 Final browser, contrast, Lighthouse, and bundle results are in `QA.md`; comparison captures and a compact results file are in `qa/`. Deployment remains a separate user action.
 
+## Route map
+
+Every page of a city lives under `/{slug}-apartments/` (route files in `src/routes/{$city}-apartments/`, using TanStack Router's suffix param syntax). The layout route `{$city}-apartments.tsx` validates the slug once and returns a 404 with the city picker for unknown slugs.
+
+| URL | Page |
+| --- | --- |
+| `/{slug}-apartments` | City home |
+| `/{slug}-apartments/listings` | Listings; URL-driven filters `neighborhood` (comma list), `layout`, `featured`, `page` |
+| `/{slug}-apartments/neighborhoods` | 8 neighborhood cards, linking to filtered listings |
+| `/{slug}-apartments/concierge` | Moving Concierge services and demo form |
+| `/{slug}-apartments/about-us`, `/our-process`, `/faq`, `/get-started` | Content pages and the single-page demo form |
+| `/{slug}-apartment/{listingId}` | Listing detail (unknown id returns 404) |
+| `/blog`, `/blog/$slug` | Blog with search, location and topic filters |
+| `/legal`, `/accessibility`, `/sitemap` | Demo legal, accessibility and the sitemap |
+
+Old global routes (`/listings`, `/neighborhoods`, `/moving-concierge`, `/about`, `/how-it-works`, `/faq`, `/get-started`, `/explore`, `/contact`) redirect with `beforeLoad` to the scoped page for the saved city (`keenest-city`), or the first city. Server-rendered direct loads cannot read localStorage, so they use the first city.
+
+Header, footer and drawer links are built by `src/data/cityLinks.ts` from the route's city, else the saved city, else the first city. Cities, neighborhoods and the deterministic listing generator are in `src/data/cities.ts` and `src/data/listings.ts` (20 sample listings per city, no prices). Page copy is in `src/data/content.ts`, `src/data/cityPage.ts` and `src/data/posts.ts`. **All eight cities, neighborhoods, listings and posts are demo placeholders** for the client's real content. City hero images are pending; see `public/images/cities/TODO.md`.
+
+Forms (listing inquiry, concierge, get-started) validate with zod, show a demo success state and send or store nothing. There are no budget, credit or background-check fields.
+
 ## City landing pages
 
 Each demo city has a page at `/{slug}-apartments` (route file `src/routes/{$city}-apartments.tsx`, which uses TanStack Router's suffix param syntax). Unknown slugs return a 404 with the city picker. Head tags (title, description, canonical, og) are per city. Canonical URLs are path-relative until `siteUrl` in `src/data/site.ts` is set to the production origin.

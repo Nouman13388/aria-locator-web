@@ -117,3 +117,12 @@ Captures: [header at 1440px](qa/city-picker-header-1440.jpg), [hero at 1440px](q
 - Announcement dismissal still persists for the tab session (`sessionStorage`, key `keenest-announcement-dismissed`), not across browser restarts.
 - Captures: `qa/home-<theme>-<width>.jpg`, `qa/home-full-<width>.jpg`.
 - Not verified: pixel comparison with the reference (no reference screenshot is available to me), Safari/Firefox, devices, screen readers, Lighthouse and bundle size.
+
+## City-scoped site structure verification
+
+- Automated checks: typecheck, 22 node tests (slug validation, legacy redirect targets, deterministic listing generator with unique ids, filter and pagination logic, FAQ/blog shape, banned-word and price scan over `src`) and build pass.
+- Browser (Playwright/Chromium, dev server): 15 pages x 4 widths (1440/1190/894/390) x 3 themes = 180 loads with no horizontal overflow, 0 console errors or warnings, and exactly one h1 each.
+- Interactions verified: listing filters update the URL and result count (neighborhood multi-select, layout, Featured, Clear Filters), shared filter URLs restore state, empty state, numbered pagination with `aria-current`, card gallery arrow-key/dot controls, detail gallery arrow keys and thumbnails, Copy Link toast and clipboard value, inquiry form errors and demo success, accordion by keyboard with several panels open, get-started error summary (8 errors, focus moves to it), demo success, marketing consent unchecked by default, header links scoped to the current/saved city, blog topic filter.
+- HTTP: all scoped pages 200; unknown city, unknown listing, a listing under the wrong city and unknown blog slug return 404; the nine old global routes return a 307 redirect to the scoped page.
+- Screenshots (grey theme, 1440 and 390): `qa/page-*.jpg` for home, city home, listings, neighborhoods, concierge, about-us, our-process, faq, get-started, listing detail, blog, article, sitemap, legal and accessibility.
+- Not verified: Safari/Firefox, devices, screen readers, Lighthouse and bundle size; swipe on the detail gallery (code only); the neighborhood dropdown panel can extend below a short viewport but is not clipped by any ancestor. Direct loads of old routes redirect to the first city because the server cannot read localStorage.
