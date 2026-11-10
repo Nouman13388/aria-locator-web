@@ -1,3 +1,4 @@
+import { homeLabels } from "../../data/home";
 import { useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useReducedMotion } from "motion/react";
@@ -39,7 +40,7 @@ export function MobileMenu() {
           </Link>
         ))}
         <Link to="/listings" search={{ setting: "green" }} onClick={close}>
-          Neighborhoods
+          {homeLabels.neighborhoods}
         </Link>
       </m.nav>
     </details>

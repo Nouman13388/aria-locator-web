@@ -16,6 +16,8 @@ export type SampleListing = {
   title: string;
   beds: string;
   baths: number;
+  neighborhood: string;
+  size: number;
   setting: Exclude<ListingFilters["setting"], "any">;
   price: string;
   images: readonly string[];
@@ -79,6 +81,12 @@ export const listings: SampleListing[] = spaces.map(
     title,
     beds,
     baths,
+    neighborhood: [
+      "Sample Green District",
+      "Sample Connected District",
+      "Sample Quiet District",
+    ][i % 3],
+    size: [720, 1080, 560, 960, 760, 1420, 590, 1540, 680][i],
     setting,
     price,
     features,
@@ -94,3 +102,14 @@ export function filterListings(filters: ListingFilters) {
       (filters.setting === "any" || item.setting === filters.setting),
   );
 }
+
+export const listingCopy = {
+  badge: "Sample listing",
+  priceSuffix: " / mo · placeholder",
+  wishList: "Build your wish list",
+  previous: (title: string) => `Previous image for ${title}`,
+  next: (title: string) => `Next image for ${title}`,
+  imageLabel: (title: string) => `${title} sample images`,
+  summary: (item: SampleListing) =>
+    `${item.beds === "studio" ? "Studio" : `${item.beds} bed`} · ${item.baths} bath · ${item.size} sq ft · sample`,
+};

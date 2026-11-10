@@ -1,3 +1,4 @@
+import { homeLabels } from "../../data/home";
 import { useRef, useState, useSyncExternalStore } from "react";
 import { shouldLoadHeroVideo } from "./heroVideoPolicy";
 type Connection = EventTarget & { saveData?: boolean };
@@ -56,7 +57,7 @@ export function HeroVideo() {
         <img
           className={`hero-background hero-poster ${load && ready && !failed ? "video-ready" : ""}`}
           src="/videos/poster.jpg"
-          alt=""
+          alt={homeLabels.heroAlt}
           width="1280"
           height="720"
           fetchPriority="high"

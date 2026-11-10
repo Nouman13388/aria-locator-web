@@ -1,5 +1,7 @@
+import { homeLabels } from "../data/home";
+import { actions } from "../data/actions";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { siteName, process } from "../data/site";
+import { process } from "../data/site";
 import { homeCopy, exampleSearches, homePrinciples } from "../data/pages";
 import { listings } from "../data/listings";
 import { Section } from "../components/ui/Section";
@@ -10,10 +12,7 @@ import { HeroVideo } from "../components/ui/HeroVideo";
 import { pageHead } from "../lib/head";
 export const Route = createFileRoute("/")({
   head: () => ({
-    ...pageHead(
-      "Find your next home",
-      `Explore a new way to begin your apartment search with ${siteName}. An interactive demo, shaped around your preferences.`,
-    ),
+    ...pageHead(homeLabels.metaTitle, homeLabels.metaDescription),
     links: [
       {
         rel: "preload",
@@ -50,7 +49,7 @@ function Home() {
             </h1>
             <p>{homeCopy.description}</p>
             <ButtonLink>
-              Start your search <span aria-hidden="true">→</span>
+              {homeLabels.start} <span aria-hidden="true">→</span>
             </ButtonLink>
           </div>
           <div className="example-searches">
@@ -60,9 +59,9 @@ function Home() {
                 <h2>{item.title}</h2>
                 <p>{item.text}</p>
                 <div className="example-bottom">
-                  <span>Example search</span>
+                  <span>{homeLabels.example}</span>
                   <Link to="/get-started" search={{ step: 1 }}>
-                    Try this direction <span aria-hidden="true">→</span>
+                    {homeLabels.tryDirection} <span aria-hidden="true">→</span>
                   </Link>
                 </div>
               </article>
@@ -72,9 +71,9 @@ function Home() {
       </section>
       <Section animate>
         <div className="section-heading centered-heading">
-          <span className="eyebrow accent">Your move, in focus</span>
-          <h2>How your search takes shape.</h2>
-          <p>Bring your ideas together, one step at a time.</p>
+          <span className="eyebrow accent">{homeLabels.processEyebrow}</span>
+          <h2>{homeLabels.processTitle}</h2>
+          <p>{homeLabels.processDescription}</p>
         </div>
         <div className="grid-3">
           {process.map((item, i) => (
@@ -88,7 +87,7 @@ function Home() {
               <h3>{item.title}</h3>
               <p>{item.text}</p>
               <Link to="/how-it-works" className="inline-link">
-                Explore the process →
+                {homeLabels.learnMore} →
               </Link>
             </article>
           ))}
@@ -97,13 +96,10 @@ function Home() {
       <Section band animate>
         <div className="section-heading">
           <div>
-            <span className="sample-label">Sample data</span>
-            <h2>A few places to imagine.</h2>
+            <span className="sample-label">{homeLabels.sampleLabel}</span>
+            <h2>{homeLabels.sampleTitle}</h2>
           </div>
-          <p>
-            Fictional apartments, illustrative images, and placeholder prices. A
-            starting point for your imagination.
-          </p>
+          <p>{homeLabels.sampleDescription}</p>
         </div>
         <div className="listing-grid">
           {listings.slice(0, 3).map((item) => (
@@ -112,22 +108,23 @@ function Home() {
         </div>
         <div className="actions actions-center">
           <ButtonLink to="/listings" appearance="secondary">
-            See sample listings <span aria-hidden="true">→</span>
+            {homeLabels.seeSamples} <span aria-hidden="true">→</span>
           </ButtonLink>
         </div>
       </Section>
       <Section animate>
         <div className="principles-band">
           <div className="principles-heading">
-            <span className="eyebrow accent">Our approach</span>
+            <span className="eyebrow accent">
+              {homeLabels.principlesEyebrow}
+            </span>
             <h2>
-              An apartment search built around{" "}
-              <span className="text-highlight">your life.</span>
+              {homeLabels.principlesTitle}{" "}
+              <span className="text-highlight">
+                {homeLabels.principlesHighlight}
+              </span>
             </h2>
-            <p>
-              Start with the routines, spaces, and little details that make a
-              place feel like yours.
-            </p>
+            <p>{homeLabels.principlesDescription}</p>
           </div>
           <div className="grid-3">
             {homePrinciples.map((item) => (
@@ -141,17 +138,14 @@ function Home() {
       </Section>
       <section className="section home-closing">
         <div className="wrap center">
-          <h2>Ready to picture your next move?</h2>
-          <p>
-            Bring your preferences together in the demo questionnaire. No
-            inquiry is sent.
-          </p>
+          <h2>{homeLabels.closingTitle}</h2>
+          <p>{homeLabels.closingDescription}</p>
           <div className="actions actions-center">
             <ButtonLink>
-              Get Started <span aria-hidden="true">→</span>
+              {actions.getStarted} <span aria-hidden="true">→</span>
             </ButtonLink>
             <ButtonLink to="/how-it-works" appearance="secondary">
-              How It Works
+              {actions.howItWorks}
             </ButtonLink>
           </div>
         </div>

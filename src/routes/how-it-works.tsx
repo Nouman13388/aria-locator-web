@@ -1,3 +1,4 @@
+import { ResponsiveImage } from "../components/ui/ResponsiveImage";
 import { siteName } from "../data/site";
 import { actions } from "../data/actions";
 import { pageIntros } from "../data/pages";
@@ -25,12 +26,12 @@ function HowItWorks() {
         {pageIntros.process.description}
       </Intro>
       <div className="wrap grid-2">
-        <img
+        <ResponsiveImage
+          name="keenest-living"
+          alt="Light-filled apartment living room with windows facing trees"
+          width={1200}
+          height={896}
           className="round-image"
-          src="/images/keenest-living.webp"
-          alt="Light-filled apartment with a linen sofa and glass terrace doors"
-          width="640"
-          height="580"
         />
         <div>
           <span className="eyebrow accent">The {siteName} approach</span>

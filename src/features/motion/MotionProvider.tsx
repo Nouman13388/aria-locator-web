@@ -21,7 +21,7 @@ export function MotionProvider({ children }: { children: ReactNode }) {
   return (
     <MotionConfig
       reducedMotion="user"
-      transition={{ duration: 0.22, ease: "easeOut" }}
+      transition={{ duration: 0.18, ease: "easeOut" }}
     >
       <LazyMotion features={loadFeatures} strict>
         {children}

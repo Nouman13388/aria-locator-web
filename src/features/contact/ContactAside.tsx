@@ -1,3 +1,4 @@
+import { ResponsiveImage } from "../../components/ui/ResponsiveImage";
 import { contact } from "../../data/site";
 export function ContactAside() {
   return (
@@ -20,12 +21,11 @@ export function ContactAside() {
       <p className="form-note">
         Placeholder only. This is not a real service contact.
       </p>
-      <img
-        src="/images/keenest-kitchen.webp"
+      <ResponsiveImage
+        name="keenest-kitchen"
         alt="Sunlit open kitchen and dining space with pendant lights"
-        loading="lazy"
-        width="600"
-        height="400"
+        width={1200}
+        height={896}
       />
     </aside>
   );

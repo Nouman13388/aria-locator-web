@@ -8,9 +8,35 @@ const background = css.match(/--hero:\s*(#[\da-fA-F]{6})/)[1];
 const source = new URL("../logo.jpeg", import.meta.url);
 const output = (name) => new URL(`../public/${name}`, import.meta.url);
 // The wide source wordmark is too small in a browser tab; retain its clear K.
-const letter = await sharp(source.pathname)
+const { data, info } = await sharp(source.pathname)
   .extract({ left: 133, top: 242, width: 27, height: 43 })
-  .dilate(1)
+  .greyscale()
+  .raw()
+  .toBuffer({ resolveWithObject: true });
+const rgba = Buffer.alloc(info.width * info.height * 4);
+for (let y = 0; y < info.height; y++)
+  for (let x = 0; x < info.width; x++) {
+    let bright = false;
+    for (let dy = -1; dy <= 1; dy++)
+      for (let dx = -1; dx <= 1; dx++) {
+        const px = x + dx,
+          py = y + dy;
+        if (
+          px >= 0 &&
+          py >= 0 &&
+          px < info.width &&
+          py < info.height &&
+          data[py * info.width + px] > 165
+        )
+          bright = true;
+      }
+    const at = (y * info.width + x) * 4;
+    rgba[at] = rgba[at + 1] = rgba[at + 2] = 255;
+    rgba[at + 3] = bright ? 255 : 0;
+  }
+const letter = await sharp(rgba, {
+  raw: { width: info.width, height: info.height, channels: 4 },
+})
   .resize(50, 50, { fit: "contain", background })
   .png()
   .toBuffer();

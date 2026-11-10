@@ -1872,3 +1872,104 @@ body {
     transform: none;
   }
 }
+[data-demo-notice="dismissed"] .announcement {
+  display: none;
+}
+.announcement-inner {
+  min-height: 44px;
+}
+.announcement p {
+  font-size: 12px;
+}
+.header-slot {
+  height: 80px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+.site-header {
+  position: static;
+  height: 80px;
+  transition: height 180ms ease;
+}
+.header-slot.compact .site-header {
+  height: 64px;
+  box-shadow: var(--shadow-card);
+}
+.header-slot.compact .wordmark {
+  font-size: 23px;
+}
+.header-slot.compact .header-inner > .button {
+  min-height: 44px;
+  padding-block: 10px;
+}
+.listing-slide {
+  position: absolute;
+  inset: 0;
+}
+.listing-slide img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.listing-photo {
+  touch-action: pan-y;
+}
+.social-placeholders,
+.legal-placeholders {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 10px;
+  color: var(--ink-2);
+}
+.social-placeholders {
+  max-width: 340px;
+}
+.social-placeholders span {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  padding: 5px 10px;
+}
+.legal-placeholders {
+  padding-top: 20px;
+  gap: 24px;
+}
+body,
+.site-header,
+.site-footer,
+.band,
+.step-card,
+.example-card,
+.listing-card,
+.button,
+.theme-dock,
+.theme-option {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+.site-header {
+  transition:
+    height 180ms ease,
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+@media (max-width: 900px) {
+  .header-slot {
+    height: 76px;
+  }
+  .site-header {
+    height: 76px;
+  }
+}
+@media (max-width: 640px) {
+  .header-slot.compact .wordmark {
+    font-size: 18px;
+  }
+  .announcement p {
+    font-size: 10px;
+  }
+}

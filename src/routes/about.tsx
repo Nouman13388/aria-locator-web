@@ -1,3 +1,4 @@
+import { ResponsiveImage } from "../components/ui/ResponsiveImage";
 import { pageIntros } from "../data/pages";
 import { createFileRoute } from "@tanstack/react-router";
 import { Intro, Section } from "../components/ui/Section";
@@ -47,12 +48,12 @@ function About() {
             </p>
           </div>
           <figure className="figure-reset">
-            <img
-              className="round-image"
-              src="/images/keenest-living.webp"
+            <ResponsiveImage
+              name="keenest-living"
               alt="Sunlit living room with oak finishes and windows facing greenery"
-              width="600"
-              height="650"
+              width={1200}
+              height={896}
+              className="round-image"
             />
             <figcaption className="form-note figure-caption">
               A study in natural light, texture, and everyday calm. Interior

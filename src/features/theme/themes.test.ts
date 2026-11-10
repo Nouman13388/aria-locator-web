@@ -28,10 +28,16 @@ test("missing and unknown stored themes resolve to the default", () => {
   ])
     assert.equal(resolveTheme(value), defaultTheme);
 });
-function bootstrap(value: string | null, search = "", blocked = false) {
+function bootstrap(
+  value: string | null,
+  search = "",
+  blocked = false,
+  dismissed = false,
+) {
   const dataset: Record<string, string> = {};
   runInNewContext(themeScript, {
     location: { search },
+    sessionStorage: { getItem: () => (dismissed ? "1" : null) },
     document: {
       documentElement: { dataset },
       createElement: () => ({}),
@@ -111,4 +117,9 @@ test("semantic text and focus tokens meet AA contrast in each palette", async ()
 test("themes contain color choices only, with no structural settings", () => {
   for (const theme of themes)
     assert.deepEqual(Object.keys(theme).sort(), ["id", "label", "swatch"]);
+});
+
+test("dismissed announcement is hidden by the blocking script before paint", () => {
+  assert.equal(bootstrap(null, "", false, true).demoNotice, "dismissed");
+  assert.equal(bootstrap(null).demoNotice, undefined);
 });

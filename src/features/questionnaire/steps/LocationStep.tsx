@@ -1,3 +1,4 @@
+import { ResponsiveImage } from "../../../components/ui/ResponsiveImage";
 import { locationChips } from "../steps";
 import { StepInput, StepChoices } from "./Fields";
 import type { StepProps } from "./types";
@@ -18,13 +19,12 @@ export function LocationStep(props: StepProps) {
         multiple
         chips
       />
-      <img
-        src="/images/keenest-exterior.webp"
+      <ResponsiveImage
+        name="keenest-exterior"
         alt="Daytime apartment exterior with glass balconies and street greenery"
+        width={1376}
+        height={768}
         className="location-image"
-        width="1376"
-        height="768"
-        loading="lazy"
       />
     </>
   );
