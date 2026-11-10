@@ -1,37 +1,44 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Intro, Section } from "../components/ui/Section";
+import { PageHero } from "../features/city/blocks";
 import { CITIES } from "../data/cities";
-import { sitemapPage as copy } from "../data/cityPage";
+import { cityHome, cityHref, citySections, legalLinks } from "../data/cityLinks";
+import { posts } from "../data/posts";
 import { pageHead } from "../lib/head";
 export const Route = createFileRoute("/sitemap")({
-  head: () => pageHead("Sitemap", copy.intro),
+  head: () => pageHead("Sitemap", "Every page of this demo, including each sample city."),
   component: Sitemap,
 });
 function Sitemap() {
   return (
     <>
-      <Intro eyebrow={copy.eyebrow} title={copy.title}>
-        {copy.intro}
-      </Intro>
-      <Section>
-        <ul className="sitemap-list">
-          {copy.pages.map((page) => (
-            <li key={page.to}>
-              <Link to={page.to}>{page.label}</Link>
-            </li>
-          ))}
-        </ul>
-        <h2>{copy.citiesTitle}</h2>
-        <ul className="sitemap-list">
+      <PageHero title="Sitemap">Every page of this demo, grouped by city.</PageHero>
+      <section className="wrap city-section">
+        <div className="sitemap-grid">
           {CITIES.map((city) => (
-            <li key={city.slug}>
-              <Link to="/{$city}-apartments" params={{ city: city.slug }}>
-                {city.name}
-              </Link>
-            </li>
+            <div key={city.slug}>
+              <h2><Link to={cityHome(city.slug)}>{city.name}</Link></h2>
+              <ul>
+                {citySections.map((section) => (
+                  <li key={section.key}><Link to={cityHref(city.slug, section.key)}>{section.label}</Link></li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ul>
-      </Section>
+          <div>
+            <h2>General</h2>
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/blog">Blog</Link></li>
+              {posts.map((post) => (
+                <li key={post.slug}><Link to="/blog/$slug" params={{ slug: post.slug }}>{post.title}</Link></li>
+              ))}
+              {legalLinks.map((item) => (
+                <li key={item.to}><Link to={item.to}>{item.label}</Link></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
