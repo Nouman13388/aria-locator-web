@@ -59,11 +59,11 @@ export const homeRevision = {
   drawerNote: "Demo website. No inquiries or bookings are sent.",
   heroTitle: "Make room for your next chapter.",
   heroDescription:
-    "Start with the spaces, surroundings, and everyday details that matter to you.",
+    "Start with the spaces, surroundings, and everyday details that matter to you. Share how you like to live, and we’ll help turn it into a clear brief for your search.",
   featureTitle: "A little direction. More room for you.",
   featureDescription:
     "A home search starts with your everyday life. Bring your priorities into focus, from the way you like to unwind to the space you need to grow.",
-  featureAction: "Build your wish list",
+  featureAction: "Let’s go",
   communityTitle: "Different spaces. A search shaped around you.",
   communityDescription:
     "Explore the demo brief and put your own apartment preferences into words.",
@@ -73,9 +73,4 @@ export const homeRevision = {
     "A closer look at the process, sample spaces, and principles behind this apartment-locating demo.",
   socialTitle: "Social placeholders",
 };
-export const inspirationCircles = [
-  { name: "keenest-living", width: 1200, height: 896 },
-  { name: "keenest-kitchen", width: 1200, height: 896 },
-  { name: "keenest-bedroom", width: 1200, height: 896 },
-  { name: "keenest-exterior", width: 1376, height: 768 },
-];
+export const avatarInitials = ["A", "M", "J", "S", "R"];

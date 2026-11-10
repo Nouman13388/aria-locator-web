@@ -7,7 +7,9 @@ export const wordmarkParts = {
 
 export const navigation = [
   { to: "/listings", label: "Listings" },
-  { to: "/how-it-works", label: "How It Works" },
+  { to: "/neighborhoods", label: "Neighborhoods" },
+  { to: "/moving-concierge", label: "Moving Concierge" },
+  { to: "/how-it-works", label: "Process" },
   { to: "/about", label: "About" },
   { to: "/faq", label: "FAQ" },
   { to: "/contact", label: "Contact" },
@@ -47,6 +49,28 @@ export const principles = [
 export const contact = {
   email: "hello@example.com",
   label: "Demo email address",
+  phone: "(555) 010-0100",
+  phoneLabel: "Demo phone",
+  hours: "Mon–Fri, 9am–5pm",
+  hoursLabel: "Demo hours",
 };
+// shortcut: no production origin yet, so canonical URLs stay path-relative; set this when the domain is known.
+export const siteUrl = "";
 
 export const announcementStorageKey = "keenest-announcement-dismissed";
+
+export const headerNavigation = [
+  { to: "/listings", label: "Listings" },
+  { to: "/neighborhoods", label: "Neighborhoods" },
+  { to: "/moving-concierge", label: "Moving Concierge" },
+] as const;
+export const headerMoreNavigation = [
+  { to: "/about", label: "About" },
+  { to: "/how-it-works", label: "Process" },
+  { to: "/faq", label: "FAQ" },
+  { to: "/contact", label: "Contact" },
+] as const;
+export const homeNavigation = [
+  { to: "/about", label: "About" },
+  { to: "/faq", label: "FAQ" },
+] as const;

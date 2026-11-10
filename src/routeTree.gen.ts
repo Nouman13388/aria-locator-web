@@ -17,6 +17,10 @@ import { Route as FaqRouteImport } from './routes/faq'
 import { Route as GetStartedRouteImport } from './routes/get-started'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as ListingsRouteImport } from './routes/listings'
+import { Route as MovingConciergeRouteImport } from './routes/moving-concierge'
+import { Route as NeighborhoodsRouteImport } from './routes/neighborhoods'
+import { Route as SitemapRouteImport } from './routes/sitemap'
+import { Route as Char123cityChar125ApartmentsRouteImport } from './routes/{$city}-apartments'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +62,27 @@ const ListingsRoute = ListingsRouteImport.update({
   path: '/listings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MovingConciergeRoute = MovingConciergeRouteImport.update({
+  id: '/moving-concierge',
+  path: '/moving-concierge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NeighborhoodsRoute = NeighborhoodsRouteImport.update({
+  id: '/neighborhoods',
+  path: '/neighborhoods',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapRoute = SitemapRouteImport.update({
+  id: '/sitemap',
+  path: '/sitemap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char123cityChar125ApartmentsRoute =
+  Char123cityChar125ApartmentsRouteImport.update({
+    id: '/{$city}-apartments',
+    path: '/{$city}-apartments',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +93,10 @@ export interface FileRoutesByFullPath {
   '/get-started': typeof GetStartedRoute
   '/how-it-works': typeof HowItWorksRoute
   '/listings': typeof ListingsRoute
+  '/moving-concierge': typeof MovingConciergeRoute
+  '/neighborhoods': typeof NeighborhoodsRoute
+  '/sitemap': typeof SitemapRoute
+  '/{$city}-apartments': typeof Char123cityChar125ApartmentsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +107,10 @@ export interface FileRoutesByTo {
   '/get-started': typeof GetStartedRoute
   '/how-it-works': typeof HowItWorksRoute
   '/listings': typeof ListingsRoute
+  '/moving-concierge': typeof MovingConciergeRoute
+  '/neighborhoods': typeof NeighborhoodsRoute
+  '/sitemap': typeof SitemapRoute
+  '/{$city}-apartments': typeof Char123cityChar125ApartmentsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +122,10 @@ export interface FileRoutesById {
   '/get-started': typeof GetStartedRoute
   '/how-it-works': typeof HowItWorksRoute
   '/listings': typeof ListingsRoute
+  '/moving-concierge': typeof MovingConciergeRoute
+  '/neighborhoods': typeof NeighborhoodsRoute
+  '/sitemap': typeof SitemapRoute
+  '/{$city}-apartments': typeof Char123cityChar125ApartmentsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +138,10 @@ export interface FileRouteTypes {
     | '/get-started'
     | '/how-it-works'
     | '/listings'
+    | '/moving-concierge'
+    | '/neighborhoods'
+    | '/sitemap'
+    | '/{$city}-apartments'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +152,10 @@ export interface FileRouteTypes {
     | '/get-started'
     | '/how-it-works'
     | '/listings'
+    | '/moving-concierge'
+    | '/neighborhoods'
+    | '/sitemap'
+    | '/{$city}-apartments'
   id:
     | '__root__'
     | '/'
@@ -121,6 +166,10 @@ export interface FileRouteTypes {
     | '/get-started'
     | '/how-it-works'
     | '/listings'
+    | '/moving-concierge'
+    | '/neighborhoods'
+    | '/sitemap'
+    | '/{$city}-apartments'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +181,10 @@ export interface RootRouteChildren {
   GetStartedRoute: typeof GetStartedRoute
   HowItWorksRoute: typeof HowItWorksRoute
   ListingsRoute: typeof ListingsRoute
+  MovingConciergeRoute: typeof MovingConciergeRoute
+  NeighborhoodsRoute: typeof NeighborhoodsRoute
+  SitemapRoute: typeof SitemapRoute
+  Char123cityChar125ApartmentsRoute: typeof Char123cityChar125ApartmentsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,6 +245,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ListingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/moving-concierge': {
+      id: '/moving-concierge'
+      path: '/moving-concierge'
+      fullPath: '/moving-concierge'
+      preLoaderRoute: typeof MovingConciergeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/neighborhoods': {
+      id: '/neighborhoods'
+      path: '/neighborhoods'
+      fullPath: '/neighborhoods'
+      preLoaderRoute: typeof NeighborhoodsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap': {
+      id: '/sitemap'
+      path: '/sitemap'
+      fullPath: '/sitemap'
+      preLoaderRoute: typeof SitemapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/{$city}-apartments': {
+      id: '/{$city}-apartments'
+      path: '/{$city}-apartments'
+      fullPath: '/{$city}-apartments'
+      preLoaderRoute: typeof Char123cityChar125ApartmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -204,6 +285,10 @@ const rootRouteChildren: RootRouteChildren = {
   GetStartedRoute: GetStartedRoute,
   HowItWorksRoute: HowItWorksRoute,
   ListingsRoute: ListingsRoute,
+  MovingConciergeRoute: MovingConciergeRoute,
+  NeighborhoodsRoute: NeighborhoodsRoute,
+  SitemapRoute: SitemapRoute,
+  Char123cityChar125ApartmentsRoute: Char123cityChar125ApartmentsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

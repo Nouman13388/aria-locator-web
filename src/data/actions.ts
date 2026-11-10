@@ -1,4 +1,5 @@
 export const actions = {
+  startNow: "Start Now",
   getStarted: "Get Started",
   findSpace: "Start Your Search",
   findSpaceFooter: "Find your space",

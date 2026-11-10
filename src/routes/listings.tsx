@@ -23,7 +23,7 @@ function Listings() {
         These fictional listings are not available properties. All prices and
         features are placeholders; images are illustrative.
       </Intro>
-      <Section band>
+      <Section band id="surroundings">
         <form
           className="listing-filters"
           aria-label="Filter sample listings"

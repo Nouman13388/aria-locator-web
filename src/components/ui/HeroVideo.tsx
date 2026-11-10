@@ -112,8 +112,13 @@ export function HeroVideo() {
           onClick={toggle}
           aria-label={playing ? "Pause hero video" : "Play hero video"}
         >
-          <span aria-hidden="true">{playing ? "Ⅱ" : "▶"}</span>
-          <span>{playing ? "Pause" : "Play"}</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            {playing ? (
+              <path d="M6 4h4v16H6zM14 4h4v16h-4z" />
+            ) : (
+              <path d="M7 4v16l13-8z" />
+            )}
+          </svg>
         </button>
       )}
     </div>

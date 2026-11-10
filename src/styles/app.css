@@ -10,6 +10,9 @@
   --ink-2: #52525b;
   --primary: #27272a;
   --on-primary: #ffffff;
+  --pill: #707070;
+  --on-pill: #ffffff;
+  --soft: #ebebeb;
   --hero: #707070;
   --accent: #52525b;
   --focus: #27272a;
@@ -37,6 +40,9 @@
   --ink-2: #41586a;
   --primary: #0e8f8a;
   --on-primary: #03161c;
+  --pill: #0a7a76;
+  --on-pill: #ffffff;
+  --soft: #d9f0ee;
   --hero: #0b1f2a;
   --accent: #14b8a6;
   --focus: #0a6d69;
@@ -64,6 +70,9 @@
   --ink-2: #475a78;
   --primary: #0f2747;
   --on-primary: #ffffff;
+  --pill: #0f2747;
+  --on-pill: #ffffff;
+  --soft: #dce6f5;
   --hero: #0f2747;
   --accent: #f5a524;
   --focus: #1a3e6d;
@@ -2660,4 +2669,904 @@ body,
   .city-chevron {
     transition: none;
   }
+}
+
+/* City-page header composition, using the shared Kee Nest palettes. */
+.site-header {
+  background: var(--band);
+  border-color: transparent;
+  box-shadow: none;
+}
+.header-brand-group {
+  flex: none;
+}
+.header-brand-group > .drawer-trigger {
+  display: none;
+}
+.header-desktop {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-left: auto;
+}
+.header-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.header-links > a,
+.header-more summary {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 44px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.header-more {
+  position: relative;
+}
+.header-more summary {
+  list-style: none;
+  cursor: pointer;
+}
+.header-more summary::-webkit-details-marker {
+  display: none;
+}
+.header-more[open] summary > span {
+  rotate: 180deg;
+}
+.header-more-panel {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 200px;
+  padding: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--ink) 18%, transparent);
+  transform-origin: top left;
+  z-index: 12;
+}
+.header-more-panel a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.header-more-panel a:hover {
+  background: var(--band);
+}
+.header-contact {
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.header-contact > span + span {
+  color: var(--ink-2);
+  font-size: 10px;
+}
+.header-start {
+  flex: none;
+}
+.header-start .button {
+  min-height: 52px;
+  border-radius: var(--radius-btn);
+  white-space: nowrap;
+  padding-inline: 26px;
+}
+.header-slot:has(.header-more[open]) {
+  z-index: 110;
+}
+@media (max-width: 1199px) {
+  .header-desktop {
+    display: none;
+  }
+  .header-brand-group > .drawer-trigger {
+    display: grid;
+  }
+  .header-inner {
+    justify-content: space-between;
+  }
+}
+@media (max-width: 640px) {
+  .header-start .button {
+    min-height: 48px;
+    padding: 12px 16px;
+    font-size: 12px;
+  }
+  .header-brand-group {
+    gap: 4px;
+  }
+  .header-inner {
+    padding-inline: 14px;
+    gap: 8px;
+  }
+}
+.announcement-inner {
+  min-height: 54px;
+}
+.announcement p {
+  font-size: 13px;
+}
+.header-slot {
+  height: 162px;
+  padding: 30px 64px 28px;
+}
+.site-header {
+  max-width: 1312px;
+  height: 104px;
+}
+.header-start .button {
+  min-height: 60px;
+  font-size: 16px;
+}
+.header-desktop > .city-picker .city-trigger {
+  min-height: 60px;
+  font-size: 15px;
+}
+@media (max-width: 1279px) {
+  .header-desktop {
+    display: none;
+  }
+  .header-brand-group > .drawer-trigger {
+    display: grid;
+  }
+  .header-slot {
+    padding-inline: 16px;
+  }
+}
+@media (max-width: 640px) {
+  .announcement-inner {
+    min-height: 48px;
+  }
+  .announcement p {
+    font-size: 10px;
+  }
+  .header-slot {
+    height: 138px;
+    padding: 20px 16px 26px;
+  }
+  .site-header {
+    height: 92px;
+  }
+  .header-slot.compact .site-header {
+    height: 82px;
+  }
+  .header-start .button {
+    min-height: 60px;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
+
+/* City landing pages, footer and supporting pages. Colors come from theme tokens only. */
+.city-page {
+  max-width: 1440px;
+  margin: auto;
+  overflow-x: clip;
+}
+.city-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 64px;
+  align-items: center;
+  padding: 24px 64px 72px;
+}
+.city-hero h1 {
+  font-size: clamp(44px, 6vw, 84px);
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  margin: 0 0 24px;
+}
+.city-hero-copy p {
+  max-width: 460px;
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0 0 32px;
+}
+.city-hero-copy .button {
+  min-height: 56px;
+  padding-inline: 32px;
+  border-radius: var(--radius-btn);
+}
+.city-hero-media {
+  position: relative;
+}
+.city-hero-media picture,
+.city-hero-media img {
+  display: block;
+  width: 100%;
+}
+.city-hero-media img {
+  aspect-ratio: 4 / 5;
+  height: auto;
+  object-fit: cover;
+  border-radius: 24px;
+  background: var(--band);
+}
+.city-bubbles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.city-bubbles li {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: min(300px, calc(100% - 24px));
+  padding: 10px 20px 10px 10px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 14px;
+  line-height: 1.4;
+  box-shadow: var(--shadow-card);
+}
+.city-bubbles li:first-child {
+  top: 14%;
+  left: -56px;
+}
+.city-bubbles li:last-child {
+  bottom: 12%;
+  right: -36px;
+}
+.city-bubbles .avatar {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 700;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .city-bubbles li {
+    animation: city-float 6s ease-in-out infinite;
+  }
+  .city-bubbles li:last-child {
+    animation-delay: -3s;
+  }
+}
+@keyframes city-float {
+  50% {
+    translate: 0 -8px;
+  }
+}
+.city-section {
+  padding-block: 56px;
+}
+.city-heading {
+  max-width: 640px;
+  margin-bottom: 32px;
+}
+.city-heading h2 {
+  margin: 0 0 12px;
+  font-size: clamp(32px, 4vw, 48px);
+}
+.city-how,
+.city-cards,
+.city-why-points,
+.city-contact {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+}
+.city-how article,
+.city-contact > div {
+  background: var(--band);
+  border-radius: 24px;
+  padding: 32px;
+}
+.city-how h3 {
+  margin: 0 0 10px;
+}
+.city-how p {
+  margin: 0 0 20px;
+}
+.city-cards {
+  margin-bottom: 32px;
+}
+.city-card {
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.city-card-photo {
+  position: relative;
+}
+.city-card-photo:focus-visible {
+  outline-offset: -4px;
+}
+.city-card-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1.5;
+  object-fit: cover;
+}
+.city-card-arrow {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.city-card-arrow.prev {
+  left: 12px;
+}
+.city-card-arrow.next {
+  right: 12px;
+}
+.city-card-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  translate: -50% 0;
+  display: flex;
+}
+.city-card-dots button {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+}
+.city-card-dots button::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: 0.6;
+  box-shadow: 0 0 0 1px var(--ink);
+}
+.city-card-dots button[aria-current="true"]::after {
+  opacity: 1;
+  background: var(--ink);
+  box-shadow: 0 0 0 1px var(--surface);
+}
+.city-card-body {
+  padding: 20px 24px 24px;
+}
+.city-card-area {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: underline;
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+}
+.city-card-body h3 {
+  margin: 4px 0 6px;
+}
+.city-card-body p {
+  margin: 0 0 12px;
+  color: var(--ink-2);
+}
+.city-card-note {
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.city-why {
+  background: var(--band);
+  border-radius: 24px;
+  margin: 24px;
+  padding: 80px 0;
+}
+.city-why h2 {
+  max-width: 900px;
+  margin: 12px 0 48px;
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: 1.08;
+}
+.city-why h3 {
+  margin: 0 0 8px;
+}
+.city-why p {
+  margin: 0;
+}
+.city-closing {
+  margin: 24px;
+  padding: 80px 24px;
+  border-radius: 24px;
+  background: var(--ink);
+  color: var(--white);
+  text-align: center;
+}
+.city-closing h2 {
+  max-width: 760px;
+  margin: 0 auto 16px;
+  font-size: clamp(32px, 4.5vw, 56px);
+}
+.city-closing p {
+  max-width: 520px;
+  margin: 0 auto 28px;
+  color: color-mix(in srgb, var(--white) 82%, var(--ink));
+}
+.city-closing .button {
+  background: var(--white);
+  color: var(--ink);
+  border-color: var(--white);
+  border-radius: var(--radius-btn);
+  min-height: 52px;
+}
+.city-closing .inline-link {
+  color: var(--white);
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.city-closing :focus-visible {
+  outline-color: var(--white);
+}
+.city-contact dt {
+  font-size: 12px;
+  color: var(--ink-2);
+  margin-bottom: 6px;
+}
+.city-contact dd {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.area-group {
+  margin-bottom: 56px;
+}
+.area-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.sitemap-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+.sitemap-list a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: underline;
+}
+/* Footer: two link columns, social row, legal row. */
+.site-footer {
+  display: block;
+  min-height: 0;
+  padding: 56px 56px 32px;
+}
+.site-footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.footer-main {
+  display: grid;
+  grid-template-columns: 1.2fr 1.5fr auto;
+  gap: 48px;
+  align-items: start;
+}
+.footer-brand p {
+  margin: 16px 0 0;
+  font-size: 13px;
+  max-width: 320px;
+}
+.footer-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.footer-cols a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 15px;
+}
+.footer-cols a:hover {
+  text-decoration: underline;
+}
+.footer-socials {
+  display: flex;
+  gap: 12px;
+}
+.footer-socials a {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--footer-muted);
+  border-radius: 50%;
+  font-size: 20px;
+}
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid color-mix(in srgb, var(--white) 22%, var(--footer-bg));
+  font-size: 12px;
+  color: var(--footer-muted);
+}
+.footer-legal ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+.footer-legal p {
+  margin: 0;
+}
+@media (max-width: 1023px) {
+  .city-hero {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 16px 24px 48px;
+  }
+  .city-hero-media {
+    max-width: 560px;
+  }
+  .city-bubbles li:first-child {
+    left: 12px;
+  }
+  .city-bubbles li:last-child {
+    right: 12px;
+  }
+  .city-how,
+  .city-cards,
+  .city-why-points,
+  .city-contact {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .city-hero {
+    padding: 8px 16px 40px;
+  }
+  .city-hero-copy p {
+    font-size: 16px;
+  }
+  .city-how,
+  .city-cards,
+  .city-why-points,
+  .city-contact,
+  .footer-cols,
+  .footer-main {
+    grid-template-columns: 1fr;
+  }
+  .city-why,
+  .city-closing {
+    margin: 16px;
+  }
+  .city-why {
+    padding: 48px 0;
+  }
+  .site-footer {
+    padding: 40px 24px 24px;
+  }
+}
+
+/* Home composition: header, hero and content blocks share one max-width and gutter. */
+:root {
+  --g: 64px;
+  --page-max: 1312px;
+}
+@media (max-width: 1279px) {
+  :root {
+    --g: 24px;
+  }
+}
+@media (max-width: 640px) {
+  :root {
+    --g: 16px;
+  }
+}
+body:has(.landing-page) .announcement {
+  background: var(--soft);
+}
+.header-slot.is-home {
+  padding-inline: var(--g);
+}
+.header-slot.is-home .site-header {
+  max-width: var(--page-max);
+  background: var(--soft);
+}
+.header-slot.is-home .header-inner {
+  justify-content: flex-start;
+}
+.header-slot.is-home .header-brand-group > .drawer-trigger {
+  display: none;
+}
+.home-links {
+  display: flex;
+  gap: 24px;
+  margin-left: 32px;
+}
+.home-links a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.header-slot.is-home .city-picker {
+  margin-left: auto;
+}
+.header-slot.is-home .city-picker .city-trigger,
+.landing-page .city-picker .city-trigger {
+  background: var(--pill);
+  color: var(--on-pill);
+  border-color: var(--pill);
+  min-height: 56px;
+  padding: 0 28px;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.header-slot.is-home .city-picker .city-trigger:hover {
+  background: color-mix(in srgb, var(--pill) 88%, var(--ink));
+}
+.city-chevron {
+  flex: none;
+}
+.landing-page {
+  max-width: none;
+}
+.landing-page > section {
+  width: auto;
+  margin-inline: max(var(--g), (100% - var(--page-max)) / 2);
+}
+.landing-page > .home-feature {
+  padding-inline: 0;
+}
+.landing-page > .home-hero {
+  border-radius: 28px;
+}
+.home-hero .hero-visual {
+  border-radius: 28px;
+}
+.landing-hero-copy {
+  width: min(900px, calc(100% - 64px));
+}
+.landing-hero-copy h1 {
+  max-width: 900px;
+  font-size: clamp(38px, 5.9vw, 70px);
+  font-weight: 600;
+  line-height: 1.05;
+}
+.landing-hero-copy > p {
+  max-width: 640px;
+  font-size: clamp(16px, 1.6vw, 19px);
+  line-height: 1.6;
+}
+.video-toggle {
+  top: auto;
+  right: 16px;
+  bottom: 16px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  padding: 0;
+  border-radius: 50%;
+}
+.landing-page .feature-card {
+  background: var(--soft);
+}
+.avatar-circle {
+  flex: none;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 6px solid var(--band);
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 600;
+  background: var(--pill);
+  color: var(--on-pill);
+}
+.avatar-circle + .avatar-circle {
+  margin-left: -24px;
+}
+.avatar-circle:nth-child(2) {
+  background: var(--ink);
+  color: var(--white);
+}
+.avatar-circle:nth-child(3) {
+  background: var(--soft);
+  color: var(--ink);
+}
+.avatar-circle:nth-child(4) {
+  background: var(--surface);
+  color: var(--ink);
+}
+.home-community .button {
+  background: var(--pill);
+  color: var(--on-pill);
+  border-color: var(--pill);
+  min-height: 56px;
+  padding-inline: 28px;
+}
+/* Footer: home contact/legal on the left, socials on the right; theme row. */
+.footer-main--home {
+  grid-template-columns: 1fr auto;
+}
+.footer-contact-line {
+  margin: 14px 0 0;
+  font-size: 14px;
+}
+.footer-contact-line span {
+  font-size: 12px;
+  opacity: 0.8;
+}
+.footer-home-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--footer-muted);
+}
+.footer-theme {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+.footer-theme-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.footer-theme .theme-options {
+  position: static;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.footer-theme .theme-option {
+  color: var(--footer-ink);
+  border: 1px solid var(--footer-muted);
+  border-radius: 999px;
+  min-height: 44px;
+}
+.site-footer .footer-theme .theme-option[aria-checked="true"] {
+  background: var(--white);
+  color: var(--ink);
+  border-color: var(--white);
+}
+@media (max-width: 640px) {
+  .header-slot.is-home .header-brand-group > .drawer-trigger {
+    display: grid;
+  }
+  .home-links {
+    display: none;
+  }
+  .header-slot.is-home .wordmark {
+    font-size: 19px;
+  }
+  .header-slot.is-home .header-inner {
+    gap: 6px;
+    padding-inline: 10px;
+  }
+  .header-slot.is-home .city-picker .city-trigger,
+  .landing-page .city-picker .city-trigger {
+    min-height: 48px;
+    padding: 0 16px;
+    font-size: 13px;
+    gap: 6px;
+  }
+  .header-slot.is-home .city-picker .city-trigger {
+    min-height: 44px;
+  }
+  .avatar-circle {
+    width: 72px;
+    height: 72px;
+    font-size: 24px;
+    border-width: 4px;
+  }
+  .avatar-circle + .avatar-circle {
+    margin-left: -14px;
+  }
+  .footer-main--home {
+    grid-template-columns: 1fr;
+  }
+  .landing-page .city-picker .city-trigger {
+    min-height: 56px;
+    font-size: 15px;
+    padding: 0 24px;
+  }
+}
+.footer-theme .theme-option {
+  font-size: 12px;
+  padding: 10px 14px;
+}
+.landing-hero-copy .city-picker .city-trigger {
+  box-shadow: 0 0 0 2px var(--white);
+}
+body:has(.landing-page) .announcement-inner {
+  min-height: 44px;
+}
+.site-footer.site-footer--home {
+  width: auto;
+  max-width: none;
+  margin-inline: max(var(--g), (100% - var(--page-max)) / 2);
+}
+/* Fixed theme control: bottom-left, collapsed by default, opens upward. */
+.theme-fab {
+  position: fixed;
+  left: 16px;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 60;
+}
+.theme-fab-toggle {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--ink-2);
+  box-shadow: var(--shadow-card);
+}
+.theme-fab .theme-options[hidden] {
+  display: none;
+}
+.theme-fab .theme-options {
+  position: absolute;
+  left: 0;
+  bottom: 56px;
+  flex-direction: column;
+  gap: 4px;
+  width: max-content;
+  padding: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+}
+.theme-fab .theme-option {
+  justify-content: flex-start;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: var(--ink);
+}
+.theme-fab .theme-option:hover {
+  background: var(--band);
 }

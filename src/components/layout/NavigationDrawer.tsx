@@ -84,9 +84,6 @@ export function NavigationDrawer() {
             <Link to="/" onClick={close}>
               {homeRevision.homeLabel}
             </Link>
-            <Link to="/explore" onClick={close}>
-              {homeRevision.exploreLabel}
-            </Link>
             {navigation.map((item) => (
               <Link key={item.to} to={item.to} onClick={close}>
                 {item.label}

@@ -2,10 +2,9 @@ import * as m from "motion/react-m";
 import { useReducedMotion } from "motion/react";
 import { reveal, revealViewport } from "../features/motion/reveal";
 import { createFileRoute } from "@tanstack/react-router";
-import { homeLabels, homeRevision, inspirationCircles } from "../data/home";
+import { homeLabels, homeRevision, avatarInitials } from "../data/home";
 import { CityPicker } from "../components/ui/CityPicker";
 import { HeroVideo } from "../components/ui/HeroVideo";
-import { ResponsiveImage } from "../components/ui/ResponsiveImage";
 import { ButtonLink } from "../components/ui/Button";
 import { pageHead } from "../lib/head";
 export const Route = createFileRoute("/")({
@@ -63,15 +62,10 @@ function Home() {
       </m.section>
       <m.section className="home-community" {...entrance}>
         <div className="inspiration-circles" aria-hidden="true">
-          {inspirationCircles.map((image) => (
-            <ResponsiveImage
-              key={image.name}
-              name={image.name}
-              width={image.width}
-              height={image.height}
-              alt=""
-              sizes="112px"
-            />
+          {avatarInitials.map((initial) => (
+            <span key={initial} className="avatar-circle">
+              {initial}
+            </span>
           ))}
         </div>
         <h2>{homeRevision.communityTitle}</h2>

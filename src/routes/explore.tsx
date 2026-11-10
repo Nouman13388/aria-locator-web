@@ -3,32 +3,26 @@ import { actions } from "../data/actions";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { process } from "../data/site";
 import { exampleSearches, homePrinciples } from "../data/pages";
-import { sampleHomesForCity } from "../data/listings";
-import { CITIES, exploreSearchSchema, cityPickerCopy } from "../data/cities";
+import { listings } from "../data/listings";
 import { Intro, Section } from "../components/ui/Section";
 import { ButtonLink } from "../components/ui/Button";
 import { ListingCard } from "../features/listings/ListingCard";
 import { ProcessIcon } from "../components/ui/ProcessIcon";
 import { pageHead } from "../lib/head";
 export const Route = createFileRoute("/explore")({
-  validateSearch: exploreSearchSchema,
   head: () =>
     pageHead(homeRevision.exploreLabel, homeRevision.exploreDescription),
   component: Explore,
 });
 function Explore() {
-  const { city: slug } = Route.useSearch();
-  const city = CITIES.find((item) => item.slug === slug);
-  const samples = sampleHomesForCity(slug);
+  const samples = listings.slice(0, 3);
   return (
     <div className="explore-page">
       <Intro
         eyebrow={homeRevision.exploreLabel}
-        title={
-          city ? cityPickerCopy.heading(city.name) : homeRevision.exploreTitle
-        }
+        title={homeRevision.exploreTitle}
       >
-        {city ? city.blurb : homeRevision.exploreDescription}
+        {homeRevision.exploreDescription}
       </Intro>
       <Section>
         <div className="example-searches">
@@ -77,21 +71,13 @@ function Explore() {
             <span className="sample-label">{homeLabels.sampleLabel}</span>
             <h2>{homeLabels.sampleTitle}</h2>
           </div>
-          <p>
-            {city ? cityPickerCopy.sampleNote : homeLabels.sampleDescription}
-          </p>
+          <p>{homeLabels.sampleDescription}</p>
         </div>
         <div className="listing-grid">
           {samples.map((item) => (
             <ListingCard key={item.id} listing={item} />
           ))}
         </div>
-        {samples.length === 0 && (
-          <div className="empty-state" role="status">
-            <h3>{cityPickerCopy.emptyTitle}</h3>
-            <p>{cityPickerCopy.emptyText}</p>
-          </div>
-        )}
         <div className="actions actions-center">
           <ButtonLink to="/listings" appearance="secondary">
             {homeLabels.seeSamples} <span aria-hidden="true">→</span>

@@ -7,8 +7,8 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
-import { Link } from "@tanstack/react-router";
-import { CITIES, cityPickerCopy } from "../../data/cities";
+import { Link, useParams } from "@tanstack/react-router";
+import { CITIES, cityPickerCopy, findCity } from "../../data/cities";
 import {
   getSavedCity,
   getServerCity,
@@ -22,6 +22,7 @@ export function CityPicker({
   variant?: "header" | "hero";
   onChoose?: () => void;
 }) {
+  const active = findCity(useParams({ strict: false }).city);
   const [open, setOpen] = useState(false);
   const selected = useSyncExternalStore(
     subscribeCity,
@@ -90,10 +91,21 @@ export function CityPicker({
         aria-controls={id}
         onClick={() => setOpen(!open)}
       >
-        {cityPickerCopy.trigger}
-        <span className="city-chevron" aria-hidden="true">
-          ⌄
-        </span>
+        {active?.name ?? cityPickerCopy.trigger}
+        <svg
+          className="city-chevron"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
       </button>
       <m.div
         hidden={!open}
@@ -112,8 +124,9 @@ export function CityPicker({
             <Link
               key={city.slug}
               role="menuitem"
-              to="/explore"
-              search={{ city: city.slug }}
+              to="/{$city}-apartments"
+              params={{ city: city.slug }}
+              aria-current={active?.slug === city.slug ? "page" : undefined}
               data-selected={selected === city.slug || undefined}
               onClick={() => {
                 saveCity(city.slug);

@@ -96,3 +96,24 @@ At 1440px the panel is 340px wide and 122px tall for our four demo entries. It o
 Playwright verified both exact edge alignments, two columns, keyboard/Tab/Escape and outside dismissal, city routing/restoration, and 390/768/1440px containment across all palettes. Mobile keeps the compact two-column bottom sheet and inline drawer menu. Typecheck, 37 tests, and build pass. No deploy or Wrangler changes.
 
 Captures: [header at 1440px](qa/city-picker-header-1440.jpg), [hero at 1440px](qa/city-picker-hero-1440.jpg), [390px sheet](qa/city-picker-390.jpg). Only the four requested demo cities are included; reference copy, imagery, brand, city inventory, and blue palette were not imported.
+
+## City landing pages verification
+
+- `/{slug}-apartments` resolves for all 8 demo cities (200, per-city title, canonical, og tags in SSR HTML); unknown slugs return 404 with a friendly page and picker. Tests cover unique slugs, lookup, head tags and a banned-claim-word scan of `src`.
+- Playwright (Chromium) at 1440/894/390px in all three themes: no horizontal overflow, hero bubbles inside the viewport, header content not overflowing, 0 console errors/warnings and no hydration warnings in the dev build.
+- Picker: reads "Choose a city" on Home and the city name on a city page; Enter opens, ArrowDown moves focus, Escape closes and returns focus, outside click closes, selection navigates and saves `keenest-city`, active city has `aria-current`. Mobile drawer picker navigates and closes the drawer. Items are about 47px tall.
+- Reduced motion disables the bubble float (CSS only, no added JS). No new dependency; `m` components only.
+- Captures: `qa/city-*.jpg`.
+- Not verified: Safari/Firefox, physical devices, screen readers, Lighthouse and bundle size for this change, deployed environment.
+
+## Home layout fidelity pass
+
+- `scripts/qa-home-edges.mjs` (Playwright, installed separately with `npm i --no-save playwright`) loads Home at 1440/1190/894/390px in all three themes and asserts: header, hero and footer share identical left/right edges via `getBoundingClientRect` (64px gutter at 1440, 24px at 1190/894, 16px at 390, content max 1312px); no horizontal overflow; announcement visible on first load (44px tall); 0 console errors. All 12 combinations passed.
+- Home header: logo, About and FAQ, one accent "Choose a city" pill. Mobile: hamburger, logo, pill. Other routes keep the full header (checked on a city page). Header and hero pills are both 191x56px at 1190px.
+- Hero: H1 70px (clamp) in 2 lines, 3-line paragraph at 640px, accent pill with an 18px chevron icon opening the shared picker. The pause control is a small 44px round button at bottom-right and stays keyboard-focusable. Poster-only behaviour on mobile and reduced motion is unchanged.
+- Theme switcher is gone from the page overlay and is now a "Theme" row in the footer (same `keenest-theme` key; selecting Teal persisted).
+- New tokens `--pill`/`--on-pill` (Grey #707070, Teal #0a7a76, Navy #0f2747, white text, all above 4.5:1) and `--soft` (announcement and header tints). The existing `--accent` is unchanged because Teal and Sun accents fail AA with white text. Home pills use `--pill`; the city-page pills were left as they were.
+- Avatars are generated initials circles; footer social icons are inline SVGs (Instagram, TikTok, Facebook, LinkedIn; lucide-style paths, no new dependency; TikTok is a simple outline glyph). Links are `#` placeholders.
+- Announcement dismissal still persists for the tab session (`sessionStorage`, key `keenest-announcement-dismissed`), not across browser restarts.
+- Captures: `qa/home-<theme>-<width>.jpg`, `qa/home-full-<width>.jpg`.
+- Not verified: pixel comparison with the reference (no reference screenshot is available to me), Safari/Firefox, devices, screen readers, Lighthouse and bundle size.
