@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-10",
+  "results": [
+    {
+      "width": 390,
+      "theme": "grey-white",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "theme": "fresh-teal",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "theme": "navy-sun",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "theme": "grey-white",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "theme": "fresh-teal",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "theme": "navy-sun",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "theme": "grey-white",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "theme": "fresh-teal",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "theme": "navy-sun",
+      "passed": true
+    }
+  ],
+  "counts": [
+    {
+      "slug": "houston",
+      "count": 3
+    },
+    {
+      "slug": "dallas",
+      "count": 2
+    },
+    {
+      "slug": "austin",
+      "count": 2
+    },
+    {
+      "slug": "san-antonio",
+      "count": 2
+    }
+  ],
+  "errors": []
+}
