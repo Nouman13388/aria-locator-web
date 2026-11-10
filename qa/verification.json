@@ -1,0 +1,89 @@
+{
+  "date": "2026-11-10",
+  "typecheck": "passed",
+  "unitTests": 34,
+  "build": "passed",
+  "viewports": [
+    390,
+    768,
+    1440
+  ],
+  "routeCount": 7,
+  "shared404": true,
+  "themesChangeColorsOnly": true,
+  "formSubmitNetworkRequests": 0,
+  "nameEmailPhonePersisted": false,
+  "deploymentPerformed": false,
+  "palettes": [
+    {
+      "palette": "Kee Nest Grey & White",
+      "id": "grey-white",
+      "mobile": {
+        "performance": 79,
+        "lcpSeconds": 4.999,
+        "cls": 0,
+        "tbtMilliseconds": 0
+      },
+      "desktop": {
+        "performance": 99,
+        "lcpSeconds": 1.033,
+        "cls": 0.000004236713072410472,
+        "tbtMilliseconds": 0
+      },
+      "minimumHeroContrast": 5.74
+    },
+    {
+      "palette": "Fresh Teal",
+      "id": "fresh-teal",
+      "mobile": {
+        "performance": 83,
+        "lcpSeconds": 4.667,
+        "cls": 0,
+        "tbtMilliseconds": 0
+      },
+      "desktop": {
+        "performance": 99,
+        "lcpSeconds": 1.034,
+        "cls": 0.000004236713072410472,
+        "tbtMilliseconds": 0
+      },
+      "minimumHeroContrast": 12.75
+    },
+    {
+      "palette": "Navy & Sun",
+      "id": "navy-sun",
+      "mobile": {
+        "performance": 79,
+        "lcpSeconds": 4.973,
+        "cls": 0,
+        "tbtMilliseconds": 0
+      },
+      "desktop": {
+        "performance": 98,
+        "lcpSeconds": 1.073,
+        "cls": 0.000004236713072410472,
+        "tbtMilliseconds": 0
+      },
+      "minimumHeroContrast": 11.25
+    }
+  ],
+  "clientJavaScript": {
+    "before": {
+      "bytes": 480569,
+      "gzip": 154749
+    },
+    "after": {
+      "bytes": 577329,
+      "gzip": 190738
+    },
+    "delta": {
+      "bytes": 96760,
+      "gzip": 35989
+    },
+    "animation": {
+      "name": "domAnimation-DTKBj-vM.js",
+      "bytes": 49217,
+      "gzip": 18732
+    }
+  }
+}

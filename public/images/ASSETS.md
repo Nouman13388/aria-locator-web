@@ -1,12 +1,5 @@
-# Original Stitch project assets
+# Kee Nest image provenance
 
-Exported on 2026-11-10 from the user's owned Stitch project `14975129665267422418`. The user explicitly confirmed these project images are cleared for this demo. No third-party website imagery is used. These generated images illustrate fictional spaces and are not representations of available apartments.
+These are the four original project images explicitly cleared by the user for this demo. Sources are inventoried in `design/media/INVENTORY.md`. Every image is illustrative and does not depict an available property.
 
-| Local asset | Original generated image screen |
-| --- | --- |
-| keenest-exterior.webp | 6788b925c75f4620aed077570162ae5b |
-| keenest-living.webp | 5d2861fc72484f3aa71f5079f2d639eb |
-| keenest-kitchen.webp | 3dca33c13dbc4109987e001675925c35 |
-| keenest-bedroom.webp | a2ad2e6813fc4fb98603e9acfc205303 |
-
-PNG exports were converted locally to WebP at quality 85; original dimensions are retained. Listing names, prices, details, and descriptions were written for this demo. They are placeholders.
+`keenest-exterior`, `keenest-living`, `keenest-kitchen`, and `keenest-bedroom` each have a full-size and 640px WebP plus JPEG fallback. No image is hotlinked. Production components provide source sets, dimensions, descriptive alt text, and lazy loading below the fold.

@@ -1,9 +1,11 @@
-# Hero media
+# Kee Nest hero media
 
-The user supplied `video.mp4` at the repository root. The original 7.6 MB master is ignored, and is not committed. All public renditions are silent, 24fps, and approximately ten seconds long.
+Source: the user-supplied master, moved from the repository root to ignored `design/media/hero-original.mp4`. Both public video renditions are silent, 24fps, approximately ten seconds, and below 3 MB.
 
-- `hero.mp4`: H.264, CRF 28, veryfast, 1920px wide, faststart, no audio.
-- `hero.webm`: VP9, CRF 36, zero target bitrate, source width 1280px, no audio. Keeping the original width avoids an unnecessary upscale and reduces this rendition below 3 MB.
-- `poster.jpg`: frame zero, 1280 × 720, optimized progressive JPEG. `poster.webp` is the smaller frame-zero derivative used by supporting browsers as the high-priority LCP image; `poster-mobile.webp` is a 960 × 540 rendition selected at ≤640px; the video retains its JPEG poster fallback.
+- `hero.mp4`: H.264, 1920 × 1080, CRF 28, veryfast, faststart.
+- `hero.webm`: VP9, 1280 × 720, CRF 36, zero target bitrate. Keeping the source width avoids an unnecessary upscale and keeps the file below the size limit.
+- `poster.jpg`: frame zero, 1280 × 720, optimized progressive JPEG, retained as the video/fallback poster.
+- `poster.webp`: 1280 × 720 frame-zero image for supporting desktop browsers.
+- `poster-mobile.webp`: 960 × 540 image selected at ≤640px. The poster is the high-priority LCP image.
 
-Generated with ffmpeg and optimized locally. No third-party media was downloaded. Regenerate from the ignored master with the commands recorded in QA.md.
+Small viewports, reduced motion, and Save-Data use only the poster; video sources are not mounted or requested. Playback controls are visible and keyboard accessible on eligible viewports. No audio player is enabled.

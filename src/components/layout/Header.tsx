@@ -96,7 +96,7 @@ export function Header() {
                 <button
                   ref={trigger}
                   aria-expanded={more}
-                  aria-controls="more-navigation"
+                  aria-controls={more ? "more-navigation" : undefined}
                   onClick={() => setMore(!more)}
                 >
                   {homeLabels.more} <span aria-hidden="true">⌄</span>

@@ -46,7 +46,7 @@ export const mustHaveOptions = [
   "Natural light",
   "Outdoor space",
   "In-unit laundry",
-  "Step-free access",
+  "Entry without stairs",
 ];
 export const amenityOptions = [
   "Fitness space",

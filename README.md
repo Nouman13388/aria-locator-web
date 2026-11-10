@@ -20,3 +20,7 @@ Media originals are retained locally in `design/media/` and ignored by Git; opti
 The root `logo.jpeg` supplies generated icons and the share image. Header/footer use a thin, wide-tracked, currentColor text wordmark. Regenerate icon assets with `node scripts/make-favicons.mjs` (pinned Sharp development dependency).
 
 Locally hosted Inter and Plus Jakarta Sans include their OFL notices. The restrained Motion integration is pinned and uses lazy `domAnimation`, `m` components, and the user's reduced-motion preference. No animation is applied to questionnaire fields. There are no live listings, matching, inquiries, bookings, analytics, or backend storage. Samples have placeholder prices and dimensions. Contact is `hello@example.com`, labelled demo.
+
+See `design/media/INVENTORY.md` for source-to-slot mapping and unused media. Home includes tab-persistent announcement dismissal, a compact sticky header, overlapping example searches, manual/swipe carousels, a filterable sample grid, and non-linked social/legal placeholders. Images have responsive WebP sources plus JPEG fallbacks. Hero video is suppressed on small viewports, reduced motion, and Save-Data, with accessible pause/play elsewhere. The optional audio player is intentionally omitted.
+
+Final browser, contrast, Lighthouse, and bundle results are in `QA.md`; comparison captures and a compact results file are in `qa/`. Deployment remains a separate user action.
