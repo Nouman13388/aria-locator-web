@@ -1973,3 +1973,12 @@ body,
     font-size: 10px;
   }
 }
+.hero-visual .hero-wash {
+  z-index: 2;
+}
+@media (max-width: 1023px) {
+  .hero-wash {
+    background: color-mix(in srgb, var(--hero) 70%, var(--ink));
+    opacity: 0.9;
+  }
+}
