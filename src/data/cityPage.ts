@@ -1,21 +1,13 @@
-import { siteName, siteUrl } from "./site";
-import { cityPath, type City } from "./cities";
-export const cityHead = (city: City) => {
-  const title = `${city.name} apartments (demo) | ${siteName}`;
-  const description = `A demo landing page for ${city.name}: explore sample neighborhoods and fictional listings, then try the ${siteName} questionnaire. Nothing is sent.`;
-  const url = siteUrl + cityPath(city.slug);
-  return {
-    links: [{ rel: "canonical", href: url }],
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: url },
-    ],
-  };
-};
+import { siteName } from "./site";
+import type { City } from "./cities";
+import { cityPageHead } from "../lib/cityHead";
+export const cityHead = (city: City) =>
+  cityPageHead(
+    city,
+    undefined,
+    `${city.name} apartments (demo)`,
+    `A demo landing page for ${city.name}: explore sample neighborhoods and fictional listings, then try the ${siteName} get-started form. Nothing is sent.`,
+  );
 export const cityCopy = {
   heroTitle: (name: string) => `We’ll find your next ${name} apartment.`,
   heroText:
@@ -33,19 +25,19 @@ export const cityCopy = {
       title: "Tell us your needs",
       text: "Share the layout, surroundings and routines that matter to you.",
       link: "Explore neighborhoods",
-      to: "/neighborhoods",
+      section: "neighborhoods" as const,
     },
     {
       title: "Get matched",
       text: "See how your preferences line up with sample homes and areas.",
       link: "Browse listings",
-      to: "/listings",
+      section: "listings" as const,
     },
     {
       title: "Move-in support",
       text: "Plan the practical side of moving day, one checklist at a time.",
       link: "Meet Moving Concierge",
-      to: "/moving-concierge",
+      section: "concierge" as const,
     },
   ],
   featuredTitle: (name: string) => `Sample homes in ${name}`,
@@ -79,68 +71,5 @@ export const cityCopy = {
   notFoundTitle: "We don’t have that city yet.",
   notFoundText: "Pick one of the demo cities below to continue.",
 };
-export const footerColumns = [
-  [
-    { to: "/listings", label: "Listings" },
-    { to: "/neighborhoods", label: "Neighborhoods" },
-    { to: "/moving-concierge", label: "Moving Concierge" },
-    { to: "/sitemap", label: "Sitemap" },
-  ],
-  [
-    { to: "/how-it-works", label: "Process" },
-    { to: "/faq", label: "FAQ" },
-    { to: "/about", label: "About" },
-    { to: "/contact", label: "Contact" },
-  ],
-] as const;
 export const footerSocials = ["Social profile one", "Social profile two", "Social profile three"];
-export const footerLegal = [
-  "Privacy (placeholder)",
-  "Accessibility (placeholder)",
-  "Demo disclaimer",
-];
-export const footerDisclaimer =
-  "Demo website. No real inquiries, listings or bookings.";
-export const neighborhoodsPage = {
-  eyebrow: "Neighborhoods",
-  title: "Find the surroundings that fit your day.",
-  intro:
-    "Sample areas for each demo city. Names and descriptions are fictional placeholders for a client’s real markets.",
-  areaNote: "Sample neighborhood",
-  traits: [
-    "Tree-lined streets and a nearby green space.",
-    "A short walk to everyday errands and cafés.",
-    "Quiet evenings with easy access to main routes.",
-  ],
-};
-export const conciergePage = {
-  eyebrow: "Moving Concierge",
-  title: "Move-in support, one small task at a time.",
-  intro:
-    "A demo outline of the help a concierge could offer around moving day. Nothing here is a live service.",
-  stepsTitle: "What the support could cover",
-  steps: [
-    { title: "Plan the timeline", text: "Line up notice dates, key pickup and the week you want to move." },
-    { title: "Sort the logistics", text: "Keep utilities, parking and building rules in one short checklist." },
-    { title: "Settle in", text: "Note the first-week tasks so the new place feels like home sooner." },
-  ],
-  note: "Illustrative content for a demo concierge page.",
-};
-export const sitemapPage = {
-  eyebrow: "Sitemap",
-  title: "Every page in one place.",
-  intro: "All pages of this demo, including the sample city pages.",
-  pages: [
-    { to: "/", label: "Home" },
-    { to: "/listings", label: "Listings" },
-    { to: "/neighborhoods", label: "Neighborhoods" },
-    { to: "/moving-concierge", label: "Moving Concierge" },
-    { to: "/how-it-works", label: "Process" },
-    { to: "/explore", label: "Explore" },
-    { to: "/about", label: "About" },
-    { to: "/faq", label: "FAQ" },
-    { to: "/contact", label: "Contact" },
-    { to: "/get-started", label: "Get started" },
-  ],
-  citiesTitle: "Demo city pages",
-};
+export const footerDisclaimer = "Demo website. No real inquiries, listings or bookings.";

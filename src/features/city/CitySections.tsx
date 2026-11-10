@@ -4,7 +4,10 @@ import { ButtonLink } from "../../components/ui/Button";
 import { cityCopy } from "../../data/cityPage";
 import { contact } from "../../data/site";
 import type { City } from "../../data/cities";
-import { CityListingCard } from "./CityListingCard";
+import { ListingCard } from "../listings/ListingCard";
+import { listingsForCity } from "../../data/listings";
+import { cityHref } from "../../data/cityLinks";
+import { useCityScope } from "./useCityScope";
 export function CityHero({ city }: { city: City }) {
   const image =
     city.hero === "keenest-exterior"
@@ -18,16 +21,20 @@ export function CityHero({ city }: { city: City }) {
         <ButtonLink>{cityCopy.heroCta}</ButtonLink>
       </div>
       <div className="city-hero-media">
-        <ResponsiveImage
-          name={city.hero}
-          alt={city.heroAlt}
-          width={image.width}
-          height={image.height}
-          loading="eager"
-          fetchPriority="high"
-          sizes="(max-width: 900px) calc(100vw - 32px), 560px"
-          style={{ objectPosition: city.heroPosition }}
-        />
+        {city.heroImage ? (
+          <img src={city.heroImage} alt={city.heroAlt} width={1200} height={1500} fetchPriority="high" style={{ objectPosition: city.heroPosition }} />
+        ) : (
+          <ResponsiveImage
+            name={city.hero}
+            alt={city.heroAlt}
+            width={image.width}
+            height={image.height}
+            loading="eager"
+            fetchPriority="high"
+            sizes="(max-width: 900px) calc(100vw - 32px), 560px"
+            style={{ objectPosition: city.heroPosition }}
+          />
+        )}
         <ul className="city-bubbles" aria-label={cityCopy.bubblesLabel}>
           {cityCopy.bubbles.map((bubble) => (
             <li key={bubble.initial}>
@@ -43,6 +50,7 @@ export function CityHero({ city }: { city: City }) {
   );
 }
 export function CityHow() {
+  const slug = useCityScope();
   return (
     <section className="city-section wrap" aria-labelledby="how-title">
       <div className="city-heading">
@@ -54,7 +62,7 @@ export function CityHow() {
           <article key={item.title}>
             <h3>{item.title}</h3>
             <p>{item.text}</p>
-            <Link to={item.to} className="inline-link">
+            <Link to={cityHref(slug, item.section)} className="inline-link">
               {item.link} <span aria-hidden="true">→</span>
             </Link>
           </article>
@@ -71,12 +79,12 @@ export function CityFeatured({ city }: { city: City }) {
         <p>{cityCopy.featuredNote}</p>
       </div>
       <div className="city-cards">
-        {city.sampleListings.map((listing) => (
-          <CityListingCard key={listing.id} city={city} listing={listing} />
+        {listingsForCity(city).filter((l) => l.featured).concat(listingsForCity(city)).slice(0, 3).map((listing) => (
+          <ListingCard key={listing.id} listing={listing} />
         ))}
       </div>
       <div className="actions actions-center">
-        <ButtonLink to="/listings" appearance="secondary">
+        <ButtonLink to={cityHref(city.slug, "listings")} appearance="secondary">
           {cityCopy.seeAll}
         </ButtonLink>
       </div>
@@ -108,7 +116,7 @@ export function CityClosing({ city }: { city: City }) {
       <p>{cityCopy.closingText}</p>
       <div className="actions actions-center">
         <ButtonLink>{cityCopy.heroCta}</ButtonLink>
-        <Link to="/faq" className="inline-link">
+        <Link to={cityHref(city.slug, "faq")} className="inline-link">
           {cityCopy.learnMore} <span aria-hidden="true">→</span>
         </Link>
       </div>

@@ -1,12 +1,9 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Wordmark } from "./Wordmark";
 import { contact, siteName } from "../../data/site";
-import {
-  footerColumns,
-  footerDisclaimer,
-  footerLegal,
-  footerSocials,
-} from "../../data/cityPage";
+import { footerDisclaimer, footerSocials } from "../../data/cityPage";
+import { footerColumns, legalLinks } from "../../data/cityLinks";
+import { useCityScope } from "../../features/city/useCityScope";
 const icons = [
   <>
     <rect width="20" height="20" x="2" y="2" rx="5" />
@@ -22,7 +19,7 @@ const icons = [
   </>,
 ];
 const homeSocials = ["Instagram", "TikTok", "Facebook", "LinkedIn"];
-function HomeFooter() {
+function HomeFooter({ slug }: { slug: string }) {
   return (
     <footer className="site-footer site-footer--home">
       <div className="footer-main footer-main--home">
@@ -35,8 +32,10 @@ function HomeFooter() {
             {contact.phone} <span>({contact.phoneLabel})</span>
           </p>
           <ul className="footer-home-legal">
-            {footerLegal.map((label) => (
-              <li key={label}>{label}</li>
+            {legalLinks.map((item) => (
+              <li key={item.label}>
+                <Link to={item.to}>{item.label}</Link>
+              </li>
             ))}
           </ul>
         </div>
@@ -62,7 +61,8 @@ function HomeFooter() {
 }
 export function Footer() {
   const isHome = useRouterState({ select: (state) => state.location.pathname === "/" });
-  if (isHome) return <HomeFooter />;
+  const slug = useCityScope();
+  if (isHome) return <HomeFooter slug={slug} />;
   return (
     <footer className="site-footer">
       <div className="footer-main">
@@ -71,7 +71,7 @@ export function Footer() {
           <p>{footerDisclaimer}</p>
         </div>
         <nav className="footer-cols" aria-label="Footer navigation">
-          {footerColumns.map((column, i) => (
+          {footerColumns(slug).map((column, i) => (
             <ul key={i}>
               {column.map((item) => (
                 <li key={item.label}>
@@ -93,8 +93,10 @@ export function Footer() {
       </div>
       <div className="footer-legal">
         <ul>
-          {footerLegal.map((label) => (
-            <li key={label}>{label}</li>
+          {legalLinks.map((item) => (
+            <li key={item.label}>
+              <Link to={item.to}>{item.label}</Link>
+            </li>
           ))}
         </ul>
         <p>© {new Date().getFullYear()} {siteName}</p>

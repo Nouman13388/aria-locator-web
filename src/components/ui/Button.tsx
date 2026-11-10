@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { cityHref } from "../../data/cityLinks";
+import { useCityScope } from "../../features/city/useCityScope";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 export function Button({
   children,
@@ -12,7 +14,7 @@ export function Button({
   );
 }
 export function ButtonLink({
-  to = "/get-started",
+  to,
   children,
   appearance = "",
 }: {
@@ -20,8 +22,9 @@ export function ButtonLink({
   children: ReactNode;
   appearance?: string;
 }) {
+  const slug = useCityScope();
   return (
-    <Link to={to} className={`button ${appearance}`}>
+    <Link to={to ?? cityHref(slug, "get-started")} className={`button ${appearance}`}>
       {children}
     </Link>
   );

@@ -11,16 +11,29 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AccessibilityRouteImport } from './routes/accessibility'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as GetStartedRouteImport } from './routes/get-started'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as LegalRouteImport } from './routes/legal'
 import { Route as ListingsRouteImport } from './routes/listings'
 import { Route as MovingConciergeRouteImport } from './routes/moving-concierge'
 import { Route as NeighborhoodsRouteImport } from './routes/neighborhoods'
 import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as Char123cityChar125ApartmentsRouteImport } from './routes/{$city}-apartments'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as Char123cityChar125ApartmentListingIdRouteImport } from './routes/{$city}-apartment/$listingId'
+import { Route as Char123cityChar125ApartmentsIndexRouteImport } from './routes/{$city}-apartments/index'
+import { Route as Char123cityChar125ApartmentsAboutUsRouteImport } from './routes/{$city}-apartments/about-us'
+import { Route as Char123cityChar125ApartmentsConciergeRouteImport } from './routes/{$city}-apartments/concierge'
+import { Route as Char123cityChar125ApartmentsFaqRouteImport } from './routes/{$city}-apartments/faq'
+import { Route as Char123cityChar125ApartmentsGetStartedRouteImport } from './routes/{$city}-apartments/get-started'
+import { Route as Char123cityChar125ApartmentsListingsRouteImport } from './routes/{$city}-apartments/listings'
+import { Route as Char123cityChar125ApartmentsNeighborhoodsRouteImport } from './routes/{$city}-apartments/neighborhoods'
+import { Route as Char123cityChar125ApartmentsOurProcessRouteImport } from './routes/{$city}-apartments/our-process'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -30,6 +43,16 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccessibilityRoute = AccessibilityRouteImport.update({
+  id: '/accessibility',
+  path: '/accessibility',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -55,6 +78,11 @@ const GetStartedRoute = GetStartedRouteImport.update({
 const HowItWorksRoute = HowItWorksRouteImport.update({
   id: '/how-it-works',
   path: '/how-it-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalRoute = LegalRouteImport.update({
+  id: '/legal',
+  path: '/legal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ListingsRoute = ListingsRouteImport.update({
@@ -83,108 +111,247 @@ const Char123cityChar125ApartmentsRoute =
     path: '/{$city}-apartments',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
+const Char123cityChar125ApartmentListingIdRoute =
+  Char123cityChar125ApartmentListingIdRouteImport.update({
+    id: '/{$city}-apartment/$listingId',
+    path: '/{$city}-apartment/$listingId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char123cityChar125ApartmentsIndexRoute =
+  Char123cityChar125ApartmentsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => Char123cityChar125ApartmentsRoute,
+  } as any)
+const Char123cityChar125ApartmentsAboutUsRoute =
+  Char123cityChar125ApartmentsAboutUsRouteImport.update({
+    id: '/about-us',
+    path: '/about-us',
+    getParentRoute: () => Char123cityChar125ApartmentsRoute,
+  } as any)
+const Char123cityChar125ApartmentsConciergeRoute =
+  Char123cityChar125ApartmentsConciergeRouteImport.update({
+    id: '/concierge',
+    path: '/concierge',
+    getParentRoute: () => Char123cityChar125ApartmentsRoute,
+  } as any)
+const Char123cityChar125ApartmentsFaqRoute =
+  Char123cityChar125ApartmentsFaqRouteImport.update({
+    id: '/faq',
+    path: '/faq',
+    getParentRoute: () => Char123cityChar125ApartmentsRoute,
+  } as any)
+const Char123cityChar125ApartmentsGetStartedRoute =
+  Char123cityChar125ApartmentsGetStartedRouteImport.update({
+    id: '/get-started',
+    path: '/get-started',
+    getParentRoute: () => Char123cityChar125ApartmentsRoute,
+  } as any)
+const Char123cityChar125ApartmentsListingsRoute =
+  Char123cityChar125ApartmentsListingsRouteImport.update({
+    id: '/listings',
+    path: '/listings',
+    getParentRoute: () => Char123cityChar125ApartmentsRoute,
+  } as any)
+const Char123cityChar125ApartmentsNeighborhoodsRoute =
+  Char123cityChar125ApartmentsNeighborhoodsRouteImport.update({
+    id: '/neighborhoods',
+    path: '/neighborhoods',
+    getParentRoute: () => Char123cityChar125ApartmentsRoute,
+  } as any)
+const Char123cityChar125ApartmentsOurProcessRoute =
+  Char123cityChar125ApartmentsOurProcessRouteImport.update({
+    id: '/our-process',
+    path: '/our-process',
+    getParentRoute: () => Char123cityChar125ApartmentsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/accessibility': typeof AccessibilityRoute
+  '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/explore': typeof ExploreRoute
   '/faq': typeof FaqRoute
   '/get-started': typeof GetStartedRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/legal': typeof LegalRoute
   '/listings': typeof ListingsRoute
   '/moving-concierge': typeof MovingConciergeRoute
   '/neighborhoods': typeof NeighborhoodsRoute
   '/sitemap': typeof SitemapRoute
-  '/{$city}-apartments': typeof Char123cityChar125ApartmentsRoute
+  '/{$city}-apartments': typeof Char123cityChar125ApartmentsRouteWithChildren
+  '/blog/$slug': typeof BlogSlugRoute
+  '/{$city}-apartment/$listingId': typeof Char123cityChar125ApartmentListingIdRoute
+  '/{$city}-apartments/about-us': typeof Char123cityChar125ApartmentsAboutUsRoute
+  '/{$city}-apartments/concierge': typeof Char123cityChar125ApartmentsConciergeRoute
+  '/{$city}-apartments/faq': typeof Char123cityChar125ApartmentsFaqRoute
+  '/{$city}-apartments/get-started': typeof Char123cityChar125ApartmentsGetStartedRoute
+  '/{$city}-apartments/listings': typeof Char123cityChar125ApartmentsListingsRoute
+  '/{$city}-apartments/neighborhoods': typeof Char123cityChar125ApartmentsNeighborhoodsRoute
+  '/{$city}-apartments/our-process': typeof Char123cityChar125ApartmentsOurProcessRoute
+  '/{$city}-apartments/': typeof Char123cityChar125ApartmentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/accessibility': typeof AccessibilityRoute
+  '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/explore': typeof ExploreRoute
   '/faq': typeof FaqRoute
   '/get-started': typeof GetStartedRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/legal': typeof LegalRoute
   '/listings': typeof ListingsRoute
   '/moving-concierge': typeof MovingConciergeRoute
   '/neighborhoods': typeof NeighborhoodsRoute
   '/sitemap': typeof SitemapRoute
-  '/{$city}-apartments': typeof Char123cityChar125ApartmentsRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/{$city}-apartment/$listingId': typeof Char123cityChar125ApartmentListingIdRoute
+  '/{$city}-apartments/about-us': typeof Char123cityChar125ApartmentsAboutUsRoute
+  '/{$city}-apartments/concierge': typeof Char123cityChar125ApartmentsConciergeRoute
+  '/{$city}-apartments/faq': typeof Char123cityChar125ApartmentsFaqRoute
+  '/{$city}-apartments/get-started': typeof Char123cityChar125ApartmentsGetStartedRoute
+  '/{$city}-apartments/listings': typeof Char123cityChar125ApartmentsListingsRoute
+  '/{$city}-apartments/neighborhoods': typeof Char123cityChar125ApartmentsNeighborhoodsRoute
+  '/{$city}-apartments/our-process': typeof Char123cityChar125ApartmentsOurProcessRoute
+  '/{$city}-apartments': typeof Char123cityChar125ApartmentsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/accessibility': typeof AccessibilityRoute
+  '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/explore': typeof ExploreRoute
   '/faq': typeof FaqRoute
   '/get-started': typeof GetStartedRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/legal': typeof LegalRoute
   '/listings': typeof ListingsRoute
   '/moving-concierge': typeof MovingConciergeRoute
   '/neighborhoods': typeof NeighborhoodsRoute
   '/sitemap': typeof SitemapRoute
-  '/{$city}-apartments': typeof Char123cityChar125ApartmentsRoute
+  '/{$city}-apartments': typeof Char123cityChar125ApartmentsRouteWithChildren
+  '/blog/$slug': typeof BlogSlugRoute
+  '/{$city}-apartment/$listingId': typeof Char123cityChar125ApartmentListingIdRoute
+  '/{$city}-apartments/about-us': typeof Char123cityChar125ApartmentsAboutUsRoute
+  '/{$city}-apartments/concierge': typeof Char123cityChar125ApartmentsConciergeRoute
+  '/{$city}-apartments/faq': typeof Char123cityChar125ApartmentsFaqRoute
+  '/{$city}-apartments/get-started': typeof Char123cityChar125ApartmentsGetStartedRoute
+  '/{$city}-apartments/listings': typeof Char123cityChar125ApartmentsListingsRoute
+  '/{$city}-apartments/neighborhoods': typeof Char123cityChar125ApartmentsNeighborhoodsRoute
+  '/{$city}-apartments/our-process': typeof Char123cityChar125ApartmentsOurProcessRoute
+  '/{$city}-apartments/': typeof Char123cityChar125ApartmentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/accessibility'
+    | '/blog'
     | '/contact'
     | '/explore'
     | '/faq'
     | '/get-started'
     | '/how-it-works'
+    | '/legal'
     | '/listings'
     | '/moving-concierge'
     | '/neighborhoods'
     | '/sitemap'
     | '/{$city}-apartments'
+    | '/blog/$slug'
+    | '/{$city}-apartment/$listingId'
+    | '/{$city}-apartments/about-us'
+    | '/{$city}-apartments/concierge'
+    | '/{$city}-apartments/faq'
+    | '/{$city}-apartments/get-started'
+    | '/{$city}-apartments/listings'
+    | '/{$city}-apartments/neighborhoods'
+    | '/{$city}-apartments/our-process'
+    | '/{$city}-apartments/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/accessibility'
+    | '/blog'
     | '/contact'
     | '/explore'
     | '/faq'
     | '/get-started'
     | '/how-it-works'
+    | '/legal'
     | '/listings'
     | '/moving-concierge'
     | '/neighborhoods'
     | '/sitemap'
+    | '/blog/$slug'
+    | '/{$city}-apartment/$listingId'
+    | '/{$city}-apartments/about-us'
+    | '/{$city}-apartments/concierge'
+    | '/{$city}-apartments/faq'
+    | '/{$city}-apartments/get-started'
+    | '/{$city}-apartments/listings'
+    | '/{$city}-apartments/neighborhoods'
+    | '/{$city}-apartments/our-process'
     | '/{$city}-apartments'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/accessibility'
+    | '/blog'
     | '/contact'
     | '/explore'
     | '/faq'
     | '/get-started'
     | '/how-it-works'
+    | '/legal'
     | '/listings'
     | '/moving-concierge'
     | '/neighborhoods'
     | '/sitemap'
     | '/{$city}-apartments'
+    | '/blog/$slug'
+    | '/{$city}-apartment/$listingId'
+    | '/{$city}-apartments/about-us'
+    | '/{$city}-apartments/concierge'
+    | '/{$city}-apartments/faq'
+    | '/{$city}-apartments/get-started'
+    | '/{$city}-apartments/listings'
+    | '/{$city}-apartments/neighborhoods'
+    | '/{$city}-apartments/our-process'
+    | '/{$city}-apartments/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AccessibilityRoute: typeof AccessibilityRoute
+  BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
   ExploreRoute: typeof ExploreRoute
   FaqRoute: typeof FaqRoute
   GetStartedRoute: typeof GetStartedRoute
   HowItWorksRoute: typeof HowItWorksRoute
+  LegalRoute: typeof LegalRoute
   ListingsRoute: typeof ListingsRoute
   MovingConciergeRoute: typeof MovingConciergeRoute
   NeighborhoodsRoute: typeof NeighborhoodsRoute
   SitemapRoute: typeof SitemapRoute
-  Char123cityChar125ApartmentsRoute: typeof Char123cityChar125ApartmentsRoute
+  Char123cityChar125ApartmentsRoute: typeof Char123cityChar125ApartmentsRouteWithChildren
+  Char123cityChar125ApartmentListingIdRoute: typeof Char123cityChar125ApartmentListingIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -201,6 +368,20 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/accessibility': {
+      id: '/accessibility'
+      path: '/accessibility'
+      fullPath: '/accessibility'
+      preLoaderRoute: typeof AccessibilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -238,6 +419,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HowItWorksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/legal': {
+      id: '/legal'
+      path: '/legal'
+      fullPath: '/legal'
+      preLoaderRoute: typeof LegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/listings': {
       id: '/listings'
       path: '/listings'
@@ -273,22 +461,143 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123cityChar125ApartmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
+    '/{$city}-apartment/$listingId': {
+      id: '/{$city}-apartment/$listingId'
+      path: '/{$city}-apartment/$listingId'
+      fullPath: '/{$city}-apartment/$listingId'
+      preLoaderRoute: typeof Char123cityChar125ApartmentListingIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/{$city}-apartments/': {
+      id: '/{$city}-apartments/'
+      path: '/'
+      fullPath: '/{$city}-apartments/'
+      preLoaderRoute: typeof Char123cityChar125ApartmentsIndexRouteImport
+      parentRoute: typeof Char123cityChar125ApartmentsRoute
+    }
+    '/{$city}-apartments/about-us': {
+      id: '/{$city}-apartments/about-us'
+      path: '/about-us'
+      fullPath: '/{$city}-apartments/about-us'
+      preLoaderRoute: typeof Char123cityChar125ApartmentsAboutUsRouteImport
+      parentRoute: typeof Char123cityChar125ApartmentsRoute
+    }
+    '/{$city}-apartments/concierge': {
+      id: '/{$city}-apartments/concierge'
+      path: '/concierge'
+      fullPath: '/{$city}-apartments/concierge'
+      preLoaderRoute: typeof Char123cityChar125ApartmentsConciergeRouteImport
+      parentRoute: typeof Char123cityChar125ApartmentsRoute
+    }
+    '/{$city}-apartments/faq': {
+      id: '/{$city}-apartments/faq'
+      path: '/faq'
+      fullPath: '/{$city}-apartments/faq'
+      preLoaderRoute: typeof Char123cityChar125ApartmentsFaqRouteImport
+      parentRoute: typeof Char123cityChar125ApartmentsRoute
+    }
+    '/{$city}-apartments/get-started': {
+      id: '/{$city}-apartments/get-started'
+      path: '/get-started'
+      fullPath: '/{$city}-apartments/get-started'
+      preLoaderRoute: typeof Char123cityChar125ApartmentsGetStartedRouteImport
+      parentRoute: typeof Char123cityChar125ApartmentsRoute
+    }
+    '/{$city}-apartments/listings': {
+      id: '/{$city}-apartments/listings'
+      path: '/listings'
+      fullPath: '/{$city}-apartments/listings'
+      preLoaderRoute: typeof Char123cityChar125ApartmentsListingsRouteImport
+      parentRoute: typeof Char123cityChar125ApartmentsRoute
+    }
+    '/{$city}-apartments/neighborhoods': {
+      id: '/{$city}-apartments/neighborhoods'
+      path: '/neighborhoods'
+      fullPath: '/{$city}-apartments/neighborhoods'
+      preLoaderRoute: typeof Char123cityChar125ApartmentsNeighborhoodsRouteImport
+      parentRoute: typeof Char123cityChar125ApartmentsRoute
+    }
+    '/{$city}-apartments/our-process': {
+      id: '/{$city}-apartments/our-process'
+      path: '/our-process'
+      fullPath: '/{$city}-apartments/our-process'
+      preLoaderRoute: typeof Char123cityChar125ApartmentsOurProcessRouteImport
+      parentRoute: typeof Char123cityChar125ApartmentsRoute
+    }
   }
 }
+
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
+interface Char123cityChar125ApartmentsRouteChildren {
+  Char123cityChar125ApartmentsAboutUsRoute: typeof Char123cityChar125ApartmentsAboutUsRoute
+  Char123cityChar125ApartmentsConciergeRoute: typeof Char123cityChar125ApartmentsConciergeRoute
+  Char123cityChar125ApartmentsFaqRoute: typeof Char123cityChar125ApartmentsFaqRoute
+  Char123cityChar125ApartmentsGetStartedRoute: typeof Char123cityChar125ApartmentsGetStartedRoute
+  Char123cityChar125ApartmentsListingsRoute: typeof Char123cityChar125ApartmentsListingsRoute
+  Char123cityChar125ApartmentsNeighborhoodsRoute: typeof Char123cityChar125ApartmentsNeighborhoodsRoute
+  Char123cityChar125ApartmentsOurProcessRoute: typeof Char123cityChar125ApartmentsOurProcessRoute
+  Char123cityChar125ApartmentsIndexRoute: typeof Char123cityChar125ApartmentsIndexRoute
+}
+
+const Char123cityChar125ApartmentsRouteChildren: Char123cityChar125ApartmentsRouteChildren =
+  {
+    Char123cityChar125ApartmentsAboutUsRoute:
+      Char123cityChar125ApartmentsAboutUsRoute,
+    Char123cityChar125ApartmentsConciergeRoute:
+      Char123cityChar125ApartmentsConciergeRoute,
+    Char123cityChar125ApartmentsFaqRoute: Char123cityChar125ApartmentsFaqRoute,
+    Char123cityChar125ApartmentsGetStartedRoute:
+      Char123cityChar125ApartmentsGetStartedRoute,
+    Char123cityChar125ApartmentsListingsRoute:
+      Char123cityChar125ApartmentsListingsRoute,
+    Char123cityChar125ApartmentsNeighborhoodsRoute:
+      Char123cityChar125ApartmentsNeighborhoodsRoute,
+    Char123cityChar125ApartmentsOurProcessRoute:
+      Char123cityChar125ApartmentsOurProcessRoute,
+    Char123cityChar125ApartmentsIndexRoute:
+      Char123cityChar125ApartmentsIndexRoute,
+  }
+
+const Char123cityChar125ApartmentsRouteWithChildren =
+  Char123cityChar125ApartmentsRoute._addFileChildren(
+    Char123cityChar125ApartmentsRouteChildren,
+  )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AccessibilityRoute: AccessibilityRoute,
+  BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
   ExploreRoute: ExploreRoute,
   FaqRoute: FaqRoute,
   GetStartedRoute: GetStartedRoute,
   HowItWorksRoute: HowItWorksRoute,
+  LegalRoute: LegalRoute,
   ListingsRoute: ListingsRoute,
   MovingConciergeRoute: MovingConciergeRoute,
   NeighborhoodsRoute: NeighborhoodsRoute,
   SitemapRoute: SitemapRoute,
-  Char123cityChar125ApartmentsRoute: Char123cityChar125ApartmentsRoute,
+  Char123cityChar125ApartmentsRoute:
+    Char123cityChar125ApartmentsRouteWithChildren,
+  Char123cityChar125ApartmentListingIdRoute:
+    Char123cityChar125ApartmentListingIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

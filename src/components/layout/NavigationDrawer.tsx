@@ -3,13 +3,15 @@ import { Link } from "@tanstack/react-router";
 import * as m from "motion/react-m";
 import { useReducedMotion } from "motion/react";
 import { Wordmark } from "./Wordmark";
-import { navigation } from "../../data/site";
+import { drawerNav } from "../../data/cityLinks";
+import { useCityScope } from "../../features/city/useCityScope";
 import { CityPicker } from "../ui/CityPicker";
 import { homeRevision } from "../../data/home";
 export function NavigationDrawer() {
   const [open, setOpen] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const reduced = useReducedMotion();
+  const slug = useCityScope();
   const close = () => dialog.current?.close();
   return (
     <>
@@ -84,7 +86,7 @@ export function NavigationDrawer() {
             <Link to="/" onClick={close}>
               {homeRevision.homeLabel}
             </Link>
-            {navigation.map((item) => (
+            {drawerNav(slug).map((item) => (
               <Link key={item.to} to={item.to} onClick={close}>
                 {item.label}
               </Link>

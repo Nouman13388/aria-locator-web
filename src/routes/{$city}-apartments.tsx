@@ -1,40 +1,23 @@
 import { useEffect } from "react";
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, notFound, Outlet } from "@tanstack/react-router";
 import { CityPicker } from "../components/ui/CityPicker";
 import { findCity } from "../data/cities";
-import { cityCopy, cityHead } from "../data/cityPage";
+import { cityCopy } from "../data/cityPage";
 import { saveCity } from "../features/listings/cityPreference";
-import {
-  CityClosing,
-  CityContact,
-  CityFeatured,
-  CityHero,
-  CityHow,
-  CityWhy,
-} from "../features/city/CitySections";
+// Layout for every page of a city: one loader validates the slug for all children.
 export const Route = createFileRoute("/{$city}-apartments")({
   loader: ({ params }) => {
     const city = findCity(params.city);
     if (!city) throw notFound();
     return city;
   },
-  head: ({ loaderData }) => (loaderData ? cityHead(loaderData) : {}),
   notFoundComponent: CityNotFound,
-  component: CityPage,
+  component: CityLayout,
 });
-function CityPage() {
+function CityLayout() {
   const city = Route.useLoaderData();
   useEffect(() => saveCity(city.slug), [city.slug]);
-  return (
-    <div className="city-page">
-      <CityHero city={city} />
-      <CityHow />
-      <CityFeatured city={city} />
-      <CityWhy />
-      <CityClosing city={city} />
-      <CityContact />
-    </div>
-  );
+  return <Outlet />;
 }
 function CityNotFound() {
   return (

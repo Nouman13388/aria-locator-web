@@ -2,10 +2,12 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import * as m from "motion/react-m";
 import { useReducedMotion } from "motion/react";
-import { headerMoreNavigation } from "../../data/site";
+import { moreNav } from "../../data/cityLinks";
+import { useCityScope } from "../../features/city/useCityScope";
 import { homeLabels } from "../../data/home";
 export function HeaderMore() {
   const [open, setOpen] = useState(false);
+  const slug = useCityScope();
   const reduced = useReducedMotion();
   const root = useRef<HTMLDetailsElement>(null);
   const trigger = useRef<HTMLElement>(null);
@@ -77,7 +79,7 @@ export function HeaderMore() {
         }
       >
         <div id={id} role="menu" aria-label={homeLabels.more}>
-          {headerMoreNavigation.map((item) => (
+          {moreNav(slug).map((item) => (
             <Link key={item.to} to={item.to} role="menuitem" onClick={close}>
               {item.label}
             </Link>

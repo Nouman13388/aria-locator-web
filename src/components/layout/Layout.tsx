@@ -1,8 +1,11 @@
 import { actions, ctaCopy } from "../../data/actions";
 import { ButtonLink } from "../ui/Button";
+import { cityHref } from "../../data/cityLinks";
+import { useCityScope } from "../../features/city/useCityScope";
 export { Header } from "./Header";
 export { Footer } from "./Footer";
 export function CTA() {
+  const slug = useCityScope();
   return (
     <div className="cta">
       <span className="eyebrow">{ctaCopy.eyebrow}</span>
@@ -16,7 +19,7 @@ export function CTA() {
         <ButtonLink appearance="light">
           {actions.findSpace} <span aria-hidden="true">↗</span>
         </ButtonLink>
-        <ButtonLink to="/listings" appearance="outline-light">
+        <ButtonLink to={cityHref(slug, "listings")} appearance="outline-light">
           See sample listings
         </ButtonLink>
       </div>

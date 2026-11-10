@@ -5,15 +5,6 @@ export const wordmarkParts = {
   descriptor: "Apartment locating",
 };
 
-export const navigation = [
-  { to: "/listings", label: "Listings" },
-  { to: "/neighborhoods", label: "Neighborhoods" },
-  { to: "/moving-concierge", label: "Moving Concierge" },
-  { to: "/how-it-works", label: "Process" },
-  { to: "/about", label: "About" },
-  { to: "/faq", label: "FAQ" },
-  { to: "/contact", label: "Contact" },
-];
 export const process = [
   {
     title: "Share your preferences",
@@ -59,18 +50,3 @@ export const siteUrl = "";
 
 export const announcementStorageKey = "keenest-announcement-dismissed";
 
-export const headerNavigation = [
-  { to: "/listings", label: "Listings" },
-  { to: "/neighborhoods", label: "Neighborhoods" },
-  { to: "/moving-concierge", label: "Moving Concierge" },
-] as const;
-export const headerMoreNavigation = [
-  { to: "/about", label: "About" },
-  { to: "/how-it-works", label: "Process" },
-  { to: "/faq", label: "FAQ" },
-  { to: "/contact", label: "Contact" },
-] as const;
-export const homeNavigation = [
-  { to: "/about", label: "About" },
-  { to: "/faq", label: "FAQ" },
-] as const;

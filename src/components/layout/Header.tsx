@@ -4,12 +4,15 @@ import { useCompactHeader } from "./useCompactHeader";
 import { Wordmark } from "./Wordmark";
 import { NavigationDrawer } from "./NavigationDrawer";
 import { CityPicker } from "../ui/CityPicker";
-import { contact, headerNavigation, homeNavigation } from "../../data/site";
+import { contact } from "../../data/site";
+import { homeNav, mainNav } from "../../data/cityLinks";
+import { useCityScope } from "../../features/city/useCityScope";
 import { actions } from "../../data/actions";
 import { HeaderMore } from "./HeaderMore";
 import { ButtonLink } from "../ui/Button";
 export function Header() {
   const compact = useCompactHeader();
+  const slug = useCityScope();
   const isHome = useRouterState({ select: (state) => state.location.pathname === "/" });
   return (
     <>
@@ -24,7 +27,7 @@ export function Header() {
             {isHome ? (
               <>
                 <nav className="home-links" aria-label="Main navigation">
-                  {homeNavigation.map((item) => (
+                  {homeNav(slug).map((item) => (
                     <Link key={item.label} to={item.to}>
                       {item.label}
                     </Link>
@@ -36,7 +39,7 @@ export function Header() {
               <>
             <div className="header-desktop">
               <nav className="header-links" aria-label="Main navigation">
-                {headerNavigation.map((item) => (
+                {mainNav(slug).map((item) => (
                   <Link key={item.label} to={item.to}>
                     {item.label}
                   </Link>
