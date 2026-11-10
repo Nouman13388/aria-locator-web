@@ -2142,12 +2142,12 @@ body,
 .navigation-drawer .form-note {
   margin-top: 24px;
 }
-.area-chooser {
+.city-picker {
   position: relative;
   display: inline-block;
   text-align: left;
 }
-.area-chooser summary {
+.city-picker .city-trigger {
   list-style: none;
   cursor: pointer;
   white-space: nowrap;
@@ -2156,10 +2156,10 @@ body,
   padding: 13px 24px;
   gap: 16px;
 }
-.area-chooser summary::-webkit-details-marker {
+.city-picker .city-trigger::-webkit-details-marker {
   display: none;
 }
-.area-options {
+.city-options {
   position: absolute;
   right: 0;
   top: calc(100% + 12px);
@@ -2172,12 +2172,12 @@ body,
   color: var(--ink);
   box-shadow: var(--shadow-card);
 }
-.area-options p {
+.city-options p {
   margin: 4px 12px 10px;
   font-size: 11px;
   color: var(--ink-2);
 }
-.area-options a {
+.city-options a {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2187,7 +2187,7 @@ body,
   border-radius: 12px;
   font-size: 14px;
 }
-.area-options a:hover {
+.city-options a:hover {
   background: var(--band);
 }
 .landing-page {
@@ -2238,12 +2238,12 @@ body,
   font-size: 18px;
   line-height: 1.6;
 }
-.hero-area summary {
+.city-picker--hero .city-trigger {
   background: var(--hero-action);
   color: var(--on-hero-action);
   border-color: var(--on-hero-action);
 }
-.hero-area .area-options {
+.city-picker--hero .city-options {
   right: auto;
   left: 50%;
   margin-left: -150px;
@@ -2251,7 +2251,7 @@ body,
 .landing-hero-copy :focus-visible {
   outline-color: var(--white);
 }
-.landing-hero-copy .area-options :focus-visible {
+.landing-hero-copy .city-options :focus-visible {
   outline-color: var(--focus);
 }
 .home-feature {
@@ -2479,16 +2479,16 @@ body,
   .header-slot.compact .site-header {
     height: 74px;
   }
-  .area-chooser summary {
+  .city-picker .city-trigger {
     padding: 12px 15px;
     gap: 8px;
     font-size: 12px;
     min-height: 48px;
   }
-  .area-options {
+  .city-options {
     width: 280px;
   }
-  .hero-area .area-options {
+  .city-picker--hero .city-options {
     margin-left: -140px;
   }
   .home-hero {
@@ -2562,5 +2562,103 @@ body,
   }
   .explore-page .example-searches {
     grid-template-columns: 1fr;
+  }
+}
+
+/* City menus share the same disclosure in the header, hero, and drawer. */
+.city-options[hidden] {
+  display: none;
+}
+.city-options {
+  width: 340px;
+  max-height: min(440px, 65dvh);
+  overflow-y: auto;
+  border-radius: 16px;
+  transform-origin: top center;
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--ink) 18%, transparent);
+}
+.city-options nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.city-options a {
+  text-align: left;
+}
+.city-options a[data-selected] {
+  background: var(--band);
+}
+.city-options strong {
+  display: block;
+  font-weight: 600;
+}
+.city-blurb {
+  display: block;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  margin-top: 4px;
+}
+.city-selected {
+  color: var(--ink);
+  flex: none;
+}
+.city-chevron {
+  transition: rotate 160ms ease;
+}
+.city-picker.is-open .city-chevron {
+  rotate: 180deg;
+}
+.city-picker--hero .city-trigger {
+  min-height: 64px;
+  padding: 18px 32px;
+  font-size: 16px;
+}
+.city-picker--hero .city-options {
+  margin-left: -170px;
+}
+.header-slot:has(.city-picker.is-open),
+.home-hero:has(.city-picker.is-open) {
+  z-index: 110;
+}
+.navigation-drawer .city-picker {
+  display: block;
+  margin-top: 20px;
+}
+.navigation-drawer .city-trigger {
+  width: 100%;
+}
+.navigation-drawer .city-options {
+  position: static;
+  width: 100%;
+  margin: 12px 0 0;
+  max-height: 50dvh;
+}
+@media (max-width: 640px) {
+  .city-options,
+  .city-picker--hero .city-options {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    top: auto;
+    bottom: 16px;
+    margin: 0;
+    width: auto;
+    max-height: 65dvh;
+    transform-origin: bottom center;
+  }
+  .city-picker--hero .city-trigger {
+    min-height: 60px;
+    font-size: 14px;
+  }
+  .navigation-drawer .city-options {
+    position: static;
+    width: 100%;
+    margin: 12px 0 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .city-chevron {
+    transition: none;
   }
 }

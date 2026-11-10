@@ -3,7 +3,7 @@ import { useReducedMotion } from "motion/react";
 import { reveal, revealViewport } from "../features/motion/reveal";
 import { createFileRoute } from "@tanstack/react-router";
 import { homeLabels, homeRevision, inspirationCircles } from "../data/home";
-import { AreaChooser } from "../components/ui/AreaChooser";
+import { CityPicker } from "../components/ui/CityPicker";
 import { HeroVideo } from "../components/ui/HeroVideo";
 import { ResponsiveImage } from "../components/ui/ResponsiveImage";
 import { ButtonLink } from "../components/ui/Button";
@@ -46,7 +46,7 @@ function Home() {
         <div className="landing-hero-copy">
           <h1 id="hero-title">{homeRevision.heroTitle}</h1>
           <p>{homeRevision.heroDescription}</p>
-          <AreaChooser hero />
+          <CityPicker variant="hero" />
         </div>
       </section>
       <m.section className="home-feature" {...entrance}>

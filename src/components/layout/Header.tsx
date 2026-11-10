@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useCompactHeader } from "./useCompactHeader";
 import { Wordmark } from "./Wordmark";
 import { NavigationDrawer } from "./NavigationDrawer";
-import { AreaChooser } from "../ui/AreaChooser";
+import { CityPicker } from "../ui/CityPicker";
 import { homeLabels, homeRevision } from "../../data/home";
 import { announcementStorageKey } from "../../data/site";
 export function Header() {
@@ -33,7 +33,7 @@ export function Header() {
               <NavigationDrawer />
               <Wordmark />
             </div>
-            <AreaChooser />
+            <CityPicker />
           </div>
         </header>
       </div>

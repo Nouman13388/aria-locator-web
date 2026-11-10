@@ -4,7 +4,7 @@ import * as m from "motion/react-m";
 import { useReducedMotion } from "motion/react";
 import { Wordmark } from "./Wordmark";
 import { navigation } from "../../data/site";
-import { actions } from "../../data/actions";
+import { CityPicker } from "../ui/CityPicker";
 import { homeRevision } from "../../data/home";
 export function NavigationDrawer() {
   const [open, setOpen] = useState(false);
@@ -34,7 +34,7 @@ export function NavigationDrawer() {
             ...event.currentTarget.querySelectorAll<HTMLElement>(
               "a[href], button",
             ),
-          ];
+          ].filter((control) => control.getClientRects().length > 0);
           const first = controls[0];
           const last = controls[controls.length - 1];
           if (event.shiftKey && document.activeElement === first) {
@@ -92,9 +92,7 @@ export function NavigationDrawer() {
                 {item.label}
               </Link>
             ))}
-            <Link to="/get-started" className="button" onClick={close}>
-              {actions.getStarted}
-            </Link>
+            <CityPicker onChoose={close} />
           </nav>
           <p className="form-note">{homeRevision.drawerNote}</p>
         </m.div>

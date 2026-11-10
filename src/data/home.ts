@@ -53,8 +53,6 @@ export const footerCopy = {
 
 export const homeRevision = {
   noticeLink: "Explore the demo",
-  chooseArea: "Choose an area",
-  areaNote: "Explore sample surroundings. No real location is implied.",
   homeLabel: "Home",
   exploreLabel: "Explore",
   contactLabel: "Contact",
@@ -75,11 +73,6 @@ export const homeRevision = {
     "A closer look at the process, sample spaces, and principles behind this apartment-locating demo.",
   socialTitle: "Social placeholders",
 };
-export const areaChoices = [
-  { setting: "green", label: "Near greenery" },
-  { setting: "connected", label: "Connected surroundings" },
-  { setting: "quiet", label: "A quieter setting" },
-] as const;
 export const inspirationCircles = [
   { name: "keenest-living", width: 1200, height: 896 },
   { name: "keenest-kitchen", width: 1200, height: 896 },

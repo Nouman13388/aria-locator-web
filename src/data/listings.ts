@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { CITIES, type CitySlug } from "./cities";
 export const listingSearchSchema = z.object({
   // TanStack Router decodes numeric search values before validation.
   beds: z.preprocess(
@@ -13,6 +14,7 @@ export const listingSearchSchema = z.object({
 export type ListingFilters = z.infer<typeof listingSearchSchema>;
 export type SampleListing = {
   id: string;
+  city: CitySlug;
   title: string;
   beds: string;
   baths: number;
@@ -78,6 +80,7 @@ const spaces = [
 export const listings: SampleListing[] = spaces.map(
   ([title, beds, baths, setting, price, features], i) => ({
     id: `sample-${i + 1}`,
+    city: CITIES[i % CITIES.length].slug,
     title,
     beds,
     baths,
@@ -113,3 +116,9 @@ export const listingCopy = {
   summary: (item: SampleListing) =>
     `${item.beds === "studio" ? "Studio" : `${item.beds} bed`} · ${item.baths} bath · ${item.size} sq ft · sample`,
 };
+
+export function sampleHomesForCity(city?: CitySlug) {
+  return city
+    ? listings.filter((listing) => listing.city === city)
+    : listings.slice(0, 3);
+}
