@@ -1711,7 +1711,7 @@ body {
 .hero-message .button {
   background: var(--hero-action);
   color: var(--on-hero-action);
-  border-color: var(--on-hero-action);
+  border-color: var(--hero-action);
 }
 .hero-message :focus-visible {
   outline-color: var(--white);
@@ -2148,6 +2148,8 @@ body,
   text-align: left;
 }
 .city-picker .city-trigger {
+  border-radius: var(--radius-btn);
+  display: flex;
   list-style: none;
   cursor: pointer;
   white-space: nowrap;
@@ -2162,7 +2164,7 @@ body,
 .city-options {
   position: absolute;
   right: 0;
-  top: calc(100% + 12px);
+  top: 100%;
   z-index: 10;
   width: 300px;
   padding: 12px;
@@ -2241,7 +2243,7 @@ body,
 .city-picker--hero .city-trigger {
   background: var(--hero-action);
   color: var(--on-hero-action);
-  border-color: var(--on-hero-action);
+  border-color: var(--hero-action);
 }
 .city-picker--hero .city-options {
   right: auto;
@@ -2578,30 +2580,19 @@ body,
   box-shadow: 0 12px 32px color-mix(in srgb, var(--ink) 18%, transparent);
 }
 .city-options nav {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  display: block;
+  columns: 2;
+  column-gap: 8px;
 }
 .city-options a {
   text-align: left;
-}
-.city-options a[data-selected] {
-  background: var(--band);
-}
-.city-options strong {
-  display: block;
+  min-height: 48px;
+  padding: 10px 8px;
+  break-inside: avoid;
+  font-family: var(--font-display);
+  font-size: 17px;
   font-weight: 600;
-}
-.city-blurb {
-  display: block;
-  font-size: 11px;
   line-height: 1.5;
-  color: var(--ink-2);
-  margin-top: 4px;
-}
-.city-selected {
-  color: var(--ink);
-  flex: none;
 }
 .city-chevron {
   transition: rotate 160ms ease;
@@ -2615,7 +2606,9 @@ body,
   font-size: 16px;
 }
 .city-picker--hero .city-options {
-  margin-left: -170px;
+  left: 0;
+  right: auto;
+  margin-left: 0;
 }
 .header-slot:has(.city-picker.is-open),
 .home-hero:has(.city-picker.is-open) {
@@ -2627,6 +2620,12 @@ body,
 }
 .navigation-drawer .city-trigger {
   width: 100%;
+}
+.navigation-drawer .city-options nav {
+  display: block;
+}
+.navigation-drawer .city-options a {
+  font-size: 15px;
 }
 .navigation-drawer .city-options {
   position: static;

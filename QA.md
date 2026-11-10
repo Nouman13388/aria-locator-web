@@ -4,7 +4,7 @@ Verified locally on 2026-11-10 against `npm run preview`, using isolated Playwri
 
 ## Layout comparison at 894px
 
-The supplied comparison table is the acceptance reference for this revision. A fresh reference screenshot was not attached, so exact image-to-image fidelity cannot be certified.
+The supplied comparison table guided the overall composition. The subsequently attached header/hero screenshots guided the city-picker refinement below; the complete reference page is not available for an exact full-page comparison.
 
 | Element           | Implemented and measured                                                                                                                                          |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -86,3 +86,13 @@ Not verified: exact pixel comparison without the reference screenshot, physical 
 - Typecheck, 37 node tests, and build pass after each implementation/fix chunk. Tests cover unique city slugs, accepted/rejected city search input, and city filtering. Lighthouse was not rerun for this addendum; scores above describe the preceding layout revision.
 
 Evidence: [390px city sheet](qa/city-picker-390.jpg), [picker matrix](qa/city-picker-verification.json). Home captures above were refreshed with the city picker. Physical devices, Safari/Firefox, and screen-reader sessions were not tested.
+
+## Dropdown reference refinement
+
+The attached open-menu screenshots show a plain two-column city list. The picker now uses city names only, with no visible blurb, notice, selected tick, or selected background. Demo guidance and saved-selection information remain available to assistive technology; city blurbs remain on Explore.
+
+At 1440px the panel is 340px wide and 122px tall for our four demo entries. It opens directly below the button without a gap. The header panel's right edge matches the trigger's right edge; the hero panel's left edge matches the trigger's left edge. Buttons use the pill token with a solid theme fill. Header and hero retain Kee Nest copy, media, and the client's three palettes.
+
+Playwright verified both exact edge alignments, two columns, keyboard/Tab/Escape and outside dismissal, city routing/restoration, and 390/768/1440px containment across all palettes. Mobile keeps the compact two-column bottom sheet and inline drawer menu. Typecheck, 37 tests, and build pass. No deploy or Wrangler changes.
+
+Captures: [header at 1440px](qa/city-picker-header-1440.jpg), [hero at 1440px](qa/city-picker-hero-1440.jpg), [390px sheet](qa/city-picker-390.jpg). Only the four requested demo cities are included; reference copy, imagery, brand, city inventory, and blue palette were not imported.

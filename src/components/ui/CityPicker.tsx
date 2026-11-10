@@ -106,7 +106,7 @@ export function CityPicker({
         }
         transition={{ duration: reduced ? 0 : 0.16 }}
       >
-        <p>{cityPickerCopy.note}</p>
+        <p className="sr-only">{cityPickerCopy.note}</p>
         <nav id={id} role="menu" aria-label={cityPickerCopy.panel}>
           {CITIES.map((city) => (
             <Link
@@ -121,15 +121,9 @@ export function CityPicker({
                 onChoose?.();
               }}
             >
-              <span>
-                <strong>{city.name}</strong>
-                <span className="city-blurb">{city.blurb}</span>
-              </span>
+              {city.name}
               {selected === city.slug && (
-                <span className="city-selected">
-                  <span aria-hidden="true">✓</span>
-                  <span className="sr-only">{cityPickerCopy.selected}</span>
-                </span>
+                <span className="sr-only">{cityPickerCopy.selected}</span>
               )}
             </Link>
           ))}
