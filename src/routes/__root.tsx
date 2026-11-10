@@ -44,14 +44,14 @@ export const Route = createRootRoute({
         as: "font",
         type: "font/woff2",
         crossOrigin: "anonymous",
-        href: "/fonts/plus-jakarta-sans-latin-wght-normal.woff2",
+        href: "/fonts/poppins-1.woff2",
       },
       {
         rel: "preload",
         as: "font",
         type: "font/woff2",
         crossOrigin: "anonymous",
-        href: "/fonts/inter-latin-wght-normal.woff2",
+        href: "/fonts/open-sans-0.woff2",
       },
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico?v=4" },
       {

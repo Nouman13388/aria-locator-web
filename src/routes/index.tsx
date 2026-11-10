@@ -1,14 +1,12 @@
-import { homeLabels } from "../data/home";
-import { actions } from "../data/actions";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { process } from "../data/site";
-import { homeCopy, exampleSearches, homePrinciples } from "../data/pages";
-import { listings } from "../data/listings";
-import { Section } from "../components/ui/Section";
-import { ButtonLink } from "../components/ui/Button";
-import { ListingCard } from "../features/listings/ListingCard";
-import { ProcessIcon } from "../components/ui/ProcessIcon";
+import * as m from "motion/react-m";
+import { useReducedMotion } from "motion/react";
+import { reveal, revealViewport } from "../features/motion/reveal";
+import { createFileRoute } from "@tanstack/react-router";
+import { homeLabels, homeRevision, inspirationCircles } from "../data/home";
+import { AreaChooser } from "../components/ui/AreaChooser";
 import { HeroVideo } from "../components/ui/HeroVideo";
+import { ResponsiveImage } from "../components/ui/ResponsiveImage";
+import { ButtonLink } from "../components/ui/Button";
 import { pageHead } from "../lib/head";
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,121 +33,54 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 function Home() {
+  const reduced = useReducedMotion();
+  const entrance = {
+    initial: false as const,
+    whileInView: reduced ? undefined : reveal,
+    viewport: revealViewport,
+  };
   return (
-    <div className="home-page">
-      <section className="photo-hero" aria-labelledby="hero-title">
-        <div className="wrap hero-content">
-          <HeroVideo />
-          <div className="hero-message">
-            <span className="hero-kicker">{homeCopy.eyebrow}</span>
-            <h1 id="hero-title">
-              {homeCopy.title}
-              <br />
-              <span className="hero-highlight">{homeCopy.titleEmphasis}</span>
-            </h1>
-            <p>{homeCopy.description}</p>
-            <ButtonLink>
-              {homeLabels.start} <span aria-hidden="true">→</span>
-            </ButtonLink>
-          </div>
-          <div className="example-searches">
-            {exampleSearches.map((item) => (
-              <article className="example-card" key={item.title}>
-                <span className="search-tag">{item.tag}</span>
-                <h2>{item.title}</h2>
-                <p>{item.text}</p>
-                <div className="example-bottom">
-                  <span>{homeLabels.example}</span>
-                  <Link to="/get-started" search={{ step: 1 }}>
-                    {homeLabels.tryDirection} <span aria-hidden="true">→</span>
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
+    <div className="landing-page">
+      <section className="home-hero" aria-labelledby="hero-title">
+        <HeroVideo />
+        <div className="landing-hero-copy">
+          <h1 id="hero-title">{homeRevision.heroTitle}</h1>
+          <p>{homeRevision.heroDescription}</p>
+          <AreaChooser hero />
         </div>
       </section>
-      <Section animate>
-        <div className="section-heading centered-heading">
-          <span className="eyebrow accent">{homeLabels.processEyebrow}</span>
-          <h2>{homeLabels.processTitle}</h2>
-          <p>{homeLabels.processDescription}</p>
-        </div>
-        <div className="grid-3">
-          {process.map((item, i) => (
-            <article className="step-card" key={item.title}>
-              <div className="step-card-top">
-                <span className="step-number">0{i + 1}</span>
-                <span className="process-icon" aria-hidden="true">
-                  <ProcessIcon step={i} />
-                </span>
-              </div>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-              <Link to="/how-it-works" className="inline-link">
-                {homeLabels.learnMore} →
-              </Link>
-            </article>
-          ))}
-        </div>
-      </Section>
-      <Section band animate>
-        <div className="section-heading">
+      <m.section className="home-feature" {...entrance}>
+        <div className="feature-card">
+          <h2>{homeRevision.featureTitle}</h2>
           <div>
-            <span className="sample-label">{homeLabels.sampleLabel}</span>
-            <h2>{homeLabels.sampleTitle}</h2>
+            <p>{homeRevision.featureDescription}</p>
+            <ButtonLink>
+              {homeRevision.featureAction}
+              <span aria-hidden="true">↗</span>
+            </ButtonLink>
           </div>
-          <p>{homeLabels.sampleDescription}</p>
         </div>
-        <div className="listing-grid">
-          {listings.slice(0, 3).map((item) => (
-            <ListingCard key={item.id} listing={item} />
+      </m.section>
+      <m.section className="home-community" {...entrance}>
+        <div className="inspiration-circles" aria-hidden="true">
+          {inspirationCircles.map((image) => (
+            <ResponsiveImage
+              key={image.name}
+              name={image.name}
+              width={image.width}
+              height={image.height}
+              alt=""
+              sizes="112px"
+            />
           ))}
         </div>
-        <div className="actions actions-center">
-          <ButtonLink to="/listings" appearance="secondary">
-            {homeLabels.seeSamples} <span aria-hidden="true">→</span>
-          </ButtonLink>
-        </div>
-      </Section>
-      <Section animate>
-        <div className="principles-band">
-          <div className="principles-heading">
-            <span className="eyebrow accent">
-              {homeLabels.principlesEyebrow}
-            </span>
-            <h2>
-              {homeLabels.principlesTitle}{" "}
-              <span className="text-highlight">
-                {homeLabels.principlesHighlight}
-              </span>
-            </h2>
-            <p>{homeLabels.principlesDescription}</p>
-          </div>
-          <div className="grid-3">
-            {homePrinciples.map((item) => (
-              <article key={item.title}>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </Section>
-      <section className="section home-closing">
-        <div className="wrap center">
-          <h2>{homeLabels.closingTitle}</h2>
-          <p>{homeLabels.closingDescription}</p>
-          <div className="actions actions-center">
-            <ButtonLink>
-              {actions.getStarted} <span aria-hidden="true">→</span>
-            </ButtonLink>
-            <ButtonLink to="/how-it-works" appearance="secondary">
-              {actions.howItWorks}
-            </ButtonLink>
-          </div>
-        </div>
-      </section>
+        <h2>{homeRevision.communityTitle}</h2>
+        <p>{homeRevision.communityDescription}</p>
+        <ButtonLink>
+          {homeRevision.communityAction}
+          <span aria-hidden="true">↗</span>
+        </ButtonLink>
+      </m.section>
     </div>
   );
 }

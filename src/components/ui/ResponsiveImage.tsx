@@ -16,13 +16,13 @@ export function ResponsiveImage({
     <picture>
       <source
         type="image/webp"
-        srcSet={`/images/${name}-640.webp 640w, /images/${name}.webp ${width}w`}
+        srcSet={`/images/${name}-224.webp 224w, /images/${name}-640.webp 640w, /images/${name}.webp ${width}w`}
         sizes={sizes}
       />
       <img
         {...props}
         src={`/images/${name}.jpg`}
-        srcSet={`/images/${name}-640.jpg 640w, /images/${name}.jpg ${width}w`}
+        srcSet={`/images/${name}-224.jpg 224w, /images/${name}-640.jpg 640w, /images/${name}.jpg ${width}w`}
         sizes={sizes}
         width={width}
         height={height}

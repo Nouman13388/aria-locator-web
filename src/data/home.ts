@@ -50,3 +50,39 @@ export const footerCopy = {
     "Accessibility · placeholder",
   ],
 };
+
+export const homeRevision = {
+  noticeLink: "Explore the demo",
+  chooseArea: "Choose an area",
+  areaNote: "Explore sample surroundings. No real location is implied.",
+  homeLabel: "Home",
+  exploreLabel: "Explore",
+  contactLabel: "Contact",
+  drawerNote: "Demo website. No inquiries or bookings are sent.",
+  heroTitle: "Make room for your next chapter.",
+  heroDescription:
+    "Start with the spaces, surroundings, and everyday details that matter to you.",
+  featureTitle: "A little direction. More room for you.",
+  featureDescription:
+    "A home search starts with your everyday life. Bring your priorities into focus, from the way you like to unwind to the space you need to grow.",
+  featureAction: "Build your wish list",
+  communityTitle: "Different spaces. A search shaped around you.",
+  communityDescription:
+    "Explore the demo brief and put your own apartment preferences into words.",
+  communityAction: "Get Started",
+  exploreTitle: "Explore the possibilities.",
+  exploreDescription:
+    "A closer look at the process, sample spaces, and principles behind this apartment-locating demo.",
+  socialTitle: "Social placeholders",
+};
+export const areaChoices = [
+  { setting: "green", label: "Near greenery" },
+  { setting: "connected", label: "Connected surroundings" },
+  { setting: "quiet", label: "A quieter setting" },
+] as const;
+export const inspirationCircles = [
+  { name: "keenest-living", width: 1200, height: 896 },
+  { name: "keenest-kitchen", width: 1200, height: 896 },
+  { name: "keenest-bedroom", width: 1200, height: 896 },
+  { name: "keenest-exterior", width: 1376, height: 768 },
+];

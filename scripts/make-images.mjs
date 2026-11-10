@@ -8,7 +8,7 @@ const assets = {
 for (const [name, file] of Object.entries(assets)) {
   const source = new URL(`../design/media/${file}`, import.meta.url);
   const meta = await sharp(source.pathname).metadata();
-  for (const width of [640, meta.width]) {
+  for (const width of [224, 640, meta.width]) {
     const suffix = width === meta.width ? "" : `-${width}`;
     const base = new URL(
       `../public/images/keenest-${name}${suffix}`,
