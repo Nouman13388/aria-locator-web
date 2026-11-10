@@ -3,7 +3,8 @@ import { Link } from "@tanstack/react-router";
 import { ResponsiveImage } from "../../components/ui/ResponsiveImage";
 import { listingImages, listingCopy, type Listing } from "../../data/listings";
 import { listingHref } from "../../data/cityLinks";
-export function ListingCard({ listing }: { listing: Listing }) {
+import { rememberOpener } from "./ListingShells";
+export function ListingCard({ listing, modal = false }: { listing: Listing; modal?: boolean }) {
   const [index, setIndex] = useState(0);
   const count = listing.images.length;
   const move = (step: number) => setIndex((index + step + count) % count);
@@ -56,7 +57,19 @@ export function ListingCard({ listing }: { listing: Listing }) {
           {listing.neighborhoodName}
         </Link>
         <h3>
-          <Link to={listingHref(listing.city, listing.id)}>{listing.title}</Link>
+          {modal ? (
+            <Link
+              to="/{$city}-apartments/listings"
+              params={{ city: listing.city }}
+              search={(prev) => ({ ...prev, listing: listing.id })}
+              resetScroll={false}
+              onClick={(e) => rememberOpener(e.currentTarget)}
+            >
+              {listing.title}
+            </Link>
+          ) : (
+            <Link to={listingHref(listing.city, listing.id)}>{listing.title}</Link>
+          )}
         </h3>
         <p>{listingCopy.specs(listing)}</p>
         <span className="city-card-note">{listingCopy.label}</span>

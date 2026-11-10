@@ -1,10 +1,13 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, useRouter } from "@tanstack/react-router";
+import { useEffect, useRef } from "react";
 import { PageHero, ClosingBand } from "../../features/city/blocks";
 import { Pagination } from "../../components/ui/Pagination";
 import { ListingCard } from "../../features/listings/ListingCard";
+import { ListingDetail } from "../../features/listings/ListingDetail";
+import { ModalShell } from "../../features/listings/ListingShells";
 import { findCity } from "../../data/cities";
 import { cityHref } from "../../data/cityLinks";
-import { layouts, listingsForCity } from "../../data/listings";
+import { findListing, layouts, listingsForCity } from "../../data/listings";
 import { listingsPage as copy } from "../../data/content";
 import { compactFilters, filterListings, listingsSearchSchema, paginate, parseNeighborhoods, readFilters } from "../../features/listings/filters";
 import { cityPageHead } from "../../lib/cityHead";
@@ -18,7 +21,11 @@ export const Route = createFileRoute("/{$city}-apartments/listings")({
 });
 function Listings() {
   const city = findCity(Route.useParams().city)!;
-  const search = readFilters(Route.useSearch());
+  const rawSearch = Route.useSearch();
+  const search = readFilters(rawSearch);
+  const router = useRouter();
+  const open = rawSearch.listing ? findListing(city, rawSearch.listing) : undefined;
+  const openedInApp = useRef(false);
   const navigate = useNavigate({ from: Route.fullPath });
   const selected = parseNeighborhoods(search.neighborhood, city.neighborhoods.map((a) => a.slug));
   const results = filterListings(listingsForCity(city), { neighborhoods: selected, layout: search.layout, featured: search.featured });
@@ -27,6 +34,17 @@ function Listings() {
     navigate({ search: (prev) => compactFilters({ ...readFilters(prev), page: 1, ...patch }), resetScroll: false });
   const toggle = (slug: string) =>
     update({ neighborhood: (selected.includes(slug) ? selected.filter((s) => s !== slug) : [...selected, slug]).join(",") });
+  // Closing keeps the page where it is. Back button semantics when we opened it, replace otherwise.
+  const closeModal = () => {
+    if (openedInApp.current) {
+      openedInApp.current = false;
+      router.history.back();
+    }
+    else navigate({ search: (prev) => ({ ...prev, listing: undefined }), replace: true, resetScroll: false });
+  };
+  useEffect(() => {
+    if (rawSearch.listing && !open) navigate({ search: (prev) => ({ ...prev, listing: undefined }), replace: true, resetScroll: false });
+  }, [rawSearch.listing, open, navigate]);
   const filtered = selected.length > 0 || search.layout !== "any" || search.featured;
   return (
     <>
@@ -77,12 +95,17 @@ function Listings() {
         ) : (
           <div className="city-cards listings-grid">
             {view.items.map((listing) => (
-              <ListingCard key={listing.id} listing={listing} />
+              <div key={listing.id} onClickCapture={() => (openedInApp.current = true)} className="card-slot"><ListingCard listing={listing} modal /></div>
             ))}
           </div>
         )}
         <Pagination page={view.page} pages={view.pages} onChange={(page) => navigate({ search: (prev) => compactFilters({ ...readFilters(prev), page }), resetScroll: true })} />
       </section>
+      {open && (
+        <ModalShell labelledBy="ld-title" onClose={closeModal}>
+          <ListingDetail listing={open} cityName={city.name} headingId="ld-title" />
+        </ModalShell>
+      )}
       <ClosingBand title={copy.closingTitle} text={copy.closingText} to={cityHref(city.slug, "get-started")} />
     </>
   );

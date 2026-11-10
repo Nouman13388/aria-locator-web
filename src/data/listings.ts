@@ -51,12 +51,13 @@ export function listingsForCity(city: City): Listing[] {
       size: layout.size + ((i * 37 + ci * 11) % 6) * 20,
       featured: i % 5 === 2,
       images: [0, 1, 2].map((j) => city.gallery[(i + j) % city.gallery.length]),
-      features: [0, 1, 2].map((j) => featurePool[(i * 2 + j * 3 + ci) % featurePool.length]),
+      features: [0, 1, 2, 3, 4, 5].map((j) => featurePool[(i * 2 + j * 3 + ci) % featurePool.length]),
     };
   });
   cache.set(city.slug, result);
   return result;
 }
+export const allListingIds = new Set(CITIES.flatMap((city) => listingsForCity(city).map((l) => l.id)));
 export const findListing = (city: City, id: string) =>
   listingsForCity(city).find((listing) => listing.id === id);
 export const listingCopy = {

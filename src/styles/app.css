@@ -3668,3 +3668,55 @@ body:has(.landing-page) .announcement-inner {
   .mission { padding: 28px; }
   .search-fields .field, .multi-select { width: 100%; }
 }
+
+/* Listing detail: shared by the modal and the full page. */
+.card-slot { display: contents; }
+.city-card { position: relative; }
+.city-card-body h3 a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.city-card-arrow, .city-card-dots, .city-card-area, .sample-badge { z-index: 2; }
+.listing-modal { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; overflow: hidden; color: var(--ink); }
+.listing-modal::backdrop { background: color-mix(in srgb, var(--ink) 55%, transparent); }
+.listing-modal-panel { width: min(1100px, 75vw); height: 100dvh; margin: 0 auto; overflow-y: auto; overscroll-behavior: contain; background: var(--surface); }
+.listing-modal-top { position: sticky; top: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 24px; background: var(--surface); }
+.modal-back { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; background: none; color: var(--ink); font-weight: 600; }
+.modal-back-icon { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--pill); color: var(--on-pill); font-size: 26px; line-height: 1; }
+.boxed-logo { border: 1px solid var(--ink); border-radius: 12px; padding: 6px 14px; }
+.boxed-logo .wordmark { font-size: 20px; }
+.ld { padding: 0 24px 48px; }
+.ld-gallery { position: relative; aspect-ratio: 16 / 9; border-radius: 24px; overflow: hidden; background: var(--band); }
+.ld-gallery:focus-visible { outline-offset: 4px; }
+.ld-gallery picture, .ld-gallery img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.ld-counter { position: absolute; bottom: 12px; left: 50%; translate: -50% 0; padding: 4px 14px; border-radius: 999px; background: var(--ink); color: var(--white); font-size: 13px; }
+.ld-cols { display: grid; grid-template-columns: 3fr 2fr; gap: 40px; margin-top: 32px; align-items: start; }
+.ld-title { font-size: clamp(24px, 3vw, 32px); margin: 0 0 12px; }
+.ld-city { color: var(--ink-2); font-weight: 400; }
+.ld-price-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.ld-label { font-family: var(--font-display); font-size: clamp(30px, 4vw, 44px); font-weight: 600; letter-spacing: -0.03em; }
+.ld-copy { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--pill); color: var(--on-pill); }
+.ld-small { margin: 4px 0 16px; color: var(--ink-2); font-size: 14px; }
+.ld-area { margin: 0 0 4px; }
+.ld-area a { color: var(--pill); font-weight: 700; text-decoration: underline; }
+.ld-specs { margin: 0 0 24px; font-weight: 600; }
+.ld-main h3 { margin: 24px 0 12px; font-size: 22px; }
+.ld-features { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px 20px; }
+.ld-features li { padding-left: 22px; position: relative; }
+.ld-features li::before { content: "✓"; position: absolute; left: 0; color: var(--pill); font-weight: 700; }
+.ld-aside { position: sticky; top: 88px; }
+.listing-detail .ld-aside { top: 180px; }
+.ld-card { border: 1px solid var(--line); border-radius: 24px; padding: 28px; background: var(--surface); }
+.ld-card h3 { margin: 0 0 16px; font-size: 22px; }
+.pill-form .field input { border-radius: 999px; padding-inline: 20px; min-height: 52px; }
+.pill-form .field textarea { border-radius: 24px; padding: 14px 20px; }
+.pill-form .field { margin-bottom: 14px; }
+.pill-form .button, .button.pill-accent { background: var(--pill); color: var(--on-pill); border-color: var(--pill); border-radius: 999px; min-height: 52px; width: 100%; }
+.pill-form .consent { align-items: flex-start; }
+@media (max-width: 767px) {
+  .listing-modal-panel { width: 100%; }
+  .listing-modal-top { padding: 10px 16px; }
+  .modal-back span:last-child { font-size: 14px; }
+  .ld { padding: 0 16px 40px; }
+  .ld-cols { grid-template-columns: 1fr; gap: 24px; }
+  .ld-aside, .listing-detail .ld-aside { position: static; }
+  .ld-card { padding: 20px; }
+}
+@media (prefers-reduced-motion: reduce) { .listing-modal-panel { transform: none !important; } }

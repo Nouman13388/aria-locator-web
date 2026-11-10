@@ -116,3 +116,23 @@ export const accessibilityPage = {
     { title: "Feedback", text: "This is a demo with no staff behind it. A live site would list how to report an accessibility problem." },
   ],
 };
+export const modalCopy = {
+  back: "Back to my search",
+  backShort: "Back",
+  label: "Sample listing",
+  illustrative: "Sample listing · illustrative",
+  imageCounter: (n: number, total: number) => `${n} / ${total}`,
+  formTitle: "Want more info on this listing?",
+  formNote: "Demo form: nothing is sent or stored. Please use sample details.",
+  moveDate: "Your move date",
+  firstName: "First name",
+  lastName: "Last name",
+  phone: "Phone (optional)",
+  email: "Email",
+  message: "Message",
+  consent: "Optional: I would like a follow-up about this sample (demo only).",
+  submit: "Submit",
+  success: "Demo complete.",
+  successNote: "Nothing was sent or stored. Your details have been cleared.",
+  dialogLabel: (title: string) => `${title}, sample listing details`,
+};

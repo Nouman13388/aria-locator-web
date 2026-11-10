@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { layouts, type Listing } from "../../data/listings";
+import { allListingIds, layouts, type Listing } from "../../data/listings";
 // Fields are optional (no schema defaults) so the router never rewrites a clean URL.
 export const listingsSearchSchema = z.object({
   // Comma-separated neighborhood slugs keep the URL readable and shareable.
@@ -7,6 +7,8 @@ export const listingsSearchSchema = z.object({
   layout: z.enum(layouts.map((layout) => layout.key)).optional().catch(undefined),
   featured: z.boolean().optional().catch(undefined),
   page: z.coerce.number().int().min(1).optional().catch(undefined),
+  // Open listing modal; unknown ids are dropped.
+  listing: z.string().refine((id) => allListingIds.has(id)).optional().catch(undefined),
 });
 export type ListingFilters = z.infer<typeof listingsSearchSchema>;
 export const readFilters = (search: ListingFilters) => ({

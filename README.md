@@ -32,11 +32,11 @@ Every page of a city lives under `/{slug}-apartments/` (route files in `src/rout
 | URL | Page |
 | --- | --- |
 | `/{slug}-apartments` | City home |
-| `/{slug}-apartments/listings` | Listings; URL-driven filters `neighborhood` (comma list), `layout`, `featured`, `page` |
+| `/{slug}-apartments/listings` | Listings; URL-driven filters `neighborhood` (comma list), `layout`, `featured`, `page`; `?listing=<id>` opens the detail as a modal over the list |
 | `/{slug}-apartments/neighborhoods` | 8 neighborhood cards, linking to filtered listings |
 | `/{slug}-apartments/concierge` | Moving Concierge services and demo form |
 | `/{slug}-apartments/about-us`, `/our-process`, `/faq`, `/get-started` | Content pages and the single-page demo form |
-| `/{slug}-apartment/{listingId}` | Listing detail (unknown id returns 404) |
+| `/{slug}-apartment/{listingId}` | Listing detail as a full indexable page (unknown id returns 404) |
 | `/blog`, `/blog/$slug` | Blog with search, location and topic filters |
 | `/legal`, `/accessibility`, `/sitemap` | Demo legal, accessibility and the sitemap |
 
@@ -44,7 +44,7 @@ Old global routes (`/listings`, `/neighborhoods`, `/moving-concierge`, `/about`,
 
 Header, footer and drawer links are built by `src/data/cityLinks.ts` from the route's city, else the saved city, else the first city. Cities, neighborhoods and the deterministic listing generator are in `src/data/cities.ts` and `src/data/listings.ts` (20 sample listings per city, no prices). Page copy is in `src/data/content.ts`, `src/data/cityPage.ts` and `src/data/posts.ts`. **All eight cities, neighborhoods, listings and posts are demo placeholders** for the client's real content. City hero images are pending; see `public/images/cities/TODO.md`.
 
-Forms (listing inquiry, concierge, get-started) validate with zod, show a demo success state and send or store nothing. There are no budget, credit or background-check fields.
+The listing detail is one component (`features/listings/ListingDetail.tsx`) rendered in a `ModalShell` (native `<dialog>`, scroll lock, focus return) on the listings page, or a `PageShell` at its own URL. Unknown `?listing=` ids are dropped. Forms (listing inquiry, concierge, get-started) validate with zod, show a demo success state and send or store nothing. There are no budget, credit or background-check fields.
 
 ## City landing pages
 
