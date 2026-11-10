@@ -12,7 +12,7 @@ import {
   restorePreferences,
   type Answers,
 } from "./schemas";
-const storageKey = "aria-demo-preferences";
+const storageKey = "keenest-demo-preferences";
 type State = { answers: Answers; complete: boolean };
 type Action =
   | { type: "update"; patch: Partial<Answers> }

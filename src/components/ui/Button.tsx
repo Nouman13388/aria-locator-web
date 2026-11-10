@@ -2,11 +2,11 @@ import { Link } from "@tanstack/react-router";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 export function Button({
   children,
-  variant = "",
+  appearance = "",
   ...props
-}: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: string }) {
+}: ButtonHTMLAttributes<HTMLButtonElement> & { appearance?: string }) {
   return (
-    <button className={`button ${variant}`} {...props}>
+    <button className={`button ${appearance}`} {...props}>
       {children}
     </button>
   );
@@ -14,14 +14,14 @@ export function Button({
 export function ButtonLink({
   to = "/get-started",
   children,
-  variant = "",
+  appearance = "",
 }: {
   to?: string;
   children: ReactNode;
-  variant?: string;
+  appearance?: string;
 }) {
   return (
-    <Link to={to} className={`button ${variant}`}>
+    <Link to={to} className={`button ${appearance}`}>
       {children}
     </Link>
   );

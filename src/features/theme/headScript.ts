@@ -1,25 +1,22 @@
 import { themes, resolveTheme, type ThemeDefinition } from "./themes";
+import { announcementStorageKey } from "../../data/site";
 function initializeThemes(
   registry: readonly ThemeDefinition[],
   resolve: typeof resolveTheme,
+  noticeKey: string,
 ) {
   let stored = null;
   try {
-    stored = localStorage.getItem("aria-theme");
+    stored = localStorage.getItem("keenest-theme");
   } catch {
-    /* The default theme also works without browser storage. */
+    /* Use the default when storage is unavailable. */
   }
-  const id = resolve(stored, registry);
-  document.documentElement.dataset.theme = id;
-  const selected = registry.find((theme) => theme.id === id)!;
-  for (const file of new Set([selected.personality.fontFile, "inter"])) {
-    const font = document.createElement("link");
-    font.rel = "preload";
-    font.as = "font";
-    font.type = "font/woff2";
-    font.crossOrigin = "anonymous";
-    font.href = `/fonts/${file}-latin-wght-normal.woff2`;
-    document.head.appendChild(font);
+  document.documentElement.dataset.theme = resolve(stored, registry);
+  try {
+    if (sessionStorage.getItem(noticeKey) === "1")
+      document.documentElement.dataset.demoNotice = "dismissed";
+  } catch {
+    /* The notice remains visible without storage. */
   }
 }
-export const themeScript = `(${initializeThemes.toString()})(${JSON.stringify(themes)},${resolveTheme.toString()});`;
+export const themeScript = `(${initializeThemes.toString()})(${JSON.stringify(themes)},${resolveTheme.toString()},${JSON.stringify(announcementStorageKey)});`;

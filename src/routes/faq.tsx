@@ -55,7 +55,7 @@ function FAQ() {
           <p>{faqActionCopy.description}</p>
           <div className="actions actions-center">
             <ButtonLink to="/contact">{actions.contactArrow}</ButtonLink>
-            <ButtonLink variant="secondary">{actions.getStarted}</ButtonLink>
+            <ButtonLink appearance="secondary">{actions.getStarted}</ButtonLink>
           </div>
         </div>
       </Section>

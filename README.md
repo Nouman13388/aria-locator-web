@@ -1,6 +1,6 @@
-# Aria apartment-locating demo
+# Kee Nest apartment-locating demo
 
-TanStack Start, React, TypeScript, Tailwind v4, and Cloudflare Vite. `Aria` is a placeholder brand configured in `src/data/site.ts`.
+TanStack Start, React, TypeScript, Tailwind v4, and Cloudflare Vite. Brand content is configured in `src/data/site.ts`. Worker/package name: `kee-nest-web`. Nothing has been deployed.
 
 ```sh
 npm ci
@@ -11,27 +11,12 @@ npm run build
 npm run preview
 ```
 
-No deployment has been run. Worker name: `aria-locator-web`. Deploy only when ready with `npm run deploy`.
+All three themes share the same typography, layout, spacing, and interactions. Only colors change. The default is Kee Nest Grey & White; Fresh Teal and Navy & Sun are always selectable. The registry is `src/features/theme/themes.ts`. A blocking head script prevents a wrong-theme paint. Theme state uses `useSyncExternalStore` and `keenest-theme` in localStorage.
 
-## Editing
+The six-step questionnaire remains URL-driven, validates every step, and saves only non-contact preferences in tab sessionStorage (`keenest-demo-preferences`). Name, email, and phone stay in memory and are never persisted or logged. Contact and questionnaire submissions send nothing. `submitLead.ts` is the single future integration seam.
 
-- `src/data/`: original neutral copy, fictional listing data, and URL filter schema.
-- `src/styles/app.css`: semantic theme tokens, shared components, responsive layout.
-- `src/features/theme/`: single three-theme registry, blocking head script, accessible selector using `useSyncExternalStore`. Clean Grey is the default; Fresh Teal and Navy & Sun are always available. Only `aria-theme` is saved in localStorage.
-- `src/features/listings/`: shared listing card with manual, keyboard-accessible image carousel; no autoplay.
-- `src/features/questionnaire/`: six URL-driven steps, validation, reducer/context, review, local submission. `submitLead.ts` remains the single future integration seam.
-- `/listings`: nine fictional samples with layout and surroundings filters validated in router search parameters. Neighborhoods navigation opens the green-spaces filter; it does not invent real locations.
+Media originals are retained locally in `design/media/` and ignored by Git; optimized web renditions live in `public/images/` and `public/videos/`. The user supplied the logo and video and cleared the original project images for this demo. No stock-site or reference-site media is used.
 
-## Demo privacy
+The root `logo.jpeg` supplies generated icons and the share image. Header/footer use a thin, wide-tracked, currentColor text wordmark. Regenerate icon assets with `node scripts/make-favicons.mjs` (pinned Sharp development dependency).
 
-No submissions make network requests. Contact details stay in memory and are never persisted or logged. Only questionnaire preferences survive refresh in tab sessionStorage (`aria-demo-preferences`). Completing the demo clears the saved answers. All properties, prices, and features are placeholders; no live matching, inquiries, or bookings take place. Contact uses `hello@example.com`, explicitly labelled demo.
-
-## Design and assets
-
-Reference: Stitch Home screen `98fbf13471ad4e31bfdde3845c3f6f4f` and the **Aria Living** design-system frame in project `14975129665267422418`. Exports in `design/` are reference artifacts, not runtime content. The design-token reference band is deliberately excluded from the website.
-
-The four new original project images are cleared for this demo by the user and served locally as WebP; provenance is in `public/images/ASSETS.md`. No third-party site copy, imagery, or branding is reused. Plus Jakarta Sans and Inter are locally hosted Google Fonts under the SIL Open Font License (see `public/fonts/`). Manrope remains an installed fallback. No runtime dependencies were added.
-
-Header/footer use a currentColor text wordmark and small diamond mark. Favicons use an original A monogram; the share image uses the placeholder wordmark. Regenerate with `node scripts/make-favicons.mjs` (Python/Pillow and the macOS Arial Bold system font required).
-
-The floating three-option theme pill becomes a button/popover at 640px and below. Arrow/Home/End keys move selection, Escape/outside click close the popover. The More navigation uses a keyboard-accessible disclosure; Escape returns focus to its trigger.
+Locally hosted Inter and Plus Jakarta Sans include their OFL notices. The restrained Motion integration is pinned and uses lazy `domAnimation`, `m` components, and the user's reduced-motion preference. No animation is applied to questionnaire fields. There are no live listings, matching, inquiries, bookings, analytics, or backend storage. Samples have placeholder prices and dimensions. Contact is `hello@example.com`, labelled demo.

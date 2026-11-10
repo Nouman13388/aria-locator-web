@@ -1,4 +1,4 @@
-export const siteName = "Aria";
+export const siteName = "Kee Nest";
 export const wordmarkParts = {
   name: siteName.toUpperCase(),
   parts: siteName.toUpperCase().split(" "),
@@ -18,11 +18,11 @@ export const process = [
     text: "Start with the essentials: your ideal area, move-in plans, budget, and the details that make a space feel like home.",
   },
   {
-    title: "Shape your shortlist",
+    title: "Get personalized matches",
     text: "A clear brief helps a locator compare layouts, amenities, and practical needs with what matters to you.",
   },
   {
-    title: "Plan your next step",
+    title: "Explore your options",
     text: "Use your preferences to guide a thoughtful search. In a live service, you would review options and arrange visits with a locator.",
   },
 ];
@@ -48,3 +48,5 @@ export const contact = {
   email: "hello@example.com",
   label: "Demo email address",
 };
+
+export const announcementStorageKey = "keenest-announcement-dismissed";

@@ -9,7 +9,7 @@ export function RouteError({ reset }: ErrorComponentProps) {
       <p>Please try again, or head home to continue exploring.</p>
       <div className="actions">
         <Button onClick={reset}>{actions.tryAgain}</Button>
-        <ButtonLink to="/" variant="secondary">
+        <ButtonLink to="/" appearance="secondary">
           {actions.backHome}
         </ButtonLink>
       </div>

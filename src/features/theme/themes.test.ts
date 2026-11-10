@@ -39,7 +39,7 @@ function bootstrap(value: string | null, search = "", blocked = false) {
     },
     localStorage: {
       getItem: (key: string) => {
-        assert.equal(key, "aria-theme");
+        assert.equal(key, "keenest-theme");
         if (blocked) throw Error("Unavailable");
         return value;
       },
@@ -108,17 +108,7 @@ test("semantic text and focus tokens meet AA contrast in each palette", async ()
   }
 });
 
-test("each registry theme has a distinct structural personality", () => {
-  assert.deepEqual(
-    themes.map((theme) => theme.personality.hero),
-    ["overlay", "split", "navy"],
-  );
-  assert.deepEqual(
-    themes.map((theme) => theme.personality.radius),
-    [12, 24, 6],
-  );
-  assert.equal(
-    new Set(themes.map((theme) => theme.personality.displayFont)).size,
-    3,
-  );
+test("themes contain color choices only, with no structural settings", () => {
+  for (const theme of themes)
+    assert.deepEqual(Object.keys(theme).sort(), ["id", "label", "swatch"]);
 });

@@ -49,7 +49,7 @@ function About() {
           <figure className="figure-reset">
             <img
               className="round-image"
-              src="/images/aria-living.webp"
+              src="/images/keenest-living.webp"
               alt="Sunlit living room with oak finishes and windows facing greenery"
               width="600"
               height="650"

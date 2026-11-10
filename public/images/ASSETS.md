@@ -4,9 +4,9 @@ Exported on 2026-11-10 from the user's owned Stitch project `1497512966526742241
 
 | Local asset | Original generated image screen |
 | --- | --- |
-| aria-exterior.webp | 6788b925c75f4620aed077570162ae5b |
-| aria-living.webp | 5d2861fc72484f3aa71f5079f2d639eb |
-| aria-kitchen.webp | 3dca33c13dbc4109987e001675925c35 |
-| aria-bedroom.webp | a2ad2e6813fc4fb98603e9acfc205303 |
+| keenest-exterior.webp | 6788b925c75f4620aed077570162ae5b |
+| keenest-living.webp | 5d2861fc72484f3aa71f5079f2d639eb |
+| keenest-kitchen.webp | 3dca33c13dbc4109987e001675925c35 |
+| keenest-bedroom.webp | a2ad2e6813fc4fb98603e9acfc205303 |
 
 PNG exports were converted locally to WebP at quality 85; original dimensions are retained. Listing names, prices, details, and descriptions were written for this demo. They are placeholders.

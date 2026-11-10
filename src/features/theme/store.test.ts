@@ -1,25 +1,18 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { choose } from "./store";
-test("rapid theme choices apply only the latest loaded font and theme", async () => {
+test("theme choice is immediate, validated, persisted, and announced", () => {
   const keys = ["document", "window", "localStorage"] as const;
   const originals = keys.map((key) =>
     Object.getOwnPropertyDescriptor(globalThis, key),
   );
-  const resolvers = new Map<string, () => void>();
-  const dataset: Record<string, string> = { theme: "clean-grey" };
+  const dataset: Record<string, string> = {};
   const saved: string[][] = [];
   let events = 0;
   try {
     Object.defineProperty(globalThis, "document", {
       configurable: true,
-      value: {
-        documentElement: { dataset },
-        fonts: {
-          load: (font: string) =>
-            new Promise<void>((resolve) => resolvers.set(font, resolve)),
-        },
-      },
+      value: { documentElement: { dataset } },
     });
     Object.defineProperty(globalThis, "window", {
       configurable: true,
@@ -31,19 +24,18 @@ test("rapid theme choices apply only the latest loaded font and theme", async ()
         setItem: (key: string, value: string) => saved.push([key, value]),
       },
     });
-    const earlier = choose("fresh-teal");
-    const latest = choose("navy-sun");
-    resolvers.get('700 1em "Outfit Variable"')!();
-    await latest;
-    resolvers.get('700 1em "Plus Jakarta Sans Variable"')!();
-    await earlier;
+    choose("fresh-teal");
+    assert.equal(dataset.theme, "fresh-teal");
+    choose("navy-sun");
     assert.equal(dataset.theme, "navy-sun");
-    assert.deepEqual(saved, [["aria-theme", "navy-sun"]]);
-    assert.equal(events, 1);
+    choose("unknown");
+    assert.equal(dataset.theme, "grey-white");
+    assert.deepEqual(saved.at(-1), ["keenest-theme", "grey-white"]);
+    assert.equal(events, 3);
   } finally {
     keys.forEach((key, index) => {
-      const original = originals[index];
-      if (original) Object.defineProperty(globalThis, key, original);
+      const old = originals[index];
+      if (old) Object.defineProperty(globalThis, key, old);
       else Reflect.deleteProperty(globalThis, key);
     });
   }

@@ -25,17 +25,17 @@ export const listingImages: Record<
   string,
   { alt: string; width: number; height: number }
 > = {
-  "aria-living": {
+  "keenest-living": {
     alt: "Sunlit living room with oak finishes and windows facing trees",
     width: 1200,
     height: 896,
   },
-  "aria-kitchen": {
+  "keenest-kitchen": {
     alt: "Open kitchen with a stone island, dining table, and terrace light",
     width: 1200,
     height: 896,
   },
-  "aria-bedroom": {
+  "keenest-bedroom": {
     alt: "Bedroom with linen bedding, sheer curtains, and a skyline view",
     width: 1200,
     height: 896,
@@ -82,7 +82,7 @@ export const listings: SampleListing[] = spaces.map(
     setting,
     price,
     features,
-    images: ["aria-living", "aria-kitchen", "aria-bedroom"].map(
+    images: ["keenest-living", "keenest-kitchen", "keenest-bedroom"].map(
       (_, j, all) => all[(i + j) % all.length],
     ),
   }),

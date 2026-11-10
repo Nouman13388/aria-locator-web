@@ -1,6 +1,5 @@
-import { themes, resolveTheme, defaultTheme } from "./themes";
-const themeEvent = "aria-theme-change";
-let pendingChoice = 0;
+import { resolveTheme, defaultTheme } from "./themes";
+const themeEvent = "keenest-theme-change";
 export function subscribe(listener: () => void) {
   window.addEventListener(themeEvent, listener);
   return () => window.removeEventListener(themeEvent, listener);
@@ -8,19 +7,12 @@ export function subscribe(listener: () => void) {
 export const getSnapshot = () =>
   resolveTheme(document.documentElement.dataset.theme);
 export const getServerSnapshot = () => defaultTheme;
-export async function choose(value: string) {
-  const request = ++pendingChoice;
-  const selected = themes.find((item) => item.id === resolveTheme(value))!;
-  try {
-    await document.fonts.load(`700 1em "${selected.personality.displayFont}"`);
-  } catch {
-    /* Keep the fallback if a local font is unavailable. */
-  }
-  if (request !== pendingChoice) return;
-  document.documentElement.dataset.theme = selected.id;
+export function choose(value: string) {
+  const id = resolveTheme(value);
+  document.documentElement.dataset.theme = id;
   window.dispatchEvent(new Event(themeEvent));
   try {
-    localStorage.setItem("aria-theme", selected.id);
+    localStorage.setItem("keenest-theme", id);
   } catch {
     /* Storage may be disabled. */
   }

@@ -27,7 +27,7 @@ export function Success({
         </p>
         <div className="actions actions-center">
           <Button onClick={reset}>{actions.tryAgain}</Button>
-          <ButtonLink to="/" variant="secondary">
+          <ButtonLink to="/" appearance="secondary">
             {actions.backHome}
           </ButtonLink>
         </div>

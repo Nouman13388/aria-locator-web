@@ -19,7 +19,7 @@ export function LocationStep(props: StepProps) {
         chips
       />
       <img
-        src="/images/aria-exterior.webp"
+        src="/images/keenest-exterior.webp"
         alt="Daytime apartment exterior with glass balconies and street greenery"
         className="location-image"
         width="1376"

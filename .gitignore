@@ -144,3 +144,7 @@ dist/
 /video.mp4
 /hero.mp4
 /hero.webm
+
+# Client-owned original media is retained locally; web renditions are tracked.
+/design/media/*
+!/design/media/INVENTORY.md

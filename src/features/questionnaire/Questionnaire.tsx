@@ -71,7 +71,7 @@ function QuestionnaireForm() {
           <div className="form-actions">
             <Button
               type="button"
-              variant="secondary"
+              appearance="secondary"
               disabled={flow.step === 0 || flow.busy}
               onClick={flow.back}
             >

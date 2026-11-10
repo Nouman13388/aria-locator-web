@@ -66,10 +66,10 @@ export function CTA() {
       </h2>
       <p>{ctaCopy.description}</p>
       <div className="actions actions-center">
-        <ButtonLink variant="light">
+        <ButtonLink appearance="light">
           {actions.findSpace} <span aria-hidden="true">↗</span>
         </ButtonLink>
-        <ButtonLink to="/listings" variant="outline-light">
+        <ButtonLink to="/listings" appearance="outline-light">
           See sample listings
         </ButtonLink>
       </div>

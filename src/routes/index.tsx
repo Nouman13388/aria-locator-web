@@ -111,7 +111,7 @@ function Home() {
           ))}
         </div>
         <div className="actions actions-center">
-          <ButtonLink to="/listings" variant="secondary">
+          <ButtonLink to="/listings" appearance="secondary">
             See sample listings <span aria-hidden="true">→</span>
           </ButtonLink>
         </div>
@@ -150,7 +150,7 @@ function Home() {
             <ButtonLink>
               Get Started <span aria-hidden="true">→</span>
             </ButtonLink>
-            <ButtonLink to="/how-it-works" variant="secondary">
+            <ButtonLink to="/how-it-works" appearance="secondary">
               How It Works
             </ButtonLink>
           </div>

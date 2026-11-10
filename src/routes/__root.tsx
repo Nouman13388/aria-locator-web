@@ -10,7 +10,7 @@ import type { ReactNode } from "react";
 import { Header, Footer } from "../components/layout/Layout";
 import { NotFound } from "../components/layout/NotFound";
 import { ThemeSelector, themeScript } from "../features/theme/ThemeSelector";
-import { defaultTheme, personalityCSS } from "../features/theme/themes";
+import { defaultTheme } from "../features/theme/themes";
 import stylesheet from "../styles/app.css?url";
 export const Route = createRootRoute({
   head: () => ({
@@ -39,12 +39,26 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "stylesheet", href: stylesheet },
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico?v=3" },
+      {
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+        href: "/fonts/plus-jakarta-sans-latin-wght-normal.woff2",
+      },
+      {
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+        href: "/fonts/inter-latin-wght-normal.woff2",
+      },
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico?v=4" },
       {
         rel: "icon",
         type: "image/png",
         sizes: "32x32",
-        href: "/favicon-32.png?v=3",
+        href: "/favicon-32.png?v=4",
       },
       {
         rel: "apple-touch-icon",
@@ -86,7 +100,6 @@ function Document({ children }: { children: ReactNode }) {
     <html lang="en" data-theme={defaultTheme} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <style dangerouslySetInnerHTML={{ __html: personalityCSS }} />
         <HeadContent />
       </head>
       <body>

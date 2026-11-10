@@ -65,8 +65,8 @@ export function HeroVideo() {
             image.parentElement
               ?.querySelectorAll("source")
               .forEach((source) => source.removeAttribute("srcset"));
-            if (!image.src.endsWith("/images/aria-exterior.webp"))
-              image.src = "/images/aria-exterior.webp";
+            if (!image.src.endsWith("/images/keenest-exterior.webp"))
+              image.src = "/images/keenest-exterior.webp";
           }}
         />
       </picture>

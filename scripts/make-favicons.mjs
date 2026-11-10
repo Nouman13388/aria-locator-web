@@ -1,34 +1,61 @@
-// Local brand asset generation with the system font and Python/Pillow.
-import { spawnSync } from "node:child_process";
-import { fileURLToPath } from "node:url";
-const result = spawnSync(
-  "python3",
-  [
-    "-c",
-    String.raw`
-from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont
-import re,sys
-root=Path(sys.argv[1]); output=root/'public'
-name=re.search(r'siteName = "([^"]+)"', (root/'src/data/site.ts').read_text()).group(1)
-css=(root/'src/styles/app.css').read_text().split('@theme')[0]
-primary=re.search(r'--primary: (#[\da-fA-F]+)',css).group(1)
-white=re.search(r'--white: (#[\da-fA-F]+)',css).group(1)
-font_path='/System/Library/Fonts/Supplemental/Arial Bold.ttf'
-def centered(im,text,size):
- d=ImageDraw.Draw(im); font=ImageFont.truetype(font_path,size); box=d.textbbox((0,0),text,font=font)
- x=(im.width-(box[2]-box[0]))/2; y=(im.height-(box[3]-box[1]))/2-box[1]
- d.text((x,y),text,font=font,fill=white)
-icon=Image.new('RGB',(512,512),primary);centered(icon,name[0].upper(),360)
-icon.save(output/'favicon.ico',format='ICO',sizes=[(16,16),(32,32),(48,48)])
-for filename,size in [('favicon-32.png',32),('apple-touch-icon.png',180),('icon-192.png',192),('icon-512.png',512)]:
- icon.resize((size,size),Image.Resampling.LANCZOS).save(output/filename)
-og=Image.new('RGB',(1200,630),primary);centered(og,name.upper()+' ◆',150);og.save(output/'og-image.jpg',quality=90,optimize=True)
-print('Generated Aria monogram icons and original wordmark share image.')
-`,
-    fileURLToPath(new URL("../", import.meta.url)),
-  ],
-  { stdio: "inherit" },
+import sharp from "sharp";
+import { readFile, writeFile } from "node:fs/promises";
+const css = await readFile(
+  new URL("../src/styles/app.css", import.meta.url),
+  "utf8",
 );
-if (result.error) throw result.error;
-if (result.status !== 0) process.exit(result.status ?? 1);
+const background = css.match(/--hero:\s*(#[\da-fA-F]{6})/)[1];
+const source = new URL("../logo.jpeg", import.meta.url);
+const output = (name) => new URL(`../public/${name}`, import.meta.url);
+// The wide source wordmark is too small in a browser tab; retain its clear K.
+const letter = await sharp(source.pathname)
+  .extract({ left: 133, top: 242, width: 27, height: 43 })
+  .dilate(1)
+  .resize(50, 50, { fit: "contain", background })
+  .png()
+  .toBuffer();
+const tab = await sharp({
+  create: { width: 64, height: 64, channels: 4, background },
+})
+  .composite([{ input: letter, gravity: "centre" }])
+  .png()
+  .toBuffer();
+const sizes = [16, 32, 48];
+const images = await Promise.all(
+  sizes.map((size) => sharp(tab).resize(size, size).png().toBuffer()),
+);
+const header = Buffer.alloc(6 + 16 * images.length);
+header.writeUInt16LE(1, 2);
+header.writeUInt16LE(images.length, 4);
+let offset = header.length;
+images.forEach((png, index) => {
+  const at = 6 + index * 16;
+  header[at] = sizes[index];
+  header[at + 1] = sizes[index];
+  header.writeUInt16LE(1, at + 4);
+  header.writeUInt16LE(32, at + 6);
+  header.writeUInt32LE(png.length, at + 8);
+  header.writeUInt32LE(offset, at + 12);
+  offset += png.length;
+});
+await writeFile(output("favicon.ico"), Buffer.concat([header, ...images]));
+await writeFile(output("favicon-32.png"), images[1]);
+for (const [name, size] of [
+  ["apple-touch-icon.png", 180],
+  ["icon-192.png", 192],
+  ["icon-512.png", 512],
+])
+  await sharp(source.pathname)
+    .resize(size, size, { fit: "contain", background })
+    .png()
+    .toFile(output(name).pathname);
+const wordmark = await sharp(source.pathname)
+  .extract({ left: 115, top: 225, width: 290, height: 80 })
+  .resize(850, 235, { fit: "contain", background })
+  .png()
+  .toBuffer();
+await sharp({ create: { width: 1200, height: 630, channels: 3, background } })
+  .composite([{ input: wordmark, gravity: "centre" }])
+  .jpeg({ quality: 90 })
+  .toFile(output("og-image.jpg").pathname);
+console.log("Generated client-logo icons and share image.");

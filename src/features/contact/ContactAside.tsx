@@ -21,7 +21,7 @@ export function ContactAside() {
         Placeholder only. This is not a real service contact.
       </p>
       <img
-        src="/images/aria-kitchen.webp"
+        src="/images/keenest-kitchen.webp"
         alt="Sunlit open kitchen and dining space with pendant lights"
         loading="lazy"
         width="600"

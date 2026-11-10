@@ -4,8 +4,9 @@ export function Wordmark() {
   return (
     <Link to="/" className="brand" aria-label={`${siteName} home`}>
       <span className="wordmark" aria-hidden="true">
-        {wordmarkParts.name}
+        <span>{wordmarkParts.parts[0]}</span>
         <span className="wordmark-mark">◆</span>
+        <span>{wordmarkParts.parts.slice(1).join(" ")}</span>
       </span>
     </Link>
   );

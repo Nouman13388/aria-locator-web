@@ -6,8 +6,8 @@ export function ThemeFade() {
   const reduced = useReducedMotion();
   useEffect(() => {
     const fade = () => setVersion((current) => current + 1);
-    window.addEventListener("aria-theme-change", fade);
-    return () => window.removeEventListener("aria-theme-change", fade);
+    window.addEventListener("keenest-theme-change", fade);
+    return () => window.removeEventListener("keenest-theme-change", fade);
   }, []);
   if (!version || reduced) return null;
   return (
