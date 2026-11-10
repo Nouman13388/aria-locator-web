@@ -72,8 +72,10 @@ export function Header() {
                     e.key === "Home"
                       ? 0
                       : e.key === "End"
-                        ? links.length - 1
-                        : index + (e.key === "ArrowUp" ? -1 : 1),
+                        ? -1
+                        : e.key === "ArrowUp"
+                          ? (index < 0 ? 0 : index) - 1
+                          : index + 1,
                   );
                 }
               }}

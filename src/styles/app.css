@@ -1502,9 +1502,22 @@ em {
   background: color-mix(in srgb, var(--accent) 18%, var(--surface));
 }
 @media (max-width: 760px) {
-  .desktop-nav { display: none; }
-  .cta { padding: 40px 22px; }
+  .desktop-nav {
+    display: none;
+  }
+  .cta {
+    padding: 40px 22px;
+  }
 }
 @media (max-width: 640px) {
-  .theme-dock { padding: 4px; border-radius: 50%; bottom: max(12px, env(safe-area-inset-bottom)); }
+  .theme-dock {
+    padding: 4px;
+    border-radius: 50%;
+    bottom: max(12px, env(safe-area-inset-bottom));
+  }
+}
+@media (min-width: 761px) and (max-width: 1023px) {
+  .hero-wash {
+    background: color-mix(in srgb, var(--white) 88%, transparent);
+  }
 }
