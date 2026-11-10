@@ -32,7 +32,11 @@ function bootstrap(value: string | null, search = "", blocked = false) {
   const dataset: Record<string, string> = {};
   runInNewContext(themeScript, {
     location: { search },
-    document: { documentElement: { dataset } },
+    document: {
+      documentElement: { dataset },
+      createElement: () => ({}),
+      head: { appendChild: () => {} },
+    },
     localStorage: {
       getItem: (key: string) => {
         assert.equal(key, "aria-theme");
@@ -102,4 +106,19 @@ test("semantic text and focus tokens meet AA contrast in each palette", async ()
       `${theme.id}: CTA text`,
     );
   }
+});
+
+test("each registry theme has a distinct structural personality", () => {
+  assert.deepEqual(
+    themes.map((theme) => theme.personality.hero),
+    ["overlay", "split", "navy"],
+  );
+  assert.deepEqual(
+    themes.map((theme) => theme.personality.radius),
+    [12, 24, 6],
+  );
+  assert.equal(
+    new Set(themes.map((theme) => theme.personality.displayFont)).size,
+    3,
+  );
 });

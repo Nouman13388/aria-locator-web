@@ -9,7 +9,7 @@ import type { ReactNode } from "react";
 import { Header, Footer } from "../components/layout/Layout";
 import { NotFound } from "../components/layout/NotFound";
 import { ThemeSelector, themeScript } from "../features/theme/ThemeSelector";
-import { defaultTheme } from "../features/theme/themes";
+import { defaultTheme, personalityCSS } from "../features/theme/themes";
 import stylesheet from "../styles/app.css?url";
 export const Route = createRootRoute({
   head: () => ({
@@ -85,6 +85,7 @@ function Document({ children }: { children: ReactNode }) {
     <html lang="en" data-theme={defaultTheme} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <style dangerouslySetInnerHTML={{ __html: personalityCSS }} />
         <HeadContent />
       </head>
       <body>

@@ -27,6 +27,10 @@ export function ListingCard({ listing }: { listing: SampleListing }) {
           loading="lazy"
         />
         <span className="sample-badge">Sample listing</span>
+        <p className="listing-price">
+          {listing.price}
+          <span> / mo · placeholder</span>
+        </p>
         <div className="carousel-controls">
           <button
             aria-label={`Previous image for ${listing.title}`}
@@ -50,10 +54,9 @@ export function ListingCard({ listing }: { listing: SampleListing }) {
         </div>
       </div>
       <div className="listing-body">
-        <p className="listing-price">
-          {listing.price}
-          <span> / mo · placeholder</span>
-        </p>
+        <span className="listing-setting">
+          {listing.setting} setting · fictional
+        </span>
         <h3>{listing.title}</h3>
         <p className="listing-specs">
           {listing.beds === "studio" ? "Studio" : `${listing.beds} bed`} ·{" "}

@@ -4,7 +4,6 @@ import { homeCopy, exampleSearches, homePrinciples } from "../data/pages";
 import { listings } from "../data/listings";
 import { Section } from "../components/ui/Section";
 import { ButtonLink } from "../components/ui/Button";
-import { CTA } from "../components/layout/Layout";
 import { ListingCard } from "../features/listings/ListingCard";
 import { pageHead } from "../lib/head";
 export const Route = createFileRoute("/")({
@@ -17,24 +16,26 @@ export const Route = createFileRoute("/")({
 });
 function Home() {
   return (
-    <>
+    <div className="home-page">
       <section className="photo-hero" aria-labelledby="hero-title">
-        <img
-          className="hero-background"
-          src="/images/aria-exterior.webp"
-          alt="Modern apartment building with glass balconies, leafy trees, and a clear blue sky"
-          width="1376"
-          height="768"
-          fetchPriority="high"
-        />
-        <div className="hero-wash" />
         <div className="wrap hero-content">
+          <div className="hero-visual">
+            <img
+              className="hero-background"
+              src="/images/aria-exterior.webp"
+              alt=""
+              width="1376"
+              height="768"
+              fetchPriority="high"
+            />
+            <div className="hero-wash" />
+          </div>
           <div className="hero-message">
             <span className="hero-kicker">{homeCopy.eyebrow}</span>
             <h1 id="hero-title">
               {homeCopy.title}
               <br />
-              {homeCopy.titleEmphasis}
+              <span className="hero-highlight">{homeCopy.titleEmphasis}</span>
             </h1>
             <p>{homeCopy.description}</p>
             <ButtonLink>
@@ -61,7 +62,7 @@ function Home() {
       <Section>
         <div className="section-heading centered-heading">
           <span className="eyebrow accent">Your move, in focus</span>
-          <h2>A little direction. A new beginning.</h2>
+          <h2>How your search takes shape.</h2>
           <p>Bring your ideas together, one step at a time.</p>
         </div>
         <div className="grid-3">
@@ -85,8 +86,8 @@ function Home() {
       <Section band>
         <div className="section-heading">
           <div>
-            <span className="eyebrow accent">Sample spaces</span>
-            <h2>Make room for possibility.</h2>
+            <span className="sample-label">Sample data</span>
+            <h2>A few places to imagine.</h2>
           </div>
           <p>
             Fictional apartments, illustrative images, and placeholder prices. A
@@ -106,18 +107,20 @@ function Home() {
       </Section>
       <Section>
         <div className="principles-band">
-          <div className="section-heading centered-heading">
-            <span className="eyebrow accent">
-              A search with you at the center
-            </span>
-            <h2>Less noise. More you.</h2>
+          <div className="principles-heading">
+            <span className="eyebrow accent">Our approach</span>
+            <h2>
+              An apartment search built around{" "}
+              <span className="text-highlight">your life.</span>
+            </h2>
+            <p>
+              Start with the routines, spaces, and little details that make a
+              place feel like yours.
+            </p>
           </div>
           <div className="grid-3">
-            {homePrinciples.map((item, i) => (
+            {homePrinciples.map((item) => (
               <article key={item.title}>
-                <span className="principle-icon" aria-hidden="true">
-                  {["◎", "◇", "◷"][i]}
-                </span>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
               </article>
@@ -125,9 +128,23 @@ function Home() {
           </div>
         </div>
       </Section>
-      <Section>
-        <CTA />
-      </Section>
-    </>
+      <section className="section home-closing">
+        <div className="wrap center">
+          <h2>Ready to picture your next move?</h2>
+          <p>
+            Bring your preferences together in the demo questionnaire. No
+            inquiry is sent.
+          </p>
+          <div className="actions actions-center">
+            <ButtonLink>
+              Get Started <span aria-hidden="true">→</span>
+            </ButtonLink>
+            <ButtonLink to="/how-it-works" variant="secondary">
+              How It Works
+            </ButtonLink>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

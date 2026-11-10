@@ -26,8 +26,8 @@ export const pageIntros = {
 };
 export const homeCopy = {
   eyebrow: "A new way to begin your next move",
-  title: "Your next home.",
-  titleEmphasis: "Your kind of living.",
+  title: "Your next apartment.",
+  titleEmphasis: "Room for your kind of living.",
   description:
     "More room for what matters. Tell us about your everyday life and turn your apartment wish list into a clear starting point.",
 };
