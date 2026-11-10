@@ -5,6 +5,7 @@ import { listings } from "../data/listings";
 import { Section } from "../components/ui/Section";
 import { ButtonLink } from "../components/ui/Button";
 import { ListingCard } from "../features/listings/ListingCard";
+import { HeroVideo } from "../components/ui/HeroVideo";
 import { pageHead } from "../lib/head";
 export const Route = createFileRoute("/")({
   head: () =>
@@ -19,17 +20,7 @@ function Home() {
     <div className="home-page">
       <section className="photo-hero" aria-labelledby="hero-title">
         <div className="wrap hero-content">
-          <div className="hero-visual">
-            <img
-              className="hero-background"
-              src="/images/aria-exterior.webp"
-              alt=""
-              width="1376"
-              height="768"
-              fetchPriority="high"
-            />
-            <div className="hero-wash" />
-          </div>
+          <HeroVideo />
           <div className="hero-message">
             <span className="hero-kicker">{homeCopy.eyebrow}</span>
             <h1 id="hero-title">
