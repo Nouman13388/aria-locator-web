@@ -4,7 +4,15 @@ import { Input, Textarea } from "../../components/ui/Input";
 import { Button } from "../../components/ui/Button";
 import { contactSchema } from "./schema";
 const empty = { name: "", email: "", phone: "", message: "" };
-export function ContactForm() {
+export function ContactForm({
+  eyebrow = "Send a little context",
+  title = "How can we help?",
+  idPrefix = "contact",
+}: {
+  eyebrow?: string;
+  title?: string;
+  idPrefix?: string;
+}) {
   const [values, setValues] = useState(empty);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [success, setSuccess] = useState(false);
@@ -19,7 +27,7 @@ export function ContactForm() {
       setErrors(next);
       (
         form.current?.querySelector(
-          `#contact-${Object.keys(next)[0]}`,
+          `#${idPrefix}-${Object.keys(next)[0]}`,
         ) as HTMLElement
       )?.focus();
       return;
@@ -28,7 +36,7 @@ export function ContactForm() {
     setErrors({});
     setSuccess(true);
     requestAnimationFrame(() =>
-      document.getElementById("contact-success")?.focus(),
+      document.getElementById(`${idPrefix}-success`)?.focus(),
     );
   }
   function update(key: keyof typeof empty, value: string) {
@@ -46,7 +54,7 @@ export function ContactForm() {
           <span className="success-mark" aria-hidden="true">
             ✓
           </span>
-          <h2 id="contact-success" tabIndex={-1}>
+          <h2 id={`${idPrefix}-success`} tabIndex={-1}>
             Demo complete.
           </h2>
           <p role="status">
@@ -57,13 +65,13 @@ export function ContactForm() {
         </div>
       ) : (
         <form ref={form} onSubmit={submit} noValidate>
-          <span className="eyebrow accent">Send a little context</span>
-          <h3>How can we help?</h3>
+          <span className="eyebrow accent">{eyebrow}</span>
+          <h3>{title}</h3>
           <p className="form-note">
-            Demo form — nothing is sent. Please use sample details.
+            Demo form: nothing is sent or stored. Please use sample details.
           </p>
           <Input
-            id="contact-name"
+            id={`${idPrefix}-name`}
             label="Name"
             autoComplete="name"
             value={values.name}
@@ -71,7 +79,7 @@ export function ContactForm() {
             error={errors.name}
           />
           <Input
-            id="contact-email"
+            id={`${idPrefix}-email`}
             label="Email address"
             type="email"
             autoComplete="email"
@@ -80,7 +88,7 @@ export function ContactForm() {
             error={errors.email}
           />
           <Input
-            id="contact-phone"
+            id={`${idPrefix}-phone`}
             label="Phone number (optional)"
             type="tel"
             autoComplete="tel"
@@ -89,7 +97,7 @@ export function ContactForm() {
             error={errors.phone}
           />
           <Textarea
-            id="contact-message"
+            id={`${idPrefix}-message`}
             label="Your message"
             maxLength={2000}
             value={values.message}

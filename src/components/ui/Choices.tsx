@@ -19,7 +19,7 @@ export function Choices({
 }) {
   const selected = Array.isArray(value) ? value : [value];
   return (
-    <fieldset aria-describedby={error ? `${name}-error` : undefined}>
+    <fieldset id={name} tabIndex={-1} aria-describedby={error ? `${name}-error` : undefined}>
       <legend>{label}</legend>
       <div className="choices">
         {options.map((option) => (

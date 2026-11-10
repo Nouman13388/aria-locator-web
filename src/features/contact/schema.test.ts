@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { contactSchema } from "./schema";
 import { contactFields } from "../../lib/validation";
-import { stepSchemas } from "../questionnaire/schemas";
+import { getStartedSchema } from "../getStarted/schema";
 
 const valid = {
   name: "Sample Renter",
@@ -41,10 +41,9 @@ test("contact form rejects invalid or oversized fields", () => {
     );
   }
 });
-test("questionnaire requires phone while sharing the same field validators", () => {
-  assert.equal(stepSchemas[5].safeParse(valid).success, false);
+test("get-started requires phone while sharing the same field validators", () => {
+  const brief = { moveDate: "2026-09-01", layout: "Studio", neighborhoods: [], pets: "No pets", parking: "Not needed", mustHaves: [], firstName: "Sam", lastName: "Renter", phone: "", email: "sample@example.com", notes: "", consentMarketing: false, consentContact: false };
+  assert.equal(getStartedSchema.safeParse(brief).success, false);
   assert.equal(contactFields.phone.safeParse("").success, false);
-  assert.ok(
-    stepSchemas[5].safeParse({ ...valid, phone: "+1 202 555 0123" }).success,
-  );
+  assert.ok(getStartedSchema.safeParse({ ...brief, phone: "+1 202 555 0123" }).success);
 });
