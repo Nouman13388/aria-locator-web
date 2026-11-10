@@ -5,7 +5,7 @@ function initializeThemes(
 ) {
   let stored = null;
   try {
-    stored = localStorage.getItem("keenest-theme");
+    stored = localStorage.getItem("aria-theme");
   } catch {
     /* The default theme also works without browser storage. */
   }

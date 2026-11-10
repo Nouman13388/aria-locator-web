@@ -21,8 +21,8 @@ export function ContactAside() {
         Placeholder only. This is not a real service contact.
       </p>
       <img
-        src="/images/contact-0.jpg"
-        alt="Calm architectural lounge with a travertine desk and warm light"
+        src="/images/aria-kitchen.webp"
+        alt="Sunlit open kitchen and dining space with pendant lights"
         loading="lazy"
         width="600"
         height="400"

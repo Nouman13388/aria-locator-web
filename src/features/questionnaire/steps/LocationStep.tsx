@@ -19,9 +19,12 @@ export function LocationStep(props: StepProps) {
         chips
       />
       <img
-        src="/images/get-started-questionnaire-0.jpg"
-        alt="Sunlit limestone architecture and a peaceful tree-lined street"
+        src="/images/aria-exterior.webp"
+        alt="Daytime apartment exterior with glass balconies and street greenery"
         className="location-image"
+        width="1376"
+        height="768"
+        loading="lazy"
       />
     </>
   );

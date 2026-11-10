@@ -1,4 +1,4 @@
-export const siteName = "Kee Nest";
+export const siteName = "Aria";
 export const wordmarkParts = {
   name: siteName.toUpperCase(),
   parts: siteName.toUpperCase().split(" "),
@@ -6,6 +6,7 @@ export const wordmarkParts = {
 };
 
 export const navigation = [
+  { to: "/listings", label: "Listings" },
   { to: "/how-it-works", label: "How It Works" },
   { to: "/about", label: "About" },
   { to: "/faq", label: "FAQ" },
@@ -17,11 +18,11 @@ export const process = [
     text: "Start with the essentials: your ideal area, move-in plans, budget, and the details that make a space feel like home.",
   },
   {
-    title: "Bring your priorities into focus",
+    title: "Shape your shortlist",
     text: "A clear brief helps a locator compare layouts, amenities, and practical needs with what matters to you.",
   },
   {
-    title: "Explore your next chapter",
+    title: "Plan your next step",
     text: "Use your preferences to guide a thoughtful search. In a live service, you would review options and arrange visits with a locator.",
   },
 ];

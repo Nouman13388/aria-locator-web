@@ -49,8 +49,8 @@ function About() {
           <figure className="figure-reset">
             <img
               className="round-image"
-              src="/images/about-0.jpg"
-              alt="Warm living room with timber details opening onto a green terrace"
+              src="/images/aria-living.webp"
+              alt="Sunlit living room with oak finishes and windows facing greenery"
               width="600"
               height="650"
             />

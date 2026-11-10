@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+<html data-theme="clean-grey" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aria — Modern &amp; Approachable Apartment Locating</title>
+<!-- Google Fonts: Plus Jakarta Sans (Headings) & Inter (Body UI) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- BEGIN: Tailwind Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['"Plus Jakarta Sans"', 'Manrope', 'sans-serif']
+          },
+          colors: {
+            theme: {
+              bg: 'var(--color-bg)',
+              band: 'var(--color-band)',
+              border: 'var(--color-border)',
+              ink: 'var(--color-ink)',
+              'ink-muted': 'var(--color-ink-muted)',
+              primary: 'var(--color-primary)',
+              'primary-hover': 'var(--color-primary-hover)',
+              accent: 'var(--color-accent)'
+            }
+          },
+          borderRadius: {
+            '2xl': '16px'
+          },
+          boxShadow: {
+            'subtle': '0 2px 10px rgba(0, 0, 0, 0.04), 0 10px 30px rgba(0, 0, 0, 0.06)',
+            'floating': '0 16px 36px -8px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.06)'
+          }
+        }
+      }
+    };
+  </script>
+<!-- END: Tailwind Configuration -->
+<!-- BEGIN: CSS Variables & Theme Definitions -->
+<style data-purpose="theme-variables">
+    :root, [data-theme="clean-grey"] {
+      --color-bg: #FFFFFF;
+      --color-band: #F3F4F6;
+      --color-border: #E5E7EB;
+      --color-ink: #111827;
+      --color-ink-muted: #4B5563;
+      --color-primary: #1D4ED8;
+      --color-primary-hover: #1E40AF;
+      --color-accent: #2563EB;
+      --focus-ring: #1D4ED8;
+    }
+
+    [data-theme="fresh-teal"] {
+      --color-bg: #FFFFFF;
+      --color-band: #ECF7F6;
+      --color-border: #D5EAE8;
+      --color-ink: #0B1F2A;
+      --color-ink-muted: #41586A;
+      --color-primary: #0E8F8A;
+      --color-primary-hover: #0A6D69;
+      --color-accent: #14B8A6;
+      --focus-ring: #0E8F8A;
+    }
+
+    [data-theme="navy-sun"] {
+      --color-bg: #FFFFFF;
+      --color-band: #F4F7FB;
+      --color-border: #E2E8F0;
+      --color-ink: #0F2747;
+      --color-ink-muted: #475A78;
+      --color-primary: #0F2747;
+      --color-primary-hover: #1A3E6D;
+      --color-accent: #F5A524;
+      --focus-ring: #F5A524;
+    }
+
+    /* Accessibility focus styling */
+    a:focus-visible, button:focus-visible, input:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 3px;
+    }
+
+    /* Smooth transitions for theme switches */
+    body, section, header, footer, div, span, p, h1, h2, h3, a, button {
+      transition: background-color 0.25s ease, border-color 0.25s ease, color 0.2s ease;
+    }
+  </style>
+<!-- END: CSS Variables & Theme Definitions -->
+</head>
+<body class="bg-theme-bg text-theme-ink font-sans antialiased selection:bg-theme-primary selection:text-white pb-24">
+<!-- BEGIN: AnnouncementBar -->
+<aside class="w-full bg-slate-900 text-slate-200 border-b border-slate-800 text-xs sm:text-sm py-2 px-4 transition-colors" data-purpose="announcement-bar">
+<div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold tracking-wide uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+        Demo Mode
+      </span>
+<p class="font-medium tracking-normal text-center">
+        Demo site: nothing you submit is sent or stored.
+      </p>
+</div>
+</aside>
+<!-- END: AnnouncementBar -->
+<!-- BEGIN: StickyHeader -->
+<header class="sticky top-0 z-40 bg-theme-bg/95 backdrop-blur-md border-b border-theme-border transition-colors">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+<!-- Brand Logo -->
+<a aria-label="Aria Home" class="flex items-center gap-2 group focus:outline-none" href="#">
+<span class="font-heading font-extrabold text-2xl sm:text-3xl tracking-wider text-theme-ink flex items-center">
+          ARIA
+          <span aria-hidden="true" class="inline-block w-2.5 h-2.5 bg-theme-primary ml-1.5 rotate-45 group-hover:scale-125 transition-transform"></span>
+</span>
+</a>
+<!-- Center Desktop Navigation -->
+<nav aria-label="Main Navigation" class="hidden md:flex items-center space-x-8 text-sm font-semibold text-theme-ink-muted">
+<a class="hover:text-theme-ink transition-colors py-2" href="#listings">Listings</a>
+<a class="hover:text-theme-ink transition-colors py-2" href="#principles">Neighborhoods</a>
+<a class="hover:text-theme-ink transition-colors py-2" href="#how-it-works">How It Works</a>
+<!-- Interactive Dropdown -->
+<div class="relative group" data-purpose="nav-dropdown">
+<button aria-expanded="false" class="inline-flex items-center gap-1.5 py-2 hover:text-theme-ink font-semibold focus:outline-none" id="moreDropdownBtn" type="button">
+<span>More</span>
+<svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<!-- Dropdown Menu -->
+<div class="absolute left-0 mt-2 w-48 rounded-2xl bg-theme-bg border border-theme-border shadow-floating py-2 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-all transform origin-top-left duration-150 z-50">
+<a class="block px-4 py-2.5 text-sm text-theme-ink hover:bg-theme-band transition-colors" href="#about">About Aria</a>
+<a class="block px-4 py-2.5 text-sm text-theme-ink hover:bg-theme-band transition-colors" href="#faq">FAQ</a>
+<a class="block px-4 py-2.5 text-sm text-theme-ink hover:bg-theme-band transition-colors" href="#contact">Contact</a>
+</div>
+</div>
+</nav>
+<!-- Right Header CTA -->
+<div class="flex items-center gap-3">
+<a class="inline-flex items-center justify-center px-6 min-h-[44px] rounded-full text-sm font-bold text-white bg-theme-primary hover:bg-theme-primary-hover shadow-sm transition-all focus:outline-none" href="#cta">
+          Get Started
+        </a>
+</div>
+</div>
+</header>
+<!-- END: StickyHeader -->
+<main>
+<!-- BEGIN: HeroSection -->
+<section class="relative bg-slate-900 min-h-[640px] lg:min-h-[720px] flex flex-col justify-between pt-16 pb-24 overflow-hidden" data-purpose="hero-section">
+<!-- Background Image with Contrast Overlay -->
+<div class="absolute inset-0 z-0">
+<img alt="Bright modern architectural exterior of residential apartment building under blue sky" class="w-full h-full object-cover object-center transform scale-105 duration-1000 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0Ju_pz946tiJdRMEorRLkLeX3JB_P9G3tiHijOpbm4DTRiTN4INoaPXeEJzcDq_RktJt8yu6YZLnEWN2Lmbr3ratBde-UmgQXZJ6kuQOPi9znAXWsTCqBnKEpsBe5tGJg8y10y-XzJeDdIAIK19pXNzwshuJBaikNhcGbHpzyPdVV9m_0iyGKOeswAGNLLeMVkiFcfMXkyDVxzKL0JVjXagwTj0o1Rn4LGmleXZK0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-900/40"></div>
+</div>
+<!-- Hero Main Content Area -->
+<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-8 sm:pt-14">
+<div class="max-w-3xl">
+<!-- Live Service Tag -->
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold mb-6">
+<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Personal apartment-locating service
+          </div>
+<!-- Hero Headline -->
+<h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6">
+            Find an apartment you'll love, without the endless search.
+          </h1>
+<!-- Crisp Supporting Line -->
+<p class="text-base sm:text-lg lg:text-xl text-slate-200 mb-8 max-w-2xl font-normal leading-relaxed">
+            Tell us your wish list through a 2-minute questionnaire. Our locators match you with vetted options at zero cost to you.
+          </p>
+<!-- Single Primary Action Button -->
+<div class="flex items-center">
+<a class="inline-flex items-center justify-center px-8 min-h-[48px] rounded-full text-base font-bold text-white bg-theme-primary hover:bg-theme-primary-hover shadow-floating transition-transform active:scale-95" href="#cta">
+              Start Your Search →
+            </a>
+</div>
+</div>
+</div>
+<!-- Overlapping Floating Example Search Cards at Bottom of Hero -->
+<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-16 sm:mt-20">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 -mb-16">
+<!-- Card 1 -->
+<div class="bg-theme-bg/95 backdrop-blur-lg border border-theme-border rounded-2xl p-5 shadow-floating flex flex-col justify-between hover:border-theme-primary/50 transition-all">
+<div class="flex items-start justify-between gap-4 mb-3">
+<div>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 mb-2">
+                  🌿 Greenery &amp; Trails
+                </span>
+<h2 class="font-heading text-lg font-bold text-theme-ink">A quiet neighborhood near parks</h2>
+</div>
+<span class="text-xs font-semibold text-theme-ink-muted bg-theme-band px-2.5 py-1 rounded-full whitespace-nowrap">
+                1–2 Beds · &lt;$2,900
+              </span>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-theme-border/60">
+<span class="text-xs text-theme-ink-muted">Matched 8 buildings recently</span>
+<a class="text-sm font-bold text-theme-primary hover:text-theme-primary-hover inline-flex items-center gap-1" href="#cta">
+                Try this search →
+              </a>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-theme-bg/95 backdrop-blur-lg border border-theme-border rounded-2xl p-5 shadow-floating flex flex-col justify-between hover:border-theme-primary/50 transition-all">
+<div class="flex items-start justify-between gap-4 mb-3">
+<div>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 mb-2">
+                  🚇 Sub-20m Transit
+                </span>
+<h2 class="font-heading text-lg font-bold text-theme-ink">A 20-minute commute downtown</h2>
+</div>
+<span class="text-xs font-semibold text-theme-ink-muted bg-theme-band px-2.5 py-1 rounded-full whitespace-nowrap">
+                Studio/1 Bed · Sunlit
+              </span>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-theme-border/60">
+<span class="text-xs text-theme-ink-muted">14 verified layouts available</span>
+<a class="text-sm font-bold text-theme-primary hover:text-theme-primary-hover inline-flex items-center gap-1" href="#cta">
+                Try this search →
+              </a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: ProcessSection -->
+<section class="pt-32 pb-20 bg-theme-bg" data-purpose="3-step-process" id="how-it-works">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Section Header -->
+<div class="text-center max-w-2xl mx-auto mb-16">
+<span class="text-xs uppercase font-extrabold tracking-widest text-theme-primary">Simple &amp; Fast</span>
+<h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-theme-ink tracking-tight mt-1 mb-3">
+            How Aria Works
+          </h2>
+<p class="text-theme-ink-muted text-base sm:text-lg">
+            Three clear steps to your keys.
+          </p>
+</div>
+<!-- 3 Process Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Step 01 -->
+<div class="bg-theme-band rounded-2xl p-8 border border-theme-border flex flex-col justify-between hover:shadow-subtle transition-all" data-purpose="step-card">
+<div>
+<div class="flex items-center justify-between mb-6">
+<span class="font-heading text-3xl font-extrabold text-theme-primary">01</span>
+<div aria-hidden="true" class="w-12 h-12 rounded-2xl bg-theme-bg border border-theme-border flex items-center justify-center text-theme-primary shadow-sm">
+<!-- Clipboard Icon -->
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<h3 class="font-heading text-xl font-bold text-theme-ink mb-3">Share your preferences</h3>
+<p class="text-theme-ink-muted text-sm leading-relaxed mb-6">
+                Complete a rapid 2-minute questionnaire detailing your target move-in window, ideal layout, pet requirements, and neighborhood vibe.
+              </p>
+</div>
+<a class="text-sm font-bold text-theme-primary hover:text-theme-primary-hover inline-flex items-center gap-1 group" href="#faq">
+              Learn more <span class="group-hover:translate-x-1 transition-transform">→</span>
+</a>
+</div>
+<!-- Step 02 -->
+<div class="bg-theme-band rounded-2xl p-8 border border-theme-border flex flex-col justify-between hover:shadow-subtle transition-all" data-purpose="step-card">
+<div>
+<div class="flex items-center justify-between mb-6">
+<span class="font-heading text-3xl font-extrabold text-theme-primary">02</span>
+<div aria-hidden="true" class="w-12 h-12 rounded-2xl bg-theme-bg border border-theme-border flex items-center justify-center text-theme-primary shadow-sm">
+<!-- Sliders/Sparkle Icon -->
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<h3 class="font-heading text-xl font-bold text-theme-ink mb-3">Get personalized matches</h3>
+<p class="text-theme-ink-muted text-sm leading-relaxed mb-6">
+                A dedicated residential advisor compares real-time building inventories to produce a concise shortlist of vetted, move-in ready residences.
+              </p>
+</div>
+<a class="text-sm font-bold text-theme-primary hover:text-theme-primary-hover inline-flex items-center gap-1 group" href="#faq">
+              Learn more <span class="group-hover:translate-x-1 transition-transform">→</span>
+</a>
+</div>
+<!-- Step 03 -->
+<div class="bg-theme-band rounded-2xl p-8 border border-theme-border flex flex-col justify-between hover:shadow-subtle transition-all" data-purpose="step-card">
+<div>
+<div class="flex items-center justify-between mb-6">
+<span class="font-heading text-3xl font-extrabold text-theme-primary">03</span>
+<div aria-hidden="true" class="w-12 h-12 rounded-2xl bg-theme-bg border border-theme-border flex items-center justify-center text-theme-primary shadow-sm">
+<!-- Key/Map Icon -->
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<h3 class="font-heading text-xl font-bold text-theme-ink mb-3">Explore your options</h3>
+<p class="text-theme-ink-muted text-sm leading-relaxed mb-6">
+                Review consolidated floor plans, schedule private tours, compare lease concessions, and secure your new home with zero locating fees.
+              </p>
+</div>
+<a class="text-sm font-bold text-theme-primary hover:text-theme-primary-hover inline-flex items-center gap-1 group" href="#faq">
+              Learn more <span class="group-hover:translate-x-1 transition-transform">→</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- END: ProcessSection -->
+<!-- BEGIN: SampleListingsSection -->
+<section class="py-20 bg-theme-band border-y border-theme-border transition-colors" data-purpose="sample-listings" id="listings">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Header with Sample Data Badge -->
+<div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+<div>
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-theme-bg text-theme-ink-muted border border-theme-border mb-3">
+<span class="w-2 h-2 rounded-full bg-theme-primary"></span>
+              Sample data
+            </div>
+<h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-theme-ink tracking-tight">
+              Curated Sample Listings
+            </h2>
+</div>
+<p class="text-sm text-theme-ink-muted max-w-md">
+            A small taste of the verified floor plans and interior standards represented in our locator network.
+          </p>
+</div>
+<!-- 3 Rich Listing Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Listing Card 1 -->
+<article class="bg-theme-bg rounded-2xl overflow-hidden border border-theme-border shadow-subtle flex flex-col group hover:-translate-y-1 transition-transform duration-200" data-purpose="listing-card">
+<!-- Image with Carousel Dots & Badges -->
+<div class="relative h-64 overflow-hidden bg-slate-100">
+<img alt="Sunlit Scandinavian living room with large windows overlooking green trees" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCme2hTJCDZoMRU3VpPAM7FTjfRh0Uu1hOSkDzn_Qonjgpd3EI_H7lqhfpDWAPNyi8d-BbGOI7AIb_6kPSjOzrvT3jfNxfyHMUPuM26U6OqBjHz8QpaY6RPNni3iDEgAG4KbYRxWUBkVxsP6_F6FGcqICljByx3EehPqrZOU4BGArZqxp_P8jVt-tro6nPGmcUsWxlSMdFLBRRwWUPh3JOPw-FvXwWtf2jZPAt3239s"/>
+<!-- Sample Badge -->
+<span class="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+                Sample listing
+              </span>
+<!-- Price Badge -->
+<div class="absolute bottom-3 left-3 bg-theme-bg/95 backdrop-blur-md text-theme-ink px-3 py-1 rounded-full text-sm font-bold shadow-sm">
+                $2,850<span class="text-xs font-normal text-theme-ink-muted">/mo</span>
+</div>
+<!-- Carousel Dots Indicator (Dot 1 active) -->
+<div aria-label="Photo 1 of 4" class="absolute bottom-3 right-3 flex items-center gap-1.5 bg-black/40 backdrop-blur-md px-2 py-1 rounded-full">
+<span class="w-2 h-2 rounded-full bg-white"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-white/50"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-white/50"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-white/50"></span>
+</div>
+</div>
+<!-- Card Body -->
+<div class="p-6 flex-1 flex flex-col justify-between">
+<div>
+<span class="text-xs font-semibold uppercase tracking-wider text-theme-primary">River North District</span>
+<h3 class="font-heading text-lg font-bold text-theme-ink mt-1 mb-2">The Parkside Residence</h3>
+<p class="text-sm text-theme-ink-muted mb-4">Floor-to-ceiling panoramic glass, natural white oak millwork, private terrace.</p>
+</div>
+<div class="pt-4 border-t border-theme-border text-xs font-medium text-theme-ink-muted flex items-center justify-between">
+<span>2 Beds · 2 Baths</span>
+<span>1,120 sq ft</span>
+</div>
+</div>
+</article>
+<!-- Listing Card 2 -->
+<article class="bg-theme-bg rounded-2xl overflow-hidden border border-theme-border shadow-subtle flex flex-col group hover:-translate-y-1 transition-transform duration-200" data-purpose="listing-card">
+<!-- Image with Carousel Dots & Badges -->
+<div class="relative h-64 overflow-hidden bg-slate-100">
+<img alt="Modern designer open kitchen and dining space with white marble island and city skyline views" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQoyn25GWcLPNOPt2Ars6_Yh1VHig0L4lP0ZTLMbtojiYy6ViCXnjnkiJcJoC7PIKjvhlbzIEyNrbo80UNNoA8xID9-Ypj3DwlDa7XUBngfDBOLjDkX4vGSVSaliOczLLfHs1CPzFFbPMoQdcy46NzJjFiiKFwUrfrMo4knssoNhFYkjLbAuPbz61DF9Pn8YdGKvFvS0dvLwjt7np_1btcLDFVuPvycSAEr0ZNeqeC"/>
+<!-- Sample Badge -->
+<span class="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+                Sample listing
+              </span>
+<!-- Price Badge -->
+<div class="absolute bottom-3 left-3 bg-theme-bg/95 backdrop-blur-md text-theme-ink px-3 py-1 rounded-full text-sm font-bold shadow-sm">
+                $3,400<span class="text-xs font-normal text-theme-ink-muted">/mo</span>
+</div>
+<!-- Carousel Dots Indicator (Dot 1 active) -->
+<div aria-label="Photo 1 of 5" class="absolute bottom-3 right-3 flex items-center gap-1.5 bg-black/40 backdrop-blur-md px-2 py-1 rounded-full">
+<span class="w-2 h-2 rounded-full bg-white"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-white/50"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-white/50"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-white/50"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-white/50"></span>
+</div>
+</div>
+<!-- Card Body -->
+<div class="p-6 flex-1 flex flex-col justify-between">
+<div>
+<span class="text-xs font-semibold uppercase tracking-wider text-theme-primary">Greenway Promenade</span>
+<h3 class="font-heading text-lg font-bold text-theme-ink mt-1 mb-2">The Skyline Loft</h3>
+<p class="text-sm text-theme-ink-muted mb-4">Calacatta waterfall kitchen island, integrated Bosch appliances, rooftop access.</p>
+</div>
+<div class="pt-4 border-t border-theme-border text-xs font-medium text-theme-ink-muted flex items-center justify-between">
+<span>2 Beds · 2.5 Baths</span>
+<span>1,350 sq ft</span>
+</div>
+</div>
+</article>
+<!-- Listing Card 3 -->
+<article class="bg-theme-bg rounded-2xl overflow-hidden border border-theme-border shadow-subtle flex flex-col group hover:-translate-y-1 transition-transform duration-200" data-purpose="listing-card">
+<!-- Image with Carousel Dots & Badges -->
+<div class="relative h-64 overflow-hidden bg-slate-100">
+<img alt="Bright peaceful bedroom suite with warm linen bedding and expansive view of urban skyline" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwbxyN2qciuNXtPuO-S-7a-BUj4IgrEylIa-Q0hcv_sofX0V4tKeFNR77WXBwgCDBt7BUQN-hP5SDBTHlcbTHQyHr_CCRllM3nEX8konyfyr3jvKNYycwCN23TWzpmrzw4J4wYvfzxIgbdxz3SP-DAeY4maQ_-Q3bAt10BR8LvCQD8ckeyEVMxjpePZs6wquZouehJ3WIgw-iZC5LWiH7zectcpmYIypHmVzv1npzq"/>
+<!-- Sample Badge -->
+<span class="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+                Sample listing
+              </span>
+<!-- Price Badge -->
+<div class="absolute bottom-3 left-3 bg-theme-bg/95 backdrop-blur-md text-theme-ink px-3 py-1 rounded-full text-sm font-bold shadow-sm">
+                $2,200<span class="text-xs font-normal text-theme-ink-muted">/mo</span>
+</div>
+<!-- Carousel Dots Indicator (Dot 1 active) -->
+<div aria-label="Photo 1 of 3" class="absolute bottom-3 right-3 flex items-center gap-1.5 bg-black/40 backdrop-blur-md px-2 py-1 rounded-full">
+<span class="w-2 h-2 rounded-full bg-white"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-white/50"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-white/50"></span>
+</div>
+</div>
+<!-- Card Body -->
+<div class="p-6 flex-1 flex flex-col justify-between">
+<div>
+<span class="text-xs font-semibold uppercase tracking-wider text-theme-primary">Historic East Quarter</span>
+<h3 class="font-heading text-lg font-bold text-theme-ink mt-1 mb-2">The Monroe Flat</h3>
+<p class="text-sm text-theme-ink-muted mb-4">Quiet acoustic glazing, walk-in custom closet, spa bath with soaker tub.</p>
+</div>
+<div class="pt-4 border-t border-theme-border text-xs font-medium text-theme-ink-muted flex items-center justify-between">
+<span>1 Bed · 1 Bath</span>
+<span>840 sq ft</span>
+</div>
+</div>
+</article>
+</div>
+<!-- Centered Secondary Pill Button -->
+<div class="text-center mt-12">
+<a class="inline-flex items-center justify-center px-8 min-h-[44px] rounded-full text-sm font-bold text-theme-ink bg-theme-bg border border-theme-border hover:bg-theme-band transition-colors shadow-sm" href="#cta">
+            See sample listings →
+          </a>
+</div>
+</div>
+</section>
+<!-- END: SampleListingsSection -->
+<!-- BEGIN: PrinciplesSection -->
+<section class="py-24 bg-theme-bg" data-purpose="principles-band" id="principles">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Headline with Highlighted Word (NO numbers or stats) -->
+<div class="max-w-3xl mb-16">
+<span class="text-xs uppercase font-extrabold tracking-widest text-theme-primary">Our Ethos</span>
+<h2 class="font-heading text-3xl sm:text-5xl font-extrabold text-theme-ink tracking-tight mt-2 leading-tight">
+            An apartment search built on <span class="text-theme-primary underline decoration-theme-primary/30 decoration-wavy underline-offset-8">clarity</span>
+</h2>
+<p class="text-theme-ink-muted text-base sm:text-lg mt-4 font-normal">
+            We reimagined apartment locating around human priorities rather than sponsored landlord ad algorithms.
+          </p>
+</div>
+<!-- Three Bold Pillars Side by Side -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
+<!-- Pillar 1 -->
+<div class="border-t-2 border-theme-primary pt-6" data-purpose="principle-pillar">
+<h3 class="font-heading text-2xl font-bold text-theme-ink mb-3">Tailored</h3>
+<p class="text-theme-ink-muted text-base leading-relaxed">
+              Every recommendation is hand-picked to match your real routine and space priorities.
+            </p>
+</div>
+<!-- Pillar 2 -->
+<div class="border-t-2 border-theme-primary pt-6" data-purpose="principle-pillar">
+<h3 class="font-heading text-2xl font-bold text-theme-ink mb-3">Transparent</h3>
+<p class="text-theme-ink-muted text-base leading-relaxed">
+              Zero hidden markups or sponsored placements. We work solely from verified market availability.
+            </p>
+</div>
+<!-- Pillar 3 -->
+<div class="border-t-2 border-theme-primary pt-6" data-purpose="principle-pillar">
+<h3 class="font-heading text-2xl font-bold text-theme-ink mb-3">Time-saving</h3>
+<p class="text-theme-ink-muted text-base leading-relaxed">
+              Skip the obsolete listings, repetitive calls, and conflicting floor plans.
+            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: PrinciplesSection -->
+<!-- BEGIN: ClosingCTABand -->
+<section class="py-20 bg-theme-band border-t border-theme-border transition-colors" data-purpose="closing-cta" id="cta">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<h2 class="font-heading text-3xl sm:text-5xl font-extrabold text-theme-ink tracking-tight mb-4">
+          Ready to find your next home?
+        </h2>
+<p class="text-theme-ink-muted text-base sm:text-lg max-w-2xl mx-auto mb-8">
+          Fill out our quick preferences questionnaire and get tailored options sent to your inbox.
+        </p>
+<!-- CTA Buttons (Filled Primary + Outlined Secondary) -->
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+<a class="w-full sm:w-auto inline-flex items-center justify-center px-8 min-h-[48px] rounded-full text-base font-bold text-white bg-theme-primary hover:bg-theme-primary-hover shadow-md transition-all" href="#cta">
+            Get Started Free
+          </a>
+<a class="w-full sm:w-auto inline-flex items-center justify-center px-8 min-h-[48px] rounded-full text-base font-bold text-theme-ink bg-theme-bg border border-theme-border hover:bg-white transition-all shadow-sm" href="#how-it-works">
+            How It Works
+          </a>
+</div>
+</div>
+</section>
+<!-- END: ClosingCTABand -->
+<!-- BEGIN: DesignSystemTokensFrame -->
+<section class="py-16 bg-slate-900 text-slate-100 border-t border-slate-800" data-purpose="design-tokens-palette">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="mb-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs font-mono uppercase tracking-wider text-slate-300 mb-2">
+            Design System Token Palette Frame
+          </div>
+<h2 class="font-heading text-2xl font-bold text-white">Color &amp; Theme Tokens Reference</h2>
+<p class="text-sm text-slate-400 mt-1">Verified hex values, semantic mappings, and live palette swatches for Aria locator UI.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Theme A: Clean Grey -->
+<div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+<div>
+<h3 class="font-heading text-base font-bold text-white">Theme A: Clean Grey</h3>
+<span class="text-xs text-slate-400 font-mono">default baseline</span>
+</div>
+<span class="w-3 h-3 rounded-full bg-[#1D4ED8]"></span>
+</div>
+<div class="space-y-2 text-xs font-mono">
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Background</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#FFFFFF]"></span>
+<code class="text-slate-300">#FFFFFF</code>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Bands</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#F3F4F6]"></span>
+<code class="text-slate-300">#F3F4F6</code>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Border</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#E5E7EB]"></span>
+<code class="text-slate-300">#E5E7EB</code>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Ink</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#111827]"></span>
+<code class="text-slate-300">#111827</code>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Ink-2</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#4B5563]"></span>
+<code class="text-slate-300">#4B5563</code>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Primary</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#1D4ED8]"></span>
+<code class="text-slate-300">#1D4ED8</code>
+</div>
+</div>
+</div>
+</div>
+<button class="mt-4 w-full py-2 rounded-xl text-xs font-bold text-center bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors" onclick="setGlobalTheme('clean-grey')">
+              Activate Theme A
+            </button>
+</div>
+<!-- Theme B: Fresh Teal -->
+<div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+<div>
+<h3 class="font-heading text-base font-bold text-white">Theme B: Fresh Teal</h3>
+<span class="text-xs text-slate-400 font-mono">approachable nature</span>
+</div>
+<span class="w-3 h-3 rounded-full bg-[#0E8F8A]"></span>
+</div>
+<div class="space-y-2 text-xs font-mono">
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Background</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#FFFFFF]"></span>
+<code class="text-slate-300">#FFFFFF</code>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Bands</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#ECF7F6]"></span>
+<code class="text-slate-300">#ECF7F6</code>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Border</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#D5EAE8]"></span>
+<code class="text-slate-300">#D5EAE8</code>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Ink</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#0B1F2A]"></span>
+<code class="text-slate-300">#0B1F2A</code>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Ink-2</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#41586A]"></span>
+<code class="text-slate-300">#41586A</code>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Primary</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#0E8F8A]"></span>
+<code class="text-slate-300">#0E8F8A</code>
+</div>
+</div>
+</div>
+</div>
+<button class="mt-4 w-full py-2 rounded-xl text-xs font-bold text-center bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors" onclick="setGlobalTheme('fresh-teal')">
+              Activate Theme B
+            </button>
+</div>
+<!-- Theme C: Navy & Sun -->
+<div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+<div>
+<h3 class="font-heading text-base font-bold text-white">Theme C: Navy &amp; Sun</h3>
+<span class="text-xs text-slate-400 font-mono">editorial contrast</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-3 h-3 rounded-full bg-[#0F2747]"></span>
+<span class="w-3 h-3 rounded-full bg-[#F5A524]"></span>
+</div>
+</div>
+<div class="space-y-2 text-xs font-mono">
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Background</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#FFFFFF]"></span>
+<code class="text-slate-300">#FFFFFF</code>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Bands</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#F4F7FB]"></span>
+<code class="text-slate-300">#F4F7FB</code>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Border</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#E2E8F0]"></span>
+<code class="text-slate-300">#E2E8F0</code>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Ink / Navy</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#0F2747]"></span>
+<code class="text-slate-300">#0F2747</code>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Ink-2</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#475A78]"></span>
+<code class="text-slate-300">#475A78</code>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-slate-900">
+<span class="text-slate-300">Accent Amber</span>
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded border border-slate-600 bg-[#F5A524]"></span>
+<code class="text-slate-300">#F5A524</code>
+</div>
+</div>
+</div>
+</div>
+<button class="mt-4 w-full py-2 rounded-xl text-xs font-bold text-center bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors" onclick="setGlobalTheme('navy-sun')">
+              Activate Theme C
+            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- END: DesignSystemTokensFrame -->
+</main>
+<!-- BEGIN: RichFooter -->
+<footer class="bg-theme-bg border-t border-theme-border pt-16 pb-12 transition-colors" data-purpose="site-footer">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+<!-- Col 1: Brand & Contact Block (Demo Email ONLY, no phone/address) -->
+<div class="lg:col-span-2">
+<a class="font-heading font-extrabold text-2xl tracking-wider text-theme-ink flex items-center mb-4" href="#">
+            ARIA
+            <span aria-hidden="true" class="inline-block w-2.5 h-2.5 bg-theme-primary ml-1.5 rotate-45"></span>
+</a>
+<p class="text-sm text-theme-ink-muted max-w-sm mb-6 leading-relaxed">
+            Approachable, photo-driven apartment locating designed to take the friction out of urban relocations.
+          </p>
+<!-- Contact Block -->
+<div class="text-sm">
+<span class="text-xs uppercase font-bold tracking-wider text-theme-ink-muted block mb-1">Direct Inquiries</span>
+<a class="font-semibold text-theme-primary hover:underline" href="mailto:hello@aria-locators.demo">
+              hello@aria-locators.demo
+            </a>
+</div>
+<!-- Social Placeholders -->
+<div class="flex items-center gap-4 mt-6 text-theme-ink-muted">
+<!-- Twitter/X -->
+<a aria-label="Aria on X" class="w-9 h-9 rounded-full bg-theme-band border border-theme-border flex items-center justify-center hover:text-theme-ink hover:border-theme-primary transition-colors" href="#">
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+</a>
+<!-- Instagram -->
+<a aria-label="Aria on Instagram" class="w-9 h-9 rounded-full bg-theme-band border border-theme-border flex items-center justify-center hover:text-theme-ink hover:border-theme-primary transition-colors" href="#">
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+</a>
+<!-- LinkedIn -->
+<a aria-label="Aria on LinkedIn" class="w-9 h-9 rounded-full bg-theme-band border border-theme-border flex items-center justify-center hover:text-theme-ink hover:border-theme-primary transition-colors" href="#">
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+</a>
+</div>
+</div>
+<!-- Col 2: Explore -->
+<div>
+<h4 class="font-heading text-sm font-bold uppercase tracking-wider text-theme-ink mb-4">Explore</h4>
+<ul class="space-y-3 text-sm text-theme-ink-muted">
+<li><a class="hover:text-theme-primary transition-colors" href="#listings">Listings</a></li>
+<li><a class="hover:text-theme-primary transition-colors" href="#principles">Neighborhoods</a></li>
+<li><a class="hover:text-theme-primary transition-colors" href="#cta">Search Quiz</a></li>
+</ul>
+</div>
+<!-- Col 3: Company -->
+<div>
+<h4 class="font-heading text-sm font-bold uppercase tracking-wider text-theme-ink mb-4">Company</h4>
+<ul class="space-y-3 text-sm text-theme-ink-muted">
+<li><a class="hover:text-theme-primary transition-colors" href="#about">About</a></li>
+<li><a class="hover:text-theme-primary transition-colors" href="#faq">FAQ</a></li>
+<li><a class="hover:text-theme-primary transition-colors" href="#how-it-works">How It Works</a></li>
+<li><a class="hover:text-theme-primary transition-colors" href="#contact">Contact</a></li>
+</ul>
+</div>
+<!-- Col 4: Resources -->
+<div>
+<h4 class="font-heading text-sm font-bold uppercase tracking-wider text-theme-ink mb-4">Resources</h4>
+<ul class="space-y-3 text-sm text-theme-ink-muted">
+<li><a class="hover:text-theme-primary transition-colors" href="#">Tenant Guide</a></li>
+<li><a class="hover:text-theme-primary transition-colors" href="#">Lease Checklist</a></li>
+<li><a class="hover:text-theme-primary transition-colors" href="#">Fair Housing Notice</a></li>
+</ul>
+</div>
+</div>
+<!-- Legal Links & Prominent Demo Disclaimer -->
+<div class="pt-8 border-t border-theme-border flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-theme-ink-muted">
+<p class="font-medium">
+          © <span id="yearPlaceholder">2025</span> Aria Locators. <span class="text-slate-400 font-normal">Demo website — for illustrative purposes only. No actual inquiries or bookings.</span>
+</p>
+<div class="flex items-center gap-6">
+<a class="hover:text-theme-ink transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-theme-ink transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-theme-ink transition-colors" href="#">Fair Housing</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- END: RichFooter -->
+<!-- BEGIN: FloatingThemeSwitcher -->
+<aside class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50" data-purpose="floating-theme-switcher">
+<div class="bg-slate-900/95 backdrop-blur-md text-white border border-slate-700/80 rounded-full px-4 py-2 shadow-2xl flex items-center gap-3">
+<!-- Label -->
+<span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 hidden sm:inline-block">THEME</span>
+<!-- Radio Form -->
+<form aria-label="Theme Selection" class="flex items-center gap-1 sm:gap-2 m-0" onsubmit="event.preventDefault();">
+<!-- Clean Grey Radio -->
+<label class="cursor-pointer flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium hover:bg-slate-800 transition-colors" title="Clean Grey Theme">
+<input checked="" class="sr-only peer" name="global-theme-radio" onchange="setGlobalTheme('clean-grey')" type="radio" value="clean-grey"/>
+<span class="w-3.5 h-3.5 rounded-full bg-[#1D4ED8] ring-2 ring-transparent peer-checked:ring-white transition-all flex items-center justify-center"></span>
+<span class="peer-checked:text-white text-slate-300 hidden md:inline">Clean Grey</span>
+</label>
+<!-- Fresh Teal Radio -->
+<label class="cursor-pointer flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium hover:bg-slate-800 transition-colors" title="Fresh Teal Theme">
+<input class="sr-only peer" name="global-theme-radio" onchange="setGlobalTheme('fresh-teal')" type="radio" value="fresh-teal"/>
+<span class="w-3.5 h-3.5 rounded-full bg-[#0E8F8A] ring-2 ring-transparent peer-checked:ring-white transition-all flex items-center justify-center"></span>
+<span class="peer-checked:text-white text-slate-300 hidden md:inline">Fresh Teal</span>
+</label>
+<!-- Navy & Sun Radio -->
+<label class="cursor-pointer flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium hover:bg-slate-800 transition-colors" title="Navy &amp; Sun Theme">
+<input class="sr-only peer" name="global-theme-radio" onchange="setGlobalTheme('navy-sun')" type="radio" value="navy-sun"/>
+<span class="w-3.5 h-3.5 rounded-full bg-[#F5A524] ring-2 ring-transparent peer-checked:ring-white transition-all flex items-center justify-center"></span>
+<span class="peer-checked:text-white text-slate-300 hidden md:inline">Navy &amp; Sun</span>
+</label>
+</form>
+</div>
+</aside>
+<!-- END: FloatingThemeSwitcher -->
+<!-- BEGIN: Interactive Theme Switcher Logic -->
+<script data-purpose="theme-switcher-script">
+    /**
+     * Updates the data-theme attribute on the <html> tag and synchronizes
+     * the floating switcher radio buttons.
+     * @param {'clean-grey' | 'fresh-teal' | 'navy-sun'} themeName
+     */
+    function setGlobalTheme(themeName) {
+      document.documentElement.setAttribute('data-theme', themeName);
+
+      // Synchronize floating radio inputs
+      const radios = document.querySelectorAll('input[name="global-theme-radio"]');
+      radios.forEach(radio => {
+        radio.checked = (radio.value === themeName);
+      });
+    }
+
+    // Set current year in footer dynamically
+    document.addEventListener('DOMContentLoaded', () => {
+      const yearEl = document.getElementById('yearPlaceholder');
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
+    });
+  </script>
+<!-- END: Interactive Theme Switcher Logic -->
+</body></html>

@@ -6,7 +6,7 @@ import {
   themeSelectionCSS,
 } from "./themes";
 export { themeScript } from "./headScript";
-const themeEvent = "keenest-theme-change";
+const themeEvent = "aria-theme-change";
 function subscribe(listener: () => void) {
   window.addEventListener(themeEvent, listener);
   return () => window.removeEventListener(themeEvent, listener);
@@ -42,7 +42,7 @@ export function ThemeSelector() {
     window.dispatchEvent(new Event(themeEvent));
     try {
       localStorage.setItem(
-        "keenest-theme",
+        "aria-theme",
         document.documentElement.dataset.theme,
       );
     } catch {

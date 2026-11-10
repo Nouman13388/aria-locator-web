@@ -27,7 +27,7 @@ function HowItWorks() {
       <div className="wrap grid-2">
         <img
           className="round-image"
-          src="/images/how-it-works-0.jpg"
+          src="/images/aria-living.webp"
           alt="Light-filled apartment with a linen sofa and glass terrace doors"
           width="640"
           height="580"
