@@ -1,64 +1,76 @@
-# Kee Nest final verification
+# Kee Nest Home layout verification
 
-Verified locally on 2026-11-10. No deployment was run.
+Verified locally on 2026-11-10 against `npm run preview`, using isolated Playwright/Chromium. Nothing was deployed. Wrangler configuration was not changed in this revision.
 
-## Checks
+## Layout comparison at 894px
 
-- `npm run typecheck`: passed. `npm test`: 34 passed, 0 failed. `npm run build`: client and Worker builds passed. `git diff --check`: passed.
-- The requested brand audit produces no output: `grep -rniE "aria|keynest" src public README.md QA.md package.json wrangler.jsonc | grep -vE "aria-"`.
-- `siteName` is the runtime brand source. The wordmark is thin, wide-tracked, currentColor text with a small filled diamond between the two parts. The root client logo supplies the generated favicon, touch icons, and share image. The tab icon uses a strengthened source K for small-size legibility.
-- Package and Worker name: `kee-nest-web`. Only the Worker name changed; its other configuration fields remain unchanged.
+The supplied comparison table is the acceptance reference for this revision. A fresh reference screenshot was not attached, so exact image-to-image fidelity cannot be certified.
 
-## Browser verification
+| Element           | Implemented and measured                                                                                                                                           |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Announcement      | Soft palette strip, demo link, 44px dismiss target. Visible with fresh session storage; dismissal survives refresh in the same tab.                                |
+| Header            | Floating inset card, 24px corners, hamburger + wordmark left, one area chooser right. No desktop nav row. 100px card inside a 155px sticky slot including margins. |
+| Hero              | Inset rounded photo/video card, 740px high, centered copy, 63px Poppins H1, sample-area dropdown CTA. No badge or example-search cards.                            |
+| Feature           | Rounded soft-accent card, 540px high, large heading left, concise copy and dark pill right.                                                                        |
+| Image-circle band | Overlapping owned project images, centered heading and CTA in a 500px soft band.                                                                                   |
+| Footer            | Dark rounded block, demo contact/legal placeholders left and non-linked social placeholders right.                                                                 |
+| Page length       | 2,527px with notice visible: +27px / +1.08% from the approximate 2,500px reference target.                                                                         |
+| Type and corners  | Self-hosted Poppins + Open Sans. Main block/card corners are 24px; buttons remain pills.                                                                           |
 
-Isolated Playwright/Chromium against `npm run preview`:
+Home now has four content blocks including the footer. The example searches, process, sample listings, principles, and closing CTA moved to `/explore`, available from the drawer, announcement link, and footer.
 
-- All seven routes and the shared 404 load directly and on refresh. All three colors were checked at 390, 768, and 1440px. No horizontal overflow, app console errors, runtime errors, or hydration warnings.
-- Home order: dismissible announcement, sticky header, photo/video hero with two overlapping example-search cards, three-step process, sample listings, principles, closing CTA, rich footer. No phone, city switcher, statistics band, or token-reference band.
-- Exact element bounds, font family/size, and card radii match across all three colors at every requested viewport. Themes change colors only. Hero heights are 852px at 390 and 772px at 768/1440. First-paint frame sampling found no wrong-theme or selected-pill flash. Refresh/navigation preserve the selected theme.
-- The mobile selector is contained within the viewport, has three 44px options, roving tabindex, Arrow/Home/End selection, and Escape/outside-click dismissal. More supports keyboard entry, Arrow/Home/End, Escape and focus return. Mobile navigation works with Enter/Escape.
-- Announcement dismissal persists in tab sessionStorage and is applied by the blocking head script before paint. The header compacts to 64px after scrolling while its outer slot preserves document flow.
-- Carousel prev/next, arrow keys, and real touch swipes work; slide count is announced. No carousel autoplay. Listing hover lift and one-time section/card reveals respect reduced motion. Menus use 180ms motion; color feedback uses 200ms and does not run on first paint. Questionnaire fields have no animation.
-- Video autoplays muted on eligible desktop/tablet viewports. Keyboard Space/Enter pause and resume it. Fresh mobile, reduced-motion, and Save-Data contexts issue **zero video-file requests** and show the poster. Both missing video sources fall back to the poster. Neither public video has an audio track.
-- Responsive image sources, descriptive alt text, dimensions, and below-fold lazy loading are present. Footer social and legal placeholders are not links.
-- Empty storage plus `/get-started?step=4` redirects to step 1. Next/Back/browser history/Review Edit retain answers. Refresh preserves preferences but clears name/email/phone. Completing the demo clears answers; success is not reachable by URL.
-- The entire six-step questionnaire completed using only Tab, arrows, native date entry, typing, Space, and Enter, with visible focus. Contact and questionnaire submits generated **zero requests across all HTTP methods**. Contact fields were never persisted.
+Screenshots: [894px](qa/home-894.jpg), [390px](qa/home-390.jpg), [1440px](qa/home-1440.jpg). These show the default palette; all three palettes were measured separately. Raw bounds and other results are in [verification.json](qa/verification.json).
 
-Screenshots: [1440px color comparison](qa/home-1440.jpg), [390px color comparison](qa/home-390.jpg). Machine-readable results: [verification.json](qa/verification.json).
+## Deliberate deviations
 
-## Contrast
+- Existing client palettes remain grey/white, teal, and navy/amber. Reference blue/periwinkle colors are not copied. All three palettes retain identical layout and type.
+- Copy, wordmark, iconography, project images, and client-supplied video are our own. No reference-site copy, branding, images, code, legal details, addresses, phone numbers, or brokerage notices were used.
+- “Choose an area” offers three clearly illustrative surroundings filters, not real city pages.
+- The overlapping circles show cleared interior/exterior images. They do not imply people, a team, clients, reviews, or endorsements.
+- Footer email is `hello@example.com`, labelled demo. Social and legal items are explicit non-linked placeholders.
+- Hero overlay stays lighter than the prior composition while retaining AA white-text contrast. No price/service-cost, quality, statistics, rating, license, or guarantee claims were added. No token-reference band is shown.
 
-An automated test checks semantic text/focus pairs in every palette. The final rendered hero was also captured with its copy hidden, preserving layout, and the lightest backdrop pixel throughout the copy box was compared with white text. The overlay is above the poster/video; correcting that layer order resolved a visual-review finding.
+## Browser and interaction results
 
-| Palette               | Lowest measured hero contrast across 390/768/1440 |
-| --------------------- | ------------------------------------------------- |
-| Kee Nest Grey & White | 5.74:1                                            |
-| Fresh Teal            | 12.75:1                                           |
-| Navy & Sun            | 11.25:1                                           |
+- All eight routes (`/`, `/explore`, `/listings`, `/how-it-works`, `/about`, `/faq`, `/contact`, `/get-started`) load directly and on refresh at 390/768/1440px in all three palettes. Shared 404 also loads directly and on refresh.
+- Zero horizontal overflow. Home also checked at 894px in all palettes. Height is 2,527px at 768/894/1440 and 2,502px at 390. Card geometry remains identical across themes.
+- First-render frame sampling found the persisted theme and correct selected radio, with no wrong-theme paint. Color switching produces zero added layout shift after fonts are ready. Theme persists across route navigation and refresh.
+- Drawer opens with keyboard Enter, contains focus including first/last Tab boundaries, closes with Escape, returns focus to the trigger, and closes on navigation. An explicit boundary trap was added after a keyboard check exposed a native-dialog boundary gap.
+- Header area chooser supports Enter, arrows, Home/End, Escape/focus return, outside click, and link selection into the sample listing filter. The hero reuses the same component.
+- Announcement is visible on a fresh session; dismissal remains hidden on refresh. The header compacts while its outer slot preserves document flow.
+- Desktop video loads muted; Space/Enter pause and resume. Fresh mobile, reduced-motion, and Save-Data contexts make zero video-file requests and use the poster. Public videos remain silent and below 3 MB. Media sources and fallback logic are unchanged.
+- Sample carousel buttons and arrow keys still work on Listings and Explore. No carousel autoplay. Section reveals and menu motion respect reduced motion. Questionnaire fields have no animation.
+- `/get-started?step=4` with empty storage redirects to step 1. Next/Back, browser Back/Forward, and Review Edit preserve answers. Refresh keeps preferences and clears name/email/phone. Contact details never enter browser storage. Demo completion clears preferences; the success state cannot be reached via URL.
+- The complete questionnaire passes a keyboard-only run with visible focus. Contact and questionnaire submissions cause zero requests across all HTTP methods.
+- Zero application console errors, runtime errors, or hydration warnings. The intentional 404 response may emit the browser's expected missing-resource message.
 
-The grey overlay mixes the supplied logo grey with the ink token to keep white copy readable over bright video frames. Fresh Teal uses dark button text instead of white to meet AA at its exact primary shade. Navy & Sun uses a dark focus token on white surfaces; amber remains an accent. Narrow layouts use a uniform overlay behind the entire copy area.
+## Contrast and performance
 
-## Lighthouse and bundle
+Semantic text, button, error, success, and focus pairs pass the existing automated contrast tests in every palette. Rendered poster contrast was sampled with the copy hidden while preserving its layout, including the lightest background pixel in the whole copy box at 390/768/894/1440.
 
-Lighthouse 13.0.3, the same local Chromium executable, simulated mobile/desktop settings, cold network caches, one serial final run per palette/profile. These are lab measurements, not field data; small score changes between runs are expected.
+| Palette               | Lowest measured white hero text contrast |
+| --------------------- | ---------------------------------------- |
+| Kee Nest Grey & White | 5.16:1                                   |
+| Fresh Teal            | 11.13:1                                  |
+| Navy & Sun            | 9.91:1                                   |
 
-| Palette               | Mobile performance | Desktop performance | Mobile / desktop LCP | Largest CLS |
-| --------------------- | ------------------ | ------------------- | -------------------- | ----------- |
-| Kee Nest Grey & White | 79                 | 99                  | 5.00s / 1.03s        | 0.000005    |
-| Fresh Teal            | 83                 | 99                  | 4.67s / 1.03s        | 0.000005    |
-| Navy & Sun            | 79                 | 98                  | 4.97s / 1.07s        | 0.000005    |
+The centered hero uses a uniform token-derived overlay. The circles use 224px responsive renditions instead of downloading larger listing images. Poppins and Open Sans replace the old font files and retain their OFL notices; the display and body faces are preloaded locally.
 
-Total blocking time was 0ms in these runs. CLS is below the requested 0.02. The poster is the recorded LCP element. The starting pre-motion default measured 79 mobile / 98 desktop; mobile LCP remains an area for further optimization on a production version.
+Lighthouse 13.0.3 was rerun for the revised default palette with the same local Chromium, cold network cache, and previous mobile/desktop profiles. One serial lab run per profile:
 
-Across this Home work, aggregate client JavaScript changed from 480,569 raw / 154,749 gzip bytes to 577,329 raw / 190,738 gzip bytes: **+96,760 raw / +35,989 gzip bytes** (about 35.1 KiB gzip). This includes Motion and the added Home behavior, measured consistently across all client JS chunks. The deferred `domAnimation` chunk is about 18.3 KiB gzip. Only `m` and `domAnimation` are used inside strict LazyMotion; the optional feature download starts after the first paint.
+| Profile | Performance | LCP   | TBT | CLS      |
+| ------- | ----------- | ----- | --- | -------- |
+| Mobile  | 80          | 4.82s | 0ms | 0        |
+| Desktop | 99          | 1.00s | 0ms | 0.000035 |
 
-## Media and deliberate limits
+The prior default layout scored 79 mobile / 99 desktop; the earlier pre-motion baseline was 79 / 98. Other palette Lighthouse scores were not rerun after this layout change. Mobile LCP still has room for production optimization. These are lab results, not field measurements.
 
-- Original source inventory and slot map: [design/media/INVENTORY.md](design/media/INVENTORY.md). The user confirmed using the existing cleared project images and supplied video. Original binaries are retained locally and ignored; optimized public files are tracked. Every source image is used. The master's audio track is unused. No stock or reference-site assets/code are copied.
-- MP4 is about 2.3 MB, WebM about 2.2 MB. Both are silent, 24fps, and below 3 MB. H.264 uses CRF 28/veryfast/faststart at 1920px; VP9 uses CRF 36/zero target bitrate at the source 1280px width to avoid an unnecessary upscale. JPEG and responsive WebP posters derive from frame zero.
-- The optional audio player is omitted. No sound autoplays.
-- Original neutral copy and explicit sample/demo labels replace real property, service-price, quality, rating, review, license, and guarantee claims. Prices and dimensions are placeholders; neighborhood labels are explicitly samples. Contact is `hello@example.com`, labelled demo.
-- Neighborhoods opens the sample surroundings filter. Social/legal items are clearly non-linked placeholders. There are no invented real city pages, live matching, bookings, or submissions.
-- The layout follows the requested section and interaction pattern with original implementation, copy, icons, and media; distinctive reference details are not reproduced. Themes use the same composition and typography throughout.
+Aggregate client JS is 580,492 raw / 192,139 gzip bytes, +3,163 raw / +1,401 gzip bytes from the preceding build. No dependency was added. Motion remains lazy `domAnimation` with `m` components and user reduced-motion support.
 
-Physical devices, Safari/Firefox, assistive-technology sessions, and a deployed environment were not tested.
+## Commands and limits
+
+`npm run typecheck && npm test && npm run build` passes for each logical chunk: 34 tests passed, 0 failed; client and Worker builds succeeded. `git diff --check` passes. The existing old-brand audit produces no output. No network submission integration, deployment, or Wrangler change was made.
+
+Source inventory: [design/media/INVENTORY.md](design/media/INVENTORY.md). Only the user-cleared project images and supplied silent video are used. Decorative circles are hidden from assistive technology.
+
+Not verified: exact pixel comparison without the reference screenshot, physical devices, Safari/Firefox, assistive-technology sessions, and a deployed environment. Social/legal items remain demo placeholders.
