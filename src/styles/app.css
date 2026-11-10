@@ -1614,7 +1614,7 @@ h3,
   background: var(--band);
   border-radius: 45% var(--radius-card) 45% var(--radius-card);
 }
-[data-theme="fresh-teal"] .hero-visual > img,
+[data-theme="fresh-teal"] .hero-visual img,
 [data-theme="fresh-teal"] .hero-visual > video,
 [data-theme="fresh-teal"] .hero-visual .hero-wash {
   border-radius: var(--radius-card);
@@ -1976,4 +1976,13 @@ h3,
 }
 .video-toggle {
   width: 100px;
+}
+
+.home-page .home-closing h2 {
+  font-size: 48px;
+}
+@media (max-width: 640px) {
+  .home-page .home-closing h2 {
+    font-size: 32px;
+  }
 }

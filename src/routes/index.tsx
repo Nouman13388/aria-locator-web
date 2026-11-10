@@ -9,11 +9,30 @@ import { ProcessIcon } from "../components/ui/ProcessIcon";
 import { HeroVideo } from "../components/ui/HeroVideo";
 import { pageHead } from "../lib/head";
 export const Route = createFileRoute("/")({
-  head: () =>
-    pageHead(
+  head: () => ({
+    ...pageHead(
       "Find your next home",
       `Explore a new way to begin your apartment search with ${siteName}. An interactive demo, shaped around your preferences.`,
     ),
+    links: [
+      {
+        rel: "preload",
+        as: "image",
+        href: "/videos/poster-mobile.webp",
+        type: "image/webp",
+        media: "(max-width: 640px)",
+        fetchPriority: "high",
+      },
+      {
+        rel: "preload",
+        as: "image",
+        href: "/videos/poster.webp",
+        type: "image/webp",
+        media: "(min-width: 641px)",
+        fetchPriority: "high",
+      },
+    ],
+  }),
   component: Home,
 });
 function Home() {

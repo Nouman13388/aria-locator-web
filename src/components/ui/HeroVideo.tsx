@@ -46,19 +46,30 @@ export function HeroVideo() {
   }
   return (
     <div className="hero-visual">
-      <img
-        className={`hero-background hero-poster ${load && ready && !failed ? "video-ready" : ""}`}
-        src="/videos/poster.jpg"
-        alt=""
-        width="1280"
-        height="720"
-        fetchPriority="high"
-        onError={(event) => {
-          const image = event.currentTarget;
-          if (!image.src.endsWith("/images/aria-exterior.webp"))
-            image.src = "/images/aria-exterior.webp";
-        }}
-      />
+      <picture>
+        <source
+          media="(max-width: 640px)"
+          srcSet="/videos/poster-mobile.webp"
+          type="image/webp"
+        />
+        <source srcSet="/videos/poster.webp" type="image/webp" />
+        <img
+          className={`hero-background hero-poster ${load && ready && !failed ? "video-ready" : ""}`}
+          src="/videos/poster.jpg"
+          alt=""
+          width="1280"
+          height="720"
+          fetchPriority="high"
+          onError={(event) => {
+            const image = event.currentTarget;
+            image.parentElement
+              ?.querySelectorAll("source")
+              .forEach((source) => source.removeAttribute("srcset"));
+            if (!image.src.endsWith("/images/aria-exterior.webp"))
+              image.src = "/images/aria-exterior.webp";
+          }}
+        />
+      </picture>
       {load && !failed && (
         <video
           ref={video}

@@ -2,20 +2,20 @@
   font-family: "Inter Variable";
   font-style: normal;
   font-weight: 100 900;
-  font-display: block;
+  font-display: swap;
   src: url("/fonts/inter-latin-wght-normal.woff2") format("woff2");
 }
 @font-face {
   font-family: "Plus Jakarta Sans Variable";
   font-style: normal;
   font-weight: 100 900;
-  font-display: block;
+  font-display: swap;
   src: url("/fonts/plus-jakarta-sans-latin-wght-normal.woff2") format("woff2");
 }
 @font-face {
   font-family: "Outfit Variable";
   font-style: normal;
   font-weight: 100 900;
-  font-display: block;
+  font-display: swap;
   src: url("/fonts/outfit-latin-wght-normal.woff2") format("woff2");
 }
