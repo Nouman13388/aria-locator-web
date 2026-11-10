@@ -2,20 +2,20 @@ import { siteName } from "../data/site";
 export const pageIntros = {
   about: {
     eyebrow: `The ${siteName} perspective`,
-    title: "Quiet dedication to finding space that resonates.",
+    title: "A home search built around everyday life.",
     description: `A home should fit the way you live. ${siteName} explores a more thoughtful approach to apartment locating, with your preferences at the center.`,
   },
   process: {
     eyebrow: "A thoughtful process",
-    title: "A refined, effortless path to your next residence.",
+    title: "Your next move starts with a clear plan.",
     description:
       "Begin with what matters to you. Bring the details together. Make room for possibilities that feel like home.",
   },
   faq: {
-    eyebrow: "Clarity, considered",
+    eyebrow: "Questions, answered",
     title: "Frequently asked questions.",
     description:
-      "A few thoughtful answers to help you begin. From the first preference to the final review, here’s what to expect.",
+      "Here’s how this apartment-locating demo works. From the first preference to the final review, here’s what to expect.",
   },
   contact: {
     eyebrow: "A conversation starts here",
@@ -25,30 +25,35 @@ export const pageIntros = {
   },
 };
 export const homeCopy = {
-  eyebrow: "A considered search ◆ A place to belong",
-  title: "Find your next home,",
-  titleEmphasis: "without the legwork.",
+  eyebrow: "A new way to begin your next move",
+  title: "Your next home.",
+  titleEmphasis: "Your kind of living.",
   description:
-    "A thoughtful apartment-locating experience, shaped around your life. Start with your preferences. Imagine the possibilities.",
-  imageCaption: "◆ Spaces for a life well lived",
+    "More room for what matters. Tell us about your everyday life and turn your apartment wish list into a clear starting point.",
 };
-export const inspiration = [
+export const exampleSearches = [
   {
-    title: "Gather beautifully",
-    text: "Room for everyday moments.",
-    image: 1,
-    alt: "Warm oak kitchen with sculptural stone island",
+    tag: "Room to recharge",
+    title: "Green spaces. A quieter pace.",
+    text: "Imagine a home with room to unwind and a little greenery nearby.",
   },
   {
-    title: "Find your quiet",
-    text: "A softer place to begin and end the day.",
-    image: 2,
-    alt: "Serene bedroom with layered neutral linens",
+    tag: "Connected living",
+    title: "Closer to your everyday.",
+    text: "Think about the places, routines, and connections that shape your day.",
+  },
+];
+export const homePrinciples = [
+  {
+    title: "Tailored",
+    text: "Your routines set the direction. Start with the spaces and details that matter to you.",
   },
   {
-    title: "Make space for yourself",
-    text: "Considered details, a calmer rhythm.",
-    image: 3,
-    alt: "Travertine bathroom vanity with warm ambient light",
+    title: "Transparent",
+    text: "Every home here is a sample. Your answers stay in this demo; nothing is sent.",
+  },
+  {
+    title: "Time-saving",
+    text: "Keep your preferences together so you can spend more time thinking about the possibilities.",
   },
 ];

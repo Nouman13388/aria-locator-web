@@ -1,0 +1,73 @@
+import { useState } from "react";
+import { Link } from "@tanstack/react-router";
+import { listingImages, type SampleListing } from "../../data/listings";
+export function ListingCard({ listing }: { listing: SampleListing }) {
+  const [index, setIndex] = useState(0);
+  const image = listing.images[index];
+  const meta = listingImages[image];
+  function move(direction: number) {
+    setIndex(
+      (current) =>
+        (current + direction + listing.images.length) % listing.images.length,
+    );
+  }
+  return (
+    <article className="listing-card">
+      <div
+        className="listing-photo"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label={`${listing.title} sample images`}
+      >
+        <img
+          src={`/images/${image}.webp`}
+          alt={meta.alt}
+          width={meta.width}
+          height={meta.height}
+          loading="lazy"
+        />
+        <span className="sample-badge">Sample listing</span>
+        <div className="carousel-controls">
+          <button
+            aria-label={`Previous image for ${listing.title}`}
+            onClick={() => move(-1)}
+          >
+            ←
+          </button>
+          <span
+            className="carousel-count"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {index + 1} / {listing.images.length}
+          </span>
+          <button
+            aria-label={`Next image for ${listing.title}`}
+            onClick={() => move(1)}
+          >
+            →
+          </button>
+        </div>
+      </div>
+      <div className="listing-body">
+        <p className="listing-price">
+          {listing.price}
+          <span> / mo · placeholder</span>
+        </p>
+        <h3>{listing.title}</h3>
+        <p className="listing-specs">
+          {listing.beds === "studio" ? "Studio" : `${listing.beds} bed`} ·{" "}
+          {listing.baths} bath · {listing.setting} setting
+        </p>
+        <div className="listing-tags">
+          {listing.features.map((feature) => (
+            <span key={feature}>{feature}</span>
+          ))}
+        </div>
+        <Link className="listing-link" to="/get-started" search={{ step: 1 }}>
+          Build your wish list <span aria-hidden="true">↗</span>
+        </Link>
+      </div>
+    </article>
+  );
+}

@@ -1501,3 +1501,10 @@ em {
 .search-tag {
   background: color-mix(in srgb, var(--accent) 18%, var(--surface));
 }
+@media (max-width: 760px) {
+  .desktop-nav { display: none; }
+  .cta { padding: 40px 22px; }
+}
+@media (max-width: 640px) {
+  .theme-dock { padding: 4px; border-radius: 50%; bottom: max(12px, env(safe-area-inset-bottom)); }
+}

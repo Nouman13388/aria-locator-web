@@ -4,41 +4,7 @@ import { actions, ctaCopy } from "../../data/actions";
 import { Link } from "@tanstack/react-router";
 import { navigation } from "../../data/site";
 import { ButtonLink } from "../ui/Button";
-export function Header() {
-  return (
-    <header className="site-header">
-      <div className="wrap header-inner">
-        <Wordmark />
-        <nav className="desktop-nav" aria-label="Main navigation">
-          {navigation.map((n) => (
-            <Link key={n.to} to={n.to} activeProps={{ "aria-current": "page" }}>
-              {n.label}
-            </Link>
-          ))}
-        </nav>
-        <ButtonLink>
-          {actions.getStarted} <span aria-hidden="true">↗</span>
-        </ButtonLink>
-        <details className="mobile-menu">
-          <summary aria-label="Navigation menu">☰</summary>
-          <nav aria-label="Mobile navigation">
-            {navigation.map((n) => (
-              <Link
-                key={n.to}
-                to={n.to}
-                onClick={(e) =>
-                  e.currentTarget.closest("details")?.removeAttribute("open")
-                }
-              >
-                {n.label}
-              </Link>
-            ))}
-          </nav>
-        </details>
-      </div>
-    </header>
-  );
-}
+export { Header } from "./Header";
 export function Footer() {
   return (
     <footer className="site-footer">
@@ -47,14 +13,14 @@ export function Footer() {
           <div>
             <Wordmark />
             <p>
-              A thoughtful approach to finding your next home. Space for your
-              preferences. Room for your next chapter.
+              Your routines. Your wish list. Your next move. An apartment search
+              begins with the way you want to live.
             </p>
           </div>
           <div className="footer-links">
             <div>
               <span className="eyebrow muted">Discover</span>
-              {navigation.slice(0, 3).map((n) => (
+              {navigation.map((n) => (
                 <Link key={n.to} to={n.to}>
                   {n.label}
                 </Link>
@@ -69,6 +35,13 @@ export function Footer() {
                 <br />
                 Demo email address
               </span>
+            </div>
+            <div>
+              <span className="eyebrow muted">About this demo</span>
+              <p>
+                Sample homes. Placeholder prices. No live matching or bookings.
+              </p>
+              <Link to="/faq">Questions & answers</Link>
             </div>
           </div>
         </div>
@@ -95,6 +68,9 @@ export function CTA() {
       <div className="actions actions-center">
         <ButtonLink variant="light">
           {actions.findSpace} <span aria-hidden="true">↗</span>
+        </ButtonLink>
+        <ButtonLink to="/listings" variant="outline-light">
+          See sample listings
         </ButtonLink>
       </div>
       <p className="form-note cta-note">{ctaCopy.note}</p>

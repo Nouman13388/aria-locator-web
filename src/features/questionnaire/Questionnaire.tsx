@@ -40,9 +40,9 @@ function QuestionnaireForm() {
     <div className="wrap questionnaire-shell">
       <div className="center questionnaire-heading">
         <span className="eyebrow accent">
-          Your preferences ◆ Your next chapter
+          Your preferences · Your next move
         </span>
-        <h1>Curate your residence</h1>
+        <h1>Build your home wish list</h1>
         <p className="form-note">A more personal search starts here.</p>
       </div>
       <div className="questionnaire-card">

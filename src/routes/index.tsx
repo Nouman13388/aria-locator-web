@@ -1,151 +1,126 @@
-import { siteName } from "../data/site";
-import { actions } from "../data/actions";
-import { homeCopy, inspiration } from "../data/pages";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { siteName, process } from "../data/site";
+import { homeCopy, exampleSearches, homePrinciples } from "../data/pages";
+import { listings } from "../data/listings";
 import { Section } from "../components/ui/Section";
 import { ButtonLink } from "../components/ui/Button";
 import { CTA } from "../components/layout/Layout";
-import { Accordion } from "../components/ui/Accordion";
-import { process } from "../data/site";
-import { faqGroups } from "../data/faq";
+import { ListingCard } from "../features/listings/ListingCard";
 import { pageHead } from "../lib/head";
 export const Route = createFileRoute("/")({
   head: () =>
     pageHead(
       "Find your next home",
-      `A thoughtful apartment search starts with you. Explore the ${siteName} apartment-locating demo.`,
+      `Explore a new way to begin your apartment search with ${siteName}. An interactive demo, shaped around your preferences.`,
     ),
   component: Home,
 });
 function Home() {
   return (
     <>
-      <section className="hero-top">
-        <span className="eyebrow">{homeCopy.eyebrow}</span>
-        <h1>
-          {homeCopy.title}
-          <br />
-          <em>{homeCopy.titleEmphasis}</em>
-        </h1>
-        <p>{homeCopy.description}</p>
-        <div className="actions actions-center">
-          <ButtonLink variant="light">
-            {actions.findSpace} <span aria-hidden="true">↗</span>
-          </ButtonLink>
-          <ButtonLink to="/how-it-works" variant="secondary">
-            {actions.howItWorks}
-          </ButtonLink>
-        </div>
-      </section>
-      <div className="wrap hero-photo">
+      <section className="photo-hero" aria-labelledby="hero-title">
         <img
-          src="/images/home-0.jpg"
-          alt="Sunlit living room with natural textures and floor-to-ceiling terrace doors"
+          className="hero-background"
+          src="/images/aria-exterior.webp"
+          alt="Modern apartment building with glass balconies, leafy trees, and a clear blue sky"
+          width="1376"
+          height="768"
           fetchPriority="high"
-          width="1400"
-          height="650"
         />
-        <span className="image-caption">{homeCopy.imageCaption}</span>
-      </div>
-      <Section>
-        <div className="grid-2">
-          <div>
-            <span className="eyebrow accent">Quiet guidance</span>
-            <h2>
-              Less searching.
+        <div className="hero-wash" />
+        <div className="wrap hero-content">
+          <div className="hero-message">
+            <span className="hero-kicker">{homeCopy.eyebrow}</span>
+            <h1 id="hero-title">
+              {homeCopy.title}
               <br />
-              <em>More possibility.</em>
-            </h2>
-          </div>
-          <div>
-            <p>
-              Your next home is more than a floor plan. It’s the light in the
-              morning, room for your routines, and a neighborhood that feels
-              like your own.
-            </p>
-            <div className="diamond" aria-hidden="true">
-              ◆
-            </div>
-            <p>
-              {siteName} brings those details together in a clear, personal
-              brief. A calmer starting point for the place you’ll call home.
-            </p>
-          </div>
-        </div>
-      </Section>
-      <Section band>
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow accent">The pathway</span>
-            <h2>A three-step transition</h2>
-          </div>
-          <p>
-            A little clarity at the beginning makes room for a more thoughtful
-            search.
-          </p>
-        </div>
-        <div className="grid-3">
-          {process.map((p, i) => (
-            <article className="step-card" key={p.title}>
-              <span className="step-number">
-                0{i + 1} <span aria-hidden="true">↗</span>
-              </span>
-              <h3>{p.title}</h3>
-              <p>{p.text}</p>
-            </article>
-          ))}
-        </div>
-        <Link to="/how-it-works" className="button secondary">
-          {actions.exploreProcess} <span aria-hidden="true">→</span>
-        </Link>
-      </Section>
-      <Section>
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow accent">Room to imagine</span>
-            <h2>Spaces defined by calm</h2>
-          </div>
-          <p>
-            Natural textures. Thoughtful proportions. The small details that
-            make everyday living feel different.
-          </p>
-        </div>
-        <div className="grid-3 gallery">
-          {inspiration.map((x) => (
-            <article key={x.title}>
-              <img
-                src={`/images/home-${x.image}.jpg`}
-                alt={x.alt}
-                loading="lazy"
-                width="420"
-                height="440"
-              />
-              <h3>{x.title}</h3>
-              <p>{x.text}</p>
-            </article>
-          ))}
-        </div>
-        <p className="form-note">
-          Interior inspiration only. These images do not represent available
-          properties.
-        </p>
-      </Section>
-      <Section band>
-        <div className="grid-2 items-start">
-          <div>
-            <span className="eyebrow accent">A little clarity</span>
-            <h2>
-              Good questions.
-              <br />
-              <em>Thoughtful answers.</em>
-            </h2>
-            <ButtonLink to="/faq" variant="secondary">
-              {actions.visitFAQ} <span aria-hidden="true">→</span>
+              {homeCopy.titleEmphasis}
+            </h1>
+            <p>{homeCopy.description}</p>
+            <ButtonLink>
+              Start your search <span aria-hidden="true">→</span>
             </ButtonLink>
           </div>
+          <div className="example-searches">
+            {exampleSearches.map((item) => (
+              <article className="example-card" key={item.title}>
+                <span className="search-tag">{item.tag}</span>
+                <h2>{item.title}</h2>
+                <p>{item.text}</p>
+                <div className="example-bottom">
+                  <span>Example search</span>
+                  <Link to="/get-started" search={{ step: 1 }}>
+                    Try this direction <span aria-hidden="true">→</span>
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+      <Section>
+        <div className="section-heading centered-heading">
+          <span className="eyebrow accent">Your move, in focus</span>
+          <h2>A little direction. A new beginning.</h2>
+          <p>Bring your ideas together, one step at a time.</p>
+        </div>
+        <div className="grid-3">
+          {process.map((item, i) => (
+            <article className="step-card" key={item.title}>
+              <div className="step-card-top">
+                <span className="step-number">0{i + 1}</span>
+                <span className="process-icon" aria-hidden="true">
+                  {["✎", "☷", "↗"][i]}
+                </span>
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+              <Link to="/how-it-works" className="inline-link">
+                Explore the process →
+              </Link>
+            </article>
+          ))}
+        </div>
+      </Section>
+      <Section band>
+        <div className="section-heading">
           <div>
-            {faqGroups[0].items.map(([question, answer]) => (
-              <Accordion key={question} question={question} answer={answer} />
+            <span className="eyebrow accent">Sample spaces</span>
+            <h2>Make room for possibility.</h2>
+          </div>
+          <p>
+            Fictional apartments, illustrative images, and placeholder prices. A
+            starting point for your imagination.
+          </p>
+        </div>
+        <div className="listing-grid">
+          {listings.slice(0, 3).map((item) => (
+            <ListingCard key={item.id} listing={item} />
+          ))}
+        </div>
+        <div className="actions actions-center">
+          <ButtonLink to="/listings" variant="secondary">
+            See sample listings <span aria-hidden="true">→</span>
+          </ButtonLink>
+        </div>
+      </Section>
+      <Section>
+        <div className="principles-band">
+          <div className="section-heading centered-heading">
+            <span className="eyebrow accent">
+              A search with you at the center
+            </span>
+            <h2>Less noise. More you.</h2>
+          </div>
+          <div className="grid-3">
+            {homePrinciples.map((item, i) => (
+              <article key={item.title}>
+                <span className="principle-icon" aria-hidden="true">
+                  {["◎", "◇", "◷"][i]}
+                </span>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
             ))}
           </div>
         </div>
